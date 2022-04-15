@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "nodemon",
     "clean": "rm -rf dist",
+    "seed": "ts-node --transpile-only prisma/seed.ts",
     "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
