@@ -11,3 +11,13 @@ export async function getByName(name: string): Promise<User | null> {
 
   return user
 }
+
+export async function create(name: string): Promise<User | null>{
+  const user = await prisma.user.create({
+    data: {
+      name
+    }
+  })
+
+  return user
+}
