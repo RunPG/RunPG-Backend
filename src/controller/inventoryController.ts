@@ -21,6 +21,7 @@ inventoryController.get('/:id', async (req, res) => {
     res.send(inventory)
   }
 })
+
 //TODO check (with just /:id)
 inventoryController.get('/:player_id', async (req, res) => {
   let inventory

@@ -46,7 +46,7 @@ playerController.post('/', async (req, res) => {
   }
 })
 
-playerController.get('/user/{user_id}/friend/', async (req, res) => {
+playerController.get('/user/:user_id/friend/', async (req, res) => {
   let friends
   try {
     friends = await playerService.getAllFriends(req.body.user_id)
@@ -64,7 +64,7 @@ playerController.get('/user/{user_id}/friend/', async (req, res) => {
   }
 })
 
-playerController.post('/user/{user_id}/friend/{id}', async (req, res) => {
+playerController.post('/user/:user_id/friend/:id', async (req, res) => {
   const user_id = req.body.user_id
   const friend_id = req.body.friend_id
 
@@ -89,4 +89,5 @@ playerController.post('/user/{user_id}/friend/{id}', async (req, res) => {
     res.send(addedFriend)
   }
 })
+
 export default playerController

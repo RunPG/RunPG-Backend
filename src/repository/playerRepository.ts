@@ -1,4 +1,4 @@
-import { PrismaClient, player,friend } from '@prisma/client'
+import { PrismaClient, player, friend } from '@prisma/client'
 
 
 const prisma = new PrismaClient()

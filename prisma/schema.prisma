@@ -22,8 +22,8 @@ model item_type{
 
 model inventory{
   id Int @id @default(autoincrement())
-  id_player Int 
-  id_item_type Int?  
+  id_player Int
+  id_item_type Int?
   stack_size Int?
   item_type item_type?@relation(fields: [id_item_type], references: [id])
   owner character@relation(fields: [id_player],references: [id])
@@ -50,8 +50,8 @@ model hero_class{
 }
 model weapon{
   id Int @id @default(autoincrement())
-  name String @unique 
-  level Int 
+  name String @unique
+  level Int
   vitality Int
   endurance Int
   strength Int
@@ -62,14 +62,14 @@ model weapon{
   agility Int
   rarity Int //OR STRING?
   description String?
-  id_class Int 
+  id_class Int
   hero_class hero_class@relation(fields: [id_class], references: [id])
   owners character[] @relation()
 }
 model armor{
   id Int @id @default(autoincrement())
-  name String @unique 
-  level Int 
+  name String @unique
+  level Int
   vitality Int
   endurance Int
   strength Int
@@ -80,7 +80,7 @@ model armor{
   agility Int
   rarity Int //OR STRING?
   description String?
-  type Int  
+  type Int
   helmet_owners character[] @relation("helmet")
   chestplate_owners character[] @relation("chestplate")
   leggings_owners character[] @relation("leggings")
@@ -97,7 +97,7 @@ model friend{
 
 model character{
   id Int @id @default(autoincrement())
-  level Int 
+  level Int
   vitality Int
   endurance Int
   strength Int
@@ -130,13 +130,13 @@ model character{
   weapon weapon@relation(fields: [id_weapon], references: [id])
   class hero_class@relation(fields: [id_class], references: [id])
   inventory inventory[]
-  player player? 
+  player player?
 }
 model player{
   id Int @id @default(autoincrement())
   name String @unique
   password String? //??
-  id_guild Int? 
+  id_guild Int?
   id_character Int? @unique
   character character?@relation(fields: [id_character], references: [id])
   guild guild?@relation(fields: [id_guild], references: [id])
@@ -146,7 +146,6 @@ model player{
 
 model guild{
   id Int @id @default(autoincrement())
-  players player[] 
+  players player[]
   description String?
 }
-

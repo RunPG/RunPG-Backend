@@ -22,23 +22,23 @@ spellController.get('/:name', async (req, res) => {
   }
 })
 spellController.get('/:id', async (req, res) => {
-    let spell
-    try {
-      spell = await spellService.getById(Number(req.params.id))
-    }
-    catch (error) {
-      res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-      return
-    }
-  
-    if (spell == null) {
-      res.sendStatus(StatusCodes.NOT_FOUND)
-    }
-    else {
-      res.send(spell)
-    }
-  })
-  
+  let spell
+  try {
+    spell = await spellService.getById(Number(req.params.id))
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (spell == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(spell)
+  }
+})
+
 spellController.post('/', async (req, res) => {
   const name = req.body.name
   const id_class = req.body.id_class
@@ -49,7 +49,7 @@ spellController.post('/', async (req, res) => {
 
   let createdspell
   try {
-    createdspell = await spellService.create(name,id_class)
+    createdspell = await spellService.create(name, id_class)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
