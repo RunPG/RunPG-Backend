@@ -29,20 +29,64 @@ userController.post('/', async (req, res) => {
     return
   }
 
-  let createdUser
+  let createduser
   try {
-    createdUser = await userService.create(name)
+    createduser = await userService.create(name)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (createdUser == null) {
-    res.status(StatusCodes.CONFLICT).send(`Username '${name}' already exists`)
+  if (createduser == null) {
+    res.status(StatusCodes.CONFLICT).send(`username '${name}' already exists`)
   }
   else {
-    res.send(createdUser)
+    res.send(createduser)
+  }
+})
+
+userController.get('/:user_id/friend/', async (req, res) => {
+  let friends
+  try {
+    friends = await userService.getAllFriends(req.body.user_id)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (friends == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(friends)
+  }
+})
+
+userController.post('/:user_id/friend/:id', async (req, res) => {
+  const user_id = Number(req.params.user_id)
+  const friend_id = Number(req.params.id)
+
+  if (user_id == null || friend_id == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let addedFriend
+  try {
+    addedFriend = await userService.addFriend(user_id,friend_id)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (addedFriend == null) {
+    res.status(StatusCodes.CONFLICT).send(`friend '${friend_id}' already added`)
+  }
+  else {
+    res.send(addedFriend)
   }
 })
 

@@ -9,11 +9,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-model User {
-  id Int @id @default(autoincrement())
-  name String @unique
-}
 model item_type{
   id Int @id @default(autoincrement())
   name String @unique
@@ -22,12 +17,12 @@ model item_type{
 
 model inventory{
   id Int @id @default(autoincrement())
-  id_player Int
+  id_user Int
   id_item_type Int?
   stack_size Int?
   item_type item_type?@relation(fields: [id_item_type], references: [id])
-  owner character@relation(fields: [id_player],references: [id])
-  @@unique ([id_player,id_item_type])
+  owner character@relation(fields: [id_user],references: [id])
+  @@unique ([id_user,id_item_type])
 }
 model spell{
   id Int @id @default(autoincrement())
@@ -35,17 +30,17 @@ model spell{
   name String @unique
   class hero_class@relation(fields: [id_class],references: [id])
 
-  players_first_spell character[] @relation("first_spell")
-  players_second_spell character[] @relation("second_spell")
-  players_third_spell character[] @relation("third_spell")
-  players_fourth_spell character[] @relation("fourth_spell")
+  users_first_spell character[] @relation("first_spell")
+  users_second_spell character[] @relation("second_spell")
+  users_third_spell character[] @relation("third_spell")
+  users_fourth_spell character[] @relation("fourth_spell")
 
 }
 model hero_class{
   id Int @id @default(autoincrement())
   name String @unique
   weapons weapon[]
-  players character[]
+  users character[]
   spells spell[]
 }
 model weapon{
@@ -89,8 +84,8 @@ model armor{
 model friend{
   id_user Int
   id_friend Int
-  user player@relation("user",fields: [id_user], references: [id])
-  friend player@relation("friend",fields: [id_friend], references: [id])
+  user user@relation("user",fields: [id_user], references: [id])
+  friend user@relation("friend",fields: [id_friend], references: [id])
 
   @@unique ([id_user,id_friend]) //TODO CHECK
 }
@@ -130,12 +125,11 @@ model character{
   weapon weapon@relation(fields: [id_weapon], references: [id])
   class hero_class@relation(fields: [id_class], references: [id])
   inventory inventory[]
-  player player?
+  user user?
 }
-model player{
+model user{
   id Int @id @default(autoincrement())
   name String @unique
-  password String? //??
   id_guild Int?
   id_character Int? @unique
   character character?@relation(fields: [id_character], references: [id])
@@ -146,6 +140,6 @@ model player{
 
 model guild{
   id Int @id @default(autoincrement())
-  players player[]
+  users user[]
   description String?
 }

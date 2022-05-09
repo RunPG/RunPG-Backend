@@ -10,19 +10,19 @@ export async function getById(id: number): Promise<inventory | null> {
   })
   return inventory
 }
-export async function getByPlayerId(id_player: number): Promise<inventory | null> {
+export async function getByuserId(id_user: number): Promise<inventory | null> {
   const inventory = await prisma.inventory.findFirst({
     where: {
-      id_player
+      id_user
     }
   })
   return inventory
 }
 
-export async function create(id_player: number): Promise<inventory | null>{
+export async function create(id_user: number): Promise<inventory | null>{
   const inventory = await prisma.inventory.create({
     data: {
-      id_player
+      id_user
     }
   })
 
