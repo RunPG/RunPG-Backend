@@ -26,11 +26,19 @@ sudo docker-compose up -d
 ```
 This will start a detached PostgreSQL docker container.
 
-**2. Initialize local database:**
+**2. Update local database:**
 ```
 npx prisma migrate dev
 ```
 This will create all the necessary tables in the newly created database.
+
+Note: If you re-created your database and the migration doesn't do anything, run `npx prisma migrate reset` instead.
+
+**4. Seed database**
+```
+npm run seed
+```
+Creates data in your database.
 
 **3. Start dev server**
 ```
