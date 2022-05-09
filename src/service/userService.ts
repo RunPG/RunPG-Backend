@@ -12,6 +12,9 @@ export async function create(name: string): Promise<user | null> {
 
   return await userRepository.create(name)
 }
+export async function getAllUsers(): Promise<user[] | null> {
+  return await userRepository.getAllUsers()
+}
 
 export async function getAllFriends(id_user: number): Promise<friend[] | null> {
   return await userRepository.getAllFriends(id_user)

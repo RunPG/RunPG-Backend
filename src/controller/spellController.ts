@@ -4,6 +4,23 @@ import { spellService } from '../service'
 
 const spellController = Router()
 
+spellController.get('/', async (_req, res) => {
+  let users
+  try {
+    users = await spellService.getAllSpells()
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (users == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(users)
+  }
+})
 spellController.get('/:name', async (req, res) => {
   let spell
   try {

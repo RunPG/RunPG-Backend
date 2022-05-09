@@ -1,6 +1,10 @@
 import { spell } from '@prisma/client'
 import { spellRepository } from '../repository'
 
+export async function getAllSpells(): Promise<spell[] | null> {
+  return await spellRepository.getAllSpells()
+}
+
 export async function getById(id: number): Promise<spell | null> {
   return await spellRepository.getById(id)
 }

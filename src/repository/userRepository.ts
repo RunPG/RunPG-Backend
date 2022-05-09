@@ -2,6 +2,10 @@ import { PrismaClient, user, friend } from '@prisma/client'
 
 
 const prisma = new PrismaClient()
+export async function getAllUsers(): Promise<user[] | null> {
+  const users = await prisma.user.findMany()
+  return users
+}
 
 export async function getByName(name: string): Promise<user | null> {
   const user = await prisma.user.findUnique({

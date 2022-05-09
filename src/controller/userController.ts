@@ -4,6 +4,24 @@ import { userService } from '../service'
 
 const userController = Router()
 
+userController.get('/', async (_req, res) => {
+  let users
+  try {
+    users = await userService.getAllUsers()
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (users == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(users)
+  }
+})
+
 userController.get('/:name', async (req, res) => {
   let user
   try {

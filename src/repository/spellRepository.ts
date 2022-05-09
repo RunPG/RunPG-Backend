@@ -2,6 +2,10 @@ import { PrismaClient, spell } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+export async function getAllSpells(): Promise<spell[] | null> {
+  return await prisma.spell.findMany()
+}
+
 export async function getById(id: number): Promise<spell | null> {
   const spell = await prisma.spell.findUnique({
     where: {
