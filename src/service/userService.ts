@@ -34,3 +34,7 @@ export async function updateXP(idUser: number, xp: number): Promise<void> {
     await userRepository.incrementXP(idUser, xp)
   }
 }
+
+export async function getUserById(id: number): Promise<user | null> {
+  return await userRepository.getById(id)
+}
