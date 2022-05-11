@@ -93,7 +93,7 @@ userController.post('/:user_id/friend/:id', async (req, res) => {
 
   let addedFriend
   try {
-    addedFriend = await userService.addFriend(user_id,friend_id)
+    addedFriend = await userService.addFriend(user_id, friend_id)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

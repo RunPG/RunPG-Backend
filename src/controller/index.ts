@@ -5,5 +5,5 @@ import inventoryController from './inventoryController'
 export {
   userController,
   spellController,
-  inventoryController,
+  inventoryController
 }

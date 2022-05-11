@@ -19,7 +19,7 @@ export async function getByuserId(id_user: number): Promise<inventory | null> {
   return inventory
 }
 
-export async function create(id_user: number): Promise<inventory | null>{
+export async function create(id_user: number): Promise<inventory | null> {
   const inventory = await prisma.inventory.create({
     data: {
       id_user

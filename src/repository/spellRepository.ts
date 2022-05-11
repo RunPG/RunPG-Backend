@@ -24,7 +24,7 @@ export async function getByName(name: string): Promise<spell | null> {
   return spell
 }
 
-export async function create(name: string, id_class:number): Promise<spell | null>{
+export async function create(name: string, id_class: number): Promise<spell | null> {
   const spell = await prisma.spell.create({
     data: {
       id_class,

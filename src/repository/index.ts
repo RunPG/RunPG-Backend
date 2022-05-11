@@ -5,5 +5,5 @@ import * as inventoryRepository from './inventoryRepository'
 export {
   userRepository,
   spellRepository,
-  inventoryRepository,
+  inventoryRepository
 }
