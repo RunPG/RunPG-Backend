@@ -92,7 +92,7 @@ model friend{
 
 model character{
   id Int @id @default(autoincrement())
-  level Int
+  experience Int @default(0)
   vitality Int
   endurance Int
   strength Int
@@ -136,6 +136,7 @@ model user{
   guild guild?@relation(fields: [id_guild], references: [id])
   user friend[] @relation("user")
   friends friend[] @relation("friend")
+  last_calories_update DateTime @default(now())
 }
 
 model guild{

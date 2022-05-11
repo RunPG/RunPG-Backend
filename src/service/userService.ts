@@ -27,3 +27,10 @@ export async function addFriend(id_user: number,id_friend: number): Promise<frie
 
   return await userRepository.addFriend(id_user,id_friend)
 }
+
+// TODO: Add User not found exception
+export async function updateXP(idUser: number, xp: number): Promise<void> {
+  if (await userRepository.getById(idUser) != null) {
+    await userRepository.incrementXP(idUser, xp)
+  }
+}

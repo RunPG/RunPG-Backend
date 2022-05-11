@@ -17,6 +17,14 @@ export async function getByName(name: string): Promise<user | null> {
   return user
 }
 
+export async function getById(id: number): Promise<user | null> {
+  return await prisma.user.findUnique({
+    where: {
+      id
+    }
+  })
+}
+
 export async function create(name: string): Promise<user | null>{
   const user = await prisma.user.create({
     data: {
@@ -52,4 +60,22 @@ export async function addFriend(id_user:number,id_friend:number): Promise<friend
     }
   })
   return friend
+}
+
+export async function incrementXP(id: number, xp: number): Promise<void> {
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      character: {
+        update: {
+          experience: {
+            increment: xp
+          }
+        }
+      },
+      last_calories_update: new Date() // FIXME: Check date is utc
+    }
+  })
 }

@@ -108,4 +108,28 @@ userController.post('/:user_id/friend/:id', async (req, res) => {
   }
 })
 
+userController.post('/:userId/xp', async (req, res) => {
+
+  let userId
+  let xp
+  try {
+    userId = Number(req.params.userId)
+    xp = Number(req.body.xp)
+  } catch (error) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  if (xp < 0) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  try {
+    await userService.updateXP(userId, xp)
+  } catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+})
+
 export default userController
