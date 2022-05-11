@@ -9,137 +9,146 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model item_type{
-  id Int @id @default(autoincrement())
-  name String @unique
+
+model item_type {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
   inventories inventory[]
 }
 
-model inventory{
-  id Int @id @default(autoincrement())
-  id_user Int
+model inventory {
+  id           Int        @id @default(autoincrement())
+  id_user      Int
   id_item_type Int?
-  stack_size Int?
-  item_type item_type?@relation(fields: [id_item_type], references: [id])
-  owner character@relation(fields: [id_user],references: [id])
-  @@unique ([id_user,id_item_type])
-}
-model spell{
-  id Int @id @default(autoincrement())
-  id_class Int @unique
-  name String @unique
-  class hero_class@relation(fields: [id_class],references: [id])
+  stack_size   Int?
+  item_type    item_type? @relation(fields: [id_item_type], references: [id])
+  owner        character  @relation(fields: [id_user], references: [id])
 
-  users_first_spell character[] @relation("first_spell")
+  @@unique([id_user, id_item_type])
+}
+
+model spell {
+  id       Int        @id @default(autoincrement())
+  id_class Int        @unique
+  name     String     @unique
+  class    hero_class @relation(fields: [id_class], references: [id])
+
+  users_first_spell  character[] @relation("first_spell")
   users_second_spell character[] @relation("second_spell")
-  users_third_spell character[] @relation("third_spell")
+  users_third_spell  character[] @relation("third_spell")
   users_fourth_spell character[] @relation("fourth_spell")
 
 }
-model hero_class{
-  id Int @id @default(autoincrement())
-  name String @unique
+
+model hero_class {
+  id      Int         @id @default(autoincrement())
+  name    String      @unique
   weapons weapon[]
-  users character[]
-  spells spell[]
+  users   character[]
+  spells  spell[]
 }
-model weapon{
-  id Int @id @default(autoincrement())
-  name String @unique
-  level Int
-  vitality Int
-  endurance Int
-  strength Int
-  defense Int
-  power Int
-  resistance Int
-  precision Int
-  agility Int
-  rarity Int //OR STRING?
+
+model weapon {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  level       Int
+  vitality    Int
+  endurance   Int
+  strength    Int
+  defense     Int
+  power       Int
+  resistance  Int
+  precision   Int
+  agility     Int
+  rarity      Int //OR STRING?
   description String?
-  id_class Int
-  hero_class hero_class@relation(fields: [id_class], references: [id])
-  owners character[] @relation()
+  id_class    Int
+  hero_class  hero_class  @relation(fields: [id_class], references: [id])
+  owners      character[] @relation()
 }
-model armor{
-  id Int @id @default(autoincrement())
-  name String @unique
-  level Int
-  vitality Int
-  endurance Int
-  strength Int
-  defense Int
-  power Int
-  resistance Int
-  precision Int
-  agility Int
-  rarity Int //OR STRING?
-  description String?
-  type Int
-  helmet_owners character[] @relation("helmet")
+
+model armor {
+  id                Int         @id @default(autoincrement())
+  name              String      @unique
+  level             Int
+  vitality          Int
+  endurance         Int
+  strength          Int
+  defense           Int
+  power             Int
+  resistance        Int
+  precision         Int
+  agility           Int
+  rarity            Int //OR STRING?
+  description       String?
+  type              Int
+  helmet_owners     character[] @relation("helmet")
   chestplate_owners character[] @relation("chestplate")
-  leggings_owners character[] @relation("leggings")
-  gloves_owners character[] @relation("gloves")
+  leggings_owners   character[] @relation("leggings")
+  gloves_owners     character[] @relation("gloves")
 }
-model friend{
-  id_user Int
+
+model friend {
+  id_user   Int
   id_friend Int
-  user user@relation("user",fields: [id_user], references: [id])
-  friend user@relation("friend",fields: [id_friend], references: [id])
+  user      user @relation("user", fields: [id_user], references: [id])
+  friend    user @relation("friend", fields: [id_friend], references: [id])
 
-  @@unique ([id_user,id_friend]) //TODO CHECK
+  @@unique([id_user, id_friend])
 }
 
-model character{
-  id Int @id @default(autoincrement())
-  level Int
-  vitality Int
-  endurance Int
-  strength Int
-  defense Int
-  power Int
-  resistance Int
-  precision Int
-  agility Int
-  id_first_spell Int?
+model character {
+  id              Int  @id @default(autoincrement())
+  experience      Int  @default(0)
+  vitality        Int
+  endurance       Int
+  strength        Int
+  defense         Int
+  power           Int
+  resistance      Int
+  precision       Int
+  agility         Int
+  id_first_spell  Int?
   id_second_spell Int?
-  id_third_spell Int?
+  id_third_spell  Int?
   id_fourth_spell Int?
-  id_helmet Int
-  id_chestplate Int
-  id_leggings Int
-  id_gloves Int
-  id_weapon Int
-  id_class Int
+  id_helmet       Int
+  id_chestplate   Int
+  id_leggings     Int
+  id_gloves       Int
+  id_weapon       Int
+  id_class        Int
 
-  first_spell spell?@relation("first_spell",fields: [id_first_spell], references: [id])
-  second_spell spell?@relation("second_spell",fields: [id_second_spell], references: [id])
-  third_spell spell?@relation("third_spell",fields: [id_third_spell], references: [id])
-  fourth_spell spell?@relation("fourth_spell",fields: [id_fourth_spell], references: [id])
+  first_spell  spell? @relation("first_spell", fields: [id_first_spell], references: [id])
+  second_spell spell? @relation("second_spell", fields: [id_second_spell], references: [id])
+  third_spell  spell? @relation("third_spell", fields: [id_third_spell], references: [id])
+  fourth_spell spell? @relation("fourth_spell", fields: [id_fourth_spell], references: [id])
 
-  helmet armor?@relation("helmet",fields: [id_helmet], references: [id])
-  chestplate armor?@relation("chestplate",fields: [id_chestplate], references: [id])
-  leggings armor?@relation("leggings",fields: [id_leggings], references: [id])
-  gloves armor?@relation("gloves",fields: [id_gloves], references: [id])
+  helmet     armor? @relation("helmet", fields: [id_helmet], references: [id])
+  chestplate armor? @relation("chestplate", fields: [id_chestplate], references: [id])
+  leggings   armor? @relation("leggings", fields: [id_leggings], references: [id])
+  gloves     armor? @relation("gloves", fields: [id_gloves], references: [id])
 
-  weapon weapon@relation(fields: [id_weapon], references: [id])
-  class hero_class@relation(fields: [id_class], references: [id])
+  weapon    weapon      @relation(fields: [id_weapon], references: [id])
+  class     hero_class  @relation(fields: [id_class], references: [id])
   inventory inventory[]
-  user user?
-}
-model user{
-  id Int @id @default(autoincrement())
-  name String @unique
-  id_guild Int?
-  id_character Int? @unique
-  character character?@relation(fields: [id_character], references: [id])
-  guild guild?@relation(fields: [id_guild], references: [id])
-  user friend[] @relation("user")
-  friends friend[] @relation("friend")
+  user      user?
 }
 
-model guild{
-  id Int @id @default(autoincrement())
-  users user[]
+model user {
+  id                   Int        @id @default(autoincrement())
+  name                 String     @unique
+  id_guild             Int?
+  id_character         Int?       @unique
+  character            character? @relation(fields: [id_character], references: [id])
+  guild                guild?     @relation(fields: [id_guild], references: [id])
+  user                 friend[]   @relation("user")
+  friends              friend[]   @relation("friend")
+  last_calories_update DateTime   @default(now())
+}
+
+model guild {
+  id          Int     @id @default(autoincrement())
+  users       user[]
   description String?
 }

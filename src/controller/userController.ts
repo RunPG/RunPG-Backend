@@ -40,6 +40,32 @@ userController.get('/:name', async (req, res) => {
   }
 })
 
+userController.get('/:user_id', async (req, res) => {
+  let userId
+  try {
+    userId = parseInt(req.params.user_id)
+  } catch (error) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let user
+  try {
+    user = await userService.getUserById(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (user == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(user)
+  }
+})
+
 userController.post('/', async (req, res) => {
   const name = req.body.name
   if (name == null) {
@@ -93,7 +119,7 @@ userController.post('/:user_id/friend/:id', async (req, res) => {
 
   let addedFriend
   try {
-    addedFriend = await userService.addFriend(user_id,friend_id)
+    addedFriend = await userService.addFriend(user_id, friend_id)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -107,5 +133,30 @@ userController.post('/:user_id/friend/:id', async (req, res) => {
     res.send(addedFriend)
   }
 })
+
+userController.post('/:userId/xp', async (req, res) => {
+  let userId
+  let xp
+  try {
+    userId = Number(req.params.userId)
+    xp = Number(req.body.xp)
+  } catch (error) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  if (xp < 0) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  try {
+    await userService.updateXP(userId, xp)
+  } catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+})
+
+
 
 export default userController
