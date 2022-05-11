@@ -22,7 +22,7 @@ userController.get('/', async (_req, res) => {
   }
 })
 
-userController.get('/:name', async (req, res) => {
+userController.get('/name/:name', async (req, res) => {
   let user
   try {
     user = await userService.getByName(req.params.name)
@@ -90,7 +90,7 @@ userController.post('/', async (req, res) => {
   }
 })
 
-userController.get('/:user_id/friend/', async (req, res) => {
+userController.get('/:user_id/friend', async (req, res) => {
   let friends
   try {
     friends = await userService.getAllFriends(req.body.user_id)
