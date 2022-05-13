@@ -16,7 +16,7 @@ npm ci
 
 **0b. Create a .env file, if not created yet:**
 ```
-echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"' > .env
+echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"\nPORT=5000' > .env
 ```
 Creates a .env file contain a URL used for database connection.
 

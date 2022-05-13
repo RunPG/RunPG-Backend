@@ -2,7 +2,7 @@ import express from 'express'
 import { inventoryController, spellController, userController } from './controller'
 
 const app = express()
-const PORT = 5000 // TODO: Move port to env
+const PORT = process.env.PORT
 
 app.use(express.json())
 
