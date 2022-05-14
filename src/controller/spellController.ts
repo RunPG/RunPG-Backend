@@ -21,6 +21,7 @@ spellController.get('/', async (_req, res) => {
     res.send(users)
   }
 })
+
 spellController.get('/:name', async (req, res) => {
   let spell
   try {
@@ -38,6 +39,7 @@ spellController.get('/:name', async (req, res) => {
     res.send(spell)
   }
 })
+
 spellController.get('/:id', async (req, res) => {
   let spell
   try {
@@ -58,26 +60,26 @@ spellController.get('/:id', async (req, res) => {
 
 spellController.post('/', async (req, res) => {
   const name = req.body.name
-  const id_class = req.body.id_class
+  const classId = req.body.classId
   if (name == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
-  let createdspell
+  let createdSpell
   try {
-    createdspell = await spellService.create(name, id_class)
+    createdSpell = await spellService.create(name, classId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (createdspell == null) {
-    res.status(StatusCodes.CONFLICT).send(`spellname '${name}' already exists`)
+  if (createdSpell == null) {
+    res.status(StatusCodes.CONFLICT).send(`Spell name '${name}' already exists`)
   }
   else {
-    res.send(createdspell)
+    res.send(createdSpell)
   }
 })
 

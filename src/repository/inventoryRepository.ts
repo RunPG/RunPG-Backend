@@ -1,30 +1,30 @@
-import { PrismaClient, inventory } from '@prisma/client'
+import { PrismaClient, Inventory } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function getById(id: number): Promise<inventory | null> {
-  const inventory = await prisma.inventory.findUnique({
+export async function getById(id: number): Promise<Inventory | null> {
+  return await prisma.inventory.findUnique({
     where: {
-      id: id
+      id
     }
   })
-  return inventory
-}
-export async function getByuserId(id_user: number): Promise<inventory | null> {
-  const inventory = await prisma.inventory.findFirst({
-    where: {
-      id_user
-    }
-  })
-  return inventory
 }
 
-export async function create(id_user: number): Promise<inventory | null> {
-  const inventory = await prisma.inventory.create({
+export async function getByUserId(userId: number): Promise<Inventory | null> {
+  return await prisma.inventory.findFirst({
+    where: {
+      userId
+    }
+  })
+}
+
+// FIXME: Default values
+export async function create(userId: number): Promise<Inventory | null> {
+  return await prisma.inventory.create({
     data: {
-      id_user
+      userId,
+      itemTypeId: 0,
+      stackSize: 0
     }
   })
-
-  return inventory
 }

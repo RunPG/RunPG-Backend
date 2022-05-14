@@ -10,45 +10,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model item_type {
+// TODO: Guiler, hotel des ventes, demandes d'ami
+
+// FIXME: Faire un enum à la place ?
+// Voir avec les autres les différents types
+model ItemType {
   id          Int         @id @default(autoincrement())
   name        String      @unique
-  inventories inventory[]
+  inventories Inventory[]
 }
 
-model inventory {
-  id           Int        @id @default(autoincrement())
-  id_user      Int
-  id_item_type Int?
-  stack_size   Int?
-  item_type    item_type? @relation(fields: [id_item_type], references: [id])
-  owner        character  @relation(fields: [id_user], references: [id])
+// FIXME: Faire un inventaire pour les armes et les armures
+// Toujours la même stack size ?
+model Inventory {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  itemTypeId Int
+  stackSize  Int
+  itemType   ItemType  @relation(fields: [itemTypeId], references: [id])
+  owner      Character @relation(fields: [userId], references: [id])
 
-  @@unique([id_user, id_item_type])
+  @@unique([userId, itemTypeId])
 }
 
-model spell {
-  id       Int        @id @default(autoincrement())
-  id_class Int        @unique
-  name     String     @unique
-  class    hero_class @relation(fields: [id_class], references: [id])
+model Spell {
+  id      Int       @id @default(autoincrement())
+  classId Int       @unique
+  name    String    @unique
+  class   HeroClass @relation(fields: [classId], references: [id])
 
-  users_first_spell  character[] @relation("first_spell")
-  users_second_spell character[] @relation("second_spell")
-  users_third_spell  character[] @relation("third_spell")
-  users_fourth_spell character[] @relation("fourth_spell")
-
+  userFirstSpell  Character[] @relation("firstSpell")
+  userSecondSpell Character[] @relation("secondSpell")
+  userThirdSpell  Character[] @relation("thirdSpell")
+  userFourthSpell Character[] @relation("fourthSpell")
 }
 
-model hero_class {
+// FIXME: Faire un enum ?
+model HeroClass {
   id      Int         @id @default(autoincrement())
   name    String      @unique
-  weapons weapon[]
-  users   character[]
-  spells  spell[]
+  weapons Weapon[]
+  users   Character[]
+  spells  Spell[]
 }
 
-model weapon {
+// FIXME: inventaire
+model Weapon {
   id          Int         @id @default(autoincrement())
   name        String      @unique
   level       Int
@@ -60,95 +67,101 @@ model weapon {
   resistance  Int
   precision   Int
   agility     Int
-  rarity      Int //OR STRING?
-  description String?
-  id_class    Int
-  hero_class  hero_class  @relation(fields: [id_class], references: [id])
-  owners      character[] @relation()
+  rarity      Int //OR STRING OR ENUM
+  description String
+  classId     Int
+  heroClass   HeroClass   @relation(fields: [classId], references: [id])
+  owners      Character[] @relation()
 }
 
-model armor {
-  id                Int         @id @default(autoincrement())
-  name              String      @unique
-  level             Int
-  vitality          Int
-  endurance         Int
-  strength          Int
-  defense           Int
-  power             Int
-  resistance        Int
-  precision         Int
-  agility           Int
-  rarity            Int //OR STRING?
-  description       String?
-  type              Int
-  helmet_owners     character[] @relation("helmet")
-  chestplate_owners character[] @relation("chestplate")
-  leggings_owners   character[] @relation("leggings")
-  gloves_owners     character[] @relation("gloves")
+// FIXME: inventaire
+model Armor {
+  id               Int         @id @default(autoincrement())
+  name             String      @unique
+  level            Int
+  vitality         Int
+  endurance        Int
+  strength         Int
+  defense          Int
+  power            Int
+  resistance       Int
+  precision        Int
+  agility          Int
+  rarity           Int //OR STRING OR ENUM ?
+  description      String
+  type             Int
+  helmetOwners     Character[] @relation("helmet")
+  chestplateOwners Character[] @relation("chestplate")
+  leggingsOwners   Character[] @relation("leggings")
+  glovesOwners     Character[] @relation("gloves")
 }
 
-model friend {
-  id_user   Int
-  id_friend Int
-  user      user @relation("user", fields: [id_user], references: [id])
-  friend    user @relation("friend", fields: [id_friend], references: [id])
+model Friend {
+  userId   Int
+  friendId Int
+  user     User @relation("user", fields: [userId], references: [id])
+  friend   User @relation("friend", fields: [friendId], references: [id])
 
-  @@unique([id_user, id_friend])
+  @@unique([userId, friendId])
 }
 
-model character {
-  id              Int  @id @default(autoincrement())
-  experience      Int  @default(0)
-  vitality        Int
-  endurance       Int
-  strength        Int
-  defense         Int
-  power           Int
-  resistance      Int
-  precision       Int
-  agility         Int
-  id_first_spell  Int?
-  id_second_spell Int?
-  id_third_spell  Int?
-  id_fourth_spell Int?
-  id_helmet       Int
-  id_chestplate   Int
-  id_leggings     Int
-  id_gloves       Int
-  id_weapon       Int
-  id_class        Int
+// FIXME: On démarre avec 4 spells ou moins ?
+// Pareil pour l'équipement, et peut-on l'enlever (rien avoir en arme par exemple)
+model Character {
+  id            Int  @id @default(autoincrement())
+  experience    Int  @default(0)
+  vitality      Int
+  endurance     Int
+  strength      Int
+  defense       Int
+  power         Int
+  resistance    Int
+  precision     Int
+  agility       Int
+  firstSpellId  Int?
+  secondSpellId Int?
+  thirdSpellId  Int?
+  fourthSpellId Int?
+  helmetId      Int
+  chestplateId  Int
+  leggingsId    Int
+  glovesId      Int
+  weaponId      Int
+  classId       Int
 
-  first_spell  spell? @relation("first_spell", fields: [id_first_spell], references: [id])
-  second_spell spell? @relation("second_spell", fields: [id_second_spell], references: [id])
-  third_spell  spell? @relation("third_spell", fields: [id_third_spell], references: [id])
-  fourth_spell spell? @relation("fourth_spell", fields: [id_fourth_spell], references: [id])
+  firstSpell  Spell? @relation("firstSpell", fields: [firstSpellId], references: [id])
+  secondSpell Spell? @relation("secondSpell", fields: [secondSpellId], references: [id])
+  thirdSpell  Spell? @relation("thirdSpell", fields: [thirdSpellId], references: [id])
+  fourthSpell Spell? @relation("fourthSpell", fields: [fourthSpellId], references: [id])
 
-  helmet     armor? @relation("helmet", fields: [id_helmet], references: [id])
-  chestplate armor? @relation("chestplate", fields: [id_chestplate], references: [id])
-  leggings   armor? @relation("leggings", fields: [id_leggings], references: [id])
-  gloves     armor? @relation("gloves", fields: [id_gloves], references: [id])
+  helmet     Armor? @relation("helmet", fields: [helmetId], references: [id])
+  chestplate Armor? @relation("chestplate", fields: [chestplateId], references: [id])
+  leggings   Armor? @relation("leggings", fields: [leggingsId], references: [id])
+  gloves     Armor? @relation("gloves", fields: [glovesId], references: [id])
 
-  weapon    weapon      @relation(fields: [id_weapon], references: [id])
-  class     hero_class  @relation(fields: [id_class], references: [id])
-  inventory inventory[]
-  user      user?
+  weapon    Weapon      @relation(fields: [weaponId], references: [id])
+  class     HeroClass   @relation(fields: [classId], references: [id])
+  inventory Inventory[]
+  user      User?
 }
 
-model user {
-  id                   Int        @id @default(autoincrement())
-  name                 String     @unique
-  id_guild             Int?
-  id_character         Int?       @unique
-  character            character? @relation(fields: [id_character], references: [id])
-  guild                guild?     @relation(fields: [id_guild], references: [id])
-  user                 friend[]   @relation("user")
-  friends              friend[]   @relation("friend")
-  last_calories_update DateTime   @default(now())
+// FIXME: Que ce passe t'il si un user est créé mais que le character n'est pas terminé ?
+// Voir processus de création
+model User {
+  id                 Int        @id @default(autoincrement())
+  name               String     @unique
+  guildId            Int?
+  characterId        Int?       @unique
+  character          Character? @relation(fields: [characterId], references: [id])
+  guild              Guild?     @relation(fields: [guildId], references: [id])
+  user               Friend[]   @relation("user")
+  friends            Friend[]   @relation("friend")
+  lastCaloriesUpdate DateTime   @default(now())
 }
 
-model guild {
+// FIXME: Add owner, name
+model Guild {
   id          Int     @id @default(autoincrement())
-  users       user[]
+  users       User[]
   description String?
 }
