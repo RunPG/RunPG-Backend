@@ -1,16 +1,9 @@
-import { Friend } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { userService } from '../service'
 
 const userController = Router()
-class Friendlist{
-  friends:Friend[]|null
-  constructor(friends:Friend[]|null)
-  {
-    this.friends = friends
-  }
-}
+
 userController.get('/', async (_, res) => {
   let users
   try {
@@ -98,11 +91,9 @@ userController.post('/', async (req, res) => {
 })
 
 userController.get('/:userId/friend', async (req, res) => {
-  let friendlist:Friendlist
   let friends
   try {
     friends = await userService.getAllFriends(req.body.userId)
-    friendlist = new Friendlist(friends)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -113,8 +104,7 @@ userController.get('/:userId/friend', async (req, res) => {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.header
-    res.send(friendlist)
+    res.send({friends:friends})
   }
 })
 
