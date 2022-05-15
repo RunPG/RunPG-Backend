@@ -1,4 +1,5 @@
 import express from 'express'
+import { StatusCodes } from 'http-status-codes'
 import morgan from 'morgan'
 import { inventoryController, spellController, userController } from './controller'
 
@@ -14,4 +15,8 @@ app.use('/spell', spellController)
 
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`)
+})
+
+app.get('/health', (_, res) => {
+  res.sendStatus(StatusCodes.OK)
 })
