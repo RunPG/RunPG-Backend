@@ -1,23 +1,20 @@
-import { PrismaClient, user, friend } from '@prisma/client'
+import { PrismaClient, User, Friend } from '@prisma/client'
 
 
 const prisma = new PrismaClient()
-export async function getAllUsers(): Promise<user[] | null> {
-  const users = await prisma.user.findMany()
-  return users
+export async function getAllUsers(): Promise<User[] | null> {
+  return await prisma.user.findMany()
 }
 
-export async function getByName(name: string): Promise<user | null> {
-  const user = await prisma.user.findUnique({
+export async function getByName(name: string): Promise<User | null> {
+  return await prisma.user.findUnique({
     where: {
-      name: name
+      name
     }
   })
-
-  return user
 }
 
-export async function getById(id: number): Promise<user | null> {
+export async function getById(id: number): Promise<User | null> {
   return await prisma.user.findUnique({
     where: {
       id
@@ -25,44 +22,42 @@ export async function getById(id: number): Promise<user | null> {
   })
 }
 
-export async function create(name: string): Promise<user | null> {
-  const user = await prisma.user.create({
+export async function create(name: string): Promise<User | null> {
+  return await prisma.user.create({
     data: {
       name
     }
   })
-
-  return user
 }
+
 //Find UNIQUE ?
-export async function getFriend(id_user: number, id_friend: number): Promise<friend | null> {
-  const friend = await prisma.friend.findFirst({
+export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
+  return await prisma.friend.findFirst({
     where: {
-      id_user,
-      id_friend
+      userId,
+      friendId
     }
   })
-  return friend
-}
-export async function getAllFriends(id_user: number): Promise<friend[] | null> {
-  const friends = await prisma.friend.findMany({
-    where: {
-      id_user
-    }
-  })
-  return friends
-}
-export async function addFriend(id_user: number, id_friend: number): Promise<friend | null> {
-  const friend = await prisma.friend.create({
-    data: {
-      id_user,
-      id_friend
-    }
-  })
-  return friend
 }
 
-export async function incrementXP(id: number, xp: number): Promise<void> {
+export async function getAllFriends(userId: number): Promise<Friend[] | null> {
+  return await prisma.friend.findMany({
+    where: {
+      userId
+    }
+  })
+}
+
+export async function addFriend(userId: number, friendId: number): Promise<Friend | null> {
+  return await prisma.friend.create({
+    data: {
+      userId,
+      friendId
+    }
+  })
+}
+
+export async function incrementExperience(id: number, xp: number): Promise<void> {
   await prisma.user.update({
     where: {
       id
@@ -75,7 +70,7 @@ export async function incrementXP(id: number, xp: number): Promise<void> {
           }
         }
       },
-      last_calories_update: new Date() // FIXME: Check date is utc
+      lastCaloriesUpdate: new Date() // FIXME: Check date is utc
     }
   })
 }

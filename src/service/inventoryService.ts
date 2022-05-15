@@ -1,15 +1,17 @@
-import { inventory } from '@prisma/client'
+import { Inventory } from '@prisma/client'
 import { inventoryRepository } from '../repository'
 
-export async function getById(id: number): Promise<inventory | null> {
+export async function getById(id: number): Promise<Inventory | null> {
   return await inventoryRepository.getById(id)
 }
-export async function getByuserId(id_user: number): Promise<inventory | null> {
-  return await inventoryRepository.getByuserId(id_user)
+
+export async function getByuserId(userId: number): Promise<Inventory | null> {
+  return await inventoryRepository.getByUserId(userId)
 }
-export async function create(id_user: number): Promise<inventory | null> {
-  if (await inventoryRepository.getByuserId(id_user) != null) {
+
+export async function create(userId: number): Promise<Inventory | null> {
+  if (await inventoryRepository.getByUserId(userId) != null) {
     return null
   }
-  return await inventoryRepository.create(id_user)
+  return await inventoryRepository.create(userId)
 }

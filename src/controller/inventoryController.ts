@@ -23,10 +23,10 @@ inventoryController.get('/:id', async (req, res) => {
 })
 
 //TODO check (with just /:id)
-inventoryController.get('/:user_id', async (req, res) => {
+inventoryController.get('/:userId', async (req, res) => {
   let inventory
   try {
-    inventory = await inventoryService.getByuserId(Number(req.params.user_id))
+    inventory = await inventoryService.getByuserId(Number(req.params.userId))
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -42,15 +42,15 @@ inventoryController.get('/:user_id', async (req, res) => {
 })
 
 inventoryController.post('/', async (req, res) => {
-  const id_user = req.body.id_user
-  if (id_user == null) {
+  const userId = req.body.userId
+  if (userId == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createdinventory
   try {
-    createdinventory = await inventoryService.create(id_user)
+    createdinventory = await inventoryService.create(userId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -58,7 +58,7 @@ inventoryController.post('/', async (req, res) => {
   }
 
   if (createdinventory == null) {
-    res.status(StatusCodes.CONFLICT).send(`user'${id_user}''s inventory already exists`)
+    res.status(StatusCodes.CONFLICT).send(`user with id '${userId}' inventory already exists`)
   }
   else {
     res.send(createdinventory)

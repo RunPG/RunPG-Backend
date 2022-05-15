@@ -4,7 +4,7 @@ import { userService } from '../service'
 
 const userController = Router()
 
-userController.get('/', async (_req, res) => {
+userController.get('/', async (_, res) => {
   let users
   try {
     users = await userService.getAllUsers()
@@ -40,10 +40,10 @@ userController.get('/name/:name', async (req, res) => {
   }
 })
 
-userController.get('/:user_id', async (req, res) => {
+userController.get('/:userId', async (req, res) => {
   let userId
   try {
-    userId = parseInt(req.params.user_id)
+    userId = parseInt(req.params.userId)
   } catch (error) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
@@ -90,10 +90,10 @@ userController.post('/', async (req, res) => {
   }
 })
 
-userController.get('/:user_id/friend', async (req, res) => {
+userController.get('/:userId/friend', async (req, res) => {
   let friends
   try {
-    friends = await userService.getAllFriends(req.body.user_id)
+    friends = await userService.getAllFriends(req.body.userId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -104,22 +104,22 @@ userController.get('/:user_id/friend', async (req, res) => {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.send(friends)
+    res.send({friends:friends})
   }
 })
 
-userController.post('/:user_id/friend/:id', async (req, res) => {
-  const user_id = Number(req.params.user_id)
-  const friend_id = Number(req.params.id)
+userController.post('/:userId/friend/:id', async (req, res) => {
+  const userId = Number(req.params.userId)
+  const friendId = Number(req.params.id)
 
-  if (user_id == null || friend_id == null) {
+  if (userId == null || friendId == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let addedFriend
   try {
-    addedFriend = await userService.addFriend(user_id, friend_id)
+    addedFriend = await userService.addFriend(userId, friendId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -127,7 +127,7 @@ userController.post('/:user_id/friend/:id', async (req, res) => {
   }
 
   if (addedFriend == null) {
-    res.status(StatusCodes.CONFLICT).send(`friend '${friend_id}' already added`)
+    res.status(StatusCodes.CONFLICT).send(`friend '${friendId}' already added`)
   }
   else {
     res.send(addedFriend)
@@ -151,7 +151,7 @@ userController.post('/:userId/xp', async (req, res) => {
   }
 
   try {
-    await userService.updateXP(userId, xp)
+    await userService.incrementExperience(userId, xp)
   } catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }

@@ -1,36 +1,32 @@
-import { PrismaClient, spell } from '@prisma/client'
+import { PrismaClient, Spell } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function getAllSpells(): Promise<spell[] | null> {
+export async function getAllSpells(): Promise<Spell[] | null> {
   return await prisma.spell.findMany()
 }
 
-export async function getById(id: number): Promise<spell | null> {
-  const spell = await prisma.spell.findUnique({
+export async function getById(id: number): Promise<Spell | null> {
+  return await prisma.spell.findUnique({
     where: {
-      id: id
+      id
     }
   })
-  return spell
 }
 
-export async function getByName(name: string): Promise<spell | null> {
-  const spell = await prisma.spell.findUnique({
+export async function getByName(name: string): Promise<Spell | null> {
+  return await prisma.spell.findUnique({
     where: {
-      name: name
-    }
-  })
-  return spell
-}
-
-export async function create(name: string, id_class: number): Promise<spell | null> {
-  const spell = await prisma.spell.create({
-    data: {
-      id_class,
       name
     }
   })
+}
 
-  return spell
+export async function create(name: string, classId: number): Promise<Spell | null> {
+  return await prisma.spell.create({
+    data: {
+      classId,
+      name
+    }
+  })
 }
