@@ -20,6 +20,19 @@ async function main() : Promise<void> {
     ],
     skipDuplicates: true
   })
+  await prisma.friend.createMany({
+    data: [
+      {
+        userId: 1,
+        friendId:2
+      },
+      {
+        userId: 1,
+        friendId:3
+      }
+    ],
+    skipDuplicates: true
+  })
 }
 
 main()
