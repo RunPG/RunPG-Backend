@@ -5,6 +5,9 @@ import { userService } from '../service'
 const userController = Router()
 
 userController.get('/', async (_, res) => {
+  /**
+   * #swagger.summary = 'Get all users'
+   */
   let users
   try {
     users = await userService.getAllUsers()
@@ -23,6 +26,9 @@ userController.get('/', async (_, res) => {
 })
 
 userController.get('/name/:name', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a user by his name'
+   */
   let user
   try {
     user = await userService.getByName(req.params.name)
@@ -41,6 +47,9 @@ userController.get('/name/:name', async (req, res) => {
 })
 
 userController.get('/:userId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a user by his id'
+   */
   let userId
   try {
     userId = parseInt(req.params.userId)
@@ -67,6 +76,9 @@ userController.get('/:userId', async (req, res) => {
 })
 
 userController.post('/', async (req, res) => {
+  /**
+   * #swagger.summary = 'Create a new user'
+   */
   const name = req.body.name
   if (name == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
@@ -91,6 +103,9 @@ userController.post('/', async (req, res) => {
 })
 
 userController.get('/:userId/friend', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get all friends of an user'
+   */
   let friends
   try {
     friends = await userService.getAllFriends(req.body.userId)
@@ -109,6 +124,9 @@ userController.get('/:userId/friend', async (req, res) => {
 })
 
 userController.post('/:userId/friend/:id', async (req, res) => {
+  /**
+   * #swagger.summary = 'Add a friend to an user'
+   */
   const userId = Number(req.params.userId)
   const friendId = Number(req.params.id)
 
@@ -135,6 +153,9 @@ userController.post('/:userId/friend/:id', async (req, res) => {
 })
 
 userController.post('/:userId/xp', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update an user experience value'
+   */
   let userId
   let xp
   try {
@@ -156,7 +177,5 @@ userController.post('/:userId/xp', async (req, res) => {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }
 })
-
-
 
 export default userController

@@ -22,6 +22,7 @@
         "tags": [
           "Health"
         ],
+        "summary": "Check if the server is up and running",
         "description": "",
         "parameters": [],
         "responses": {}
@@ -32,6 +33,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Get all users",
         "description": "",
         "parameters": [],
         "responses": {
@@ -44,6 +46,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Create a new user",
         "description": "",
         "parameters": [
           {
@@ -71,6 +74,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Get a user by his name",
         "description": "",
         "parameters": [
           {
@@ -92,6 +96,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Get a user by his id",
         "description": "",
         "parameters": [
           {
@@ -113,6 +118,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Get all friends of an user",
         "description": "",
         "parameters": [
           {
@@ -134,6 +140,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Add a friend to an user",
         "description": "",
         "parameters": [
           {
@@ -161,6 +168,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Update an user experience value",
         "description": "",
         "parameters": [
           {
@@ -190,6 +198,7 @@
         "tags": [
           "Inventory"
         ],
+        "summary": "Get an inventory by id",
         "description": "",
         "parameters": [
           {
@@ -211,6 +220,7 @@
         "tags": [
           "Inventory"
         ],
+        "summary": "Get the inventory of an user",
         "description": "",
         "parameters": [
           {
@@ -232,6 +242,7 @@
         "tags": [
           "Inventory"
         ],
+        "summary": "Update an inventory",
         "description": "",
         "parameters": [
           {
@@ -259,6 +270,7 @@
         "tags": [
           "Spell"
         ],
+        "summary": "Get all spells",
         "description": "",
         "parameters": [],
         "responses": {
@@ -271,6 +283,7 @@
         "tags": [
           "Spell"
         ],
+        "summary": "Create a new spell",
         "description": "",
         "parameters": [
           {
@@ -301,6 +314,7 @@
         "tags": [
           "Spell"
         ],
+        "summary": "Get a spell by name",
         "description": "",
         "parameters": [
           {
@@ -322,6 +336,7 @@
         "tags": [
           "Spell"
         ],
+        "summary": "Get a spell by id",
         "description": "",
         "parameters": [
           {

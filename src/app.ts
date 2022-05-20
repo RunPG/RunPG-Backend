@@ -28,6 +28,9 @@ app.listen(PORT, () => {
 })
 
 app.get('/health', (_, res) => {
-  // #swagger.tags = ['Health']
+  /**
+   * #swagger.tags = ['Health']
+   * #swagger.summary = 'Check if the server is up and running'
+   */
   res.sendStatus(StatusCodes.OK)
 })
