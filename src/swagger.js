@@ -8,7 +8,7 @@ const doc = {
     title: 'RunPG API',
     description: 'API for the RunPG mobile game and watch app',
   },
-  host: 'localhost:5000',
+  host: null,
   schemes: ['http'],
   consumes: ['application/json'],
   produces: ['application/json']

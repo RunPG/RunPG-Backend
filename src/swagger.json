@@ -5,7 +5,6 @@
     "description": "API for the RunPG mobile game and watch app",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
     "http"
