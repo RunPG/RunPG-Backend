@@ -4,7 +4,11 @@ import { inventoryService } from '../service'
 
 const inventoryController = Router()
 
+// FIXME: Useless route ? we should get by userId instead
 inventoryController.get('/:id', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get an inventory by id'
+   */
   let inventory
   try {
     inventory = await inventoryService.getById(Number(req.params.id))
@@ -24,6 +28,9 @@ inventoryController.get('/:id', async (req, res) => {
 
 //TODO check (with just /:id)
 inventoryController.get('/:userId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get the inventory of an user'
+   */
   let inventory
   try {
     inventory = await inventoryService.getByuserId(Number(req.params.userId))
@@ -42,6 +49,9 @@ inventoryController.get('/:userId', async (req, res) => {
 })
 
 inventoryController.post('/', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update an inventory'
+   */
   const userId = req.body.userId
   if (userId == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)

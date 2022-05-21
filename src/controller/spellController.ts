@@ -5,6 +5,9 @@ import { spellService } from '../service'
 const spellController = Router()
 
 spellController.get('/', async (_req, res) => {
+  /**
+   * #swagger.summary = 'Get all spells'
+   */
   let users
   try {
     users = await spellService.getAllSpells()
@@ -23,6 +26,9 @@ spellController.get('/', async (_req, res) => {
 })
 
 spellController.get('/:name', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a spell by name'
+   */
   let spell
   try {
     spell = await spellService.getByName(req.params.name)
@@ -41,6 +47,9 @@ spellController.get('/:name', async (req, res) => {
 })
 
 spellController.get('/:id', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a spell by id'
+   */
   let spell
   try {
     spell = await spellService.getById(Number(req.params.id))
@@ -58,7 +67,11 @@ spellController.get('/:id', async (req, res) => {
   }
 })
 
+// FIXME: Useless route ?
 spellController.post('/', async (req, res) => {
+  /**
+   * #swagger.summary = 'Create a new spell'
+   */
   const name = req.body.name
   const classId = req.body.classId
   if (name == null) {

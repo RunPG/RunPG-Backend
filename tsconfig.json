@@ -33,9 +33,13 @@
 
     "esModuleInterop": true,
     "sourceMap": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"typings/**/*",
 		"src/**/*"
+	],
+	"exclude": [
+		"src/swagger.js"
 	]
 }
