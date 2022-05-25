@@ -66,12 +66,13 @@ spellController.get('/:id', async (req, res) => {
     res.send(spell)
   }
 })
-
+/*
 // FIXME: Useless route ?
 spellController.post('/', async (req, res) => {
   /**
    * #swagger.summary = 'Create a new spell'
    */
+/*
   const name = req.body.name
   const classId = req.body.classId
   if (name == null) {
@@ -94,6 +95,6 @@ spellController.post('/', async (req, res) => {
   else {
     res.send(createdSpell)
   }
-})
+})*/
 
 export default spellController

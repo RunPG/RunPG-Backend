@@ -30,6 +30,20 @@ async function main() : Promise<void> {
         userId: 1,
         friendId:3
       }
+      ,
+      {
+        userId: 2,
+        friendId:1
+      },
+      {
+        userId: 2,
+        friendId:3
+      },
+      {
+        userId: 3,
+        friendId:1
+      }
+
     ],
     skipDuplicates: true
   })

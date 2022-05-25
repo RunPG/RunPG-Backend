@@ -15,6 +15,9 @@ export async function create(name: string): Promise<User | null> {
 export async function getAllUsers(): Promise<User[] | null> {
   return await userRepository.getAllUsers()
 }
+export async function getFriend(userId: number,friendId: number): Promise<Friend| null> {
+  return await userRepository.getFriend(userId,friendId)
+}
 
 export async function getAllFriends(userId: number): Promise<Friend[] | null> {
   return await userRepository.getAllFriends(userId)

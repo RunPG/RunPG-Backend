@@ -1,6 +1,7 @@
 import { PrismaClient, User, Friend } from '@prisma/client'
 
 
+
 const prisma = new PrismaClient()
 export async function getAllUsers(): Promise<User[] | null> {
   return await prisma.user.findMany()
@@ -41,6 +42,7 @@ export async function getFriend(userId: number, friendId: number): Promise<Frien
 }
 
 export async function getAllFriends(userId: number): Promise<Friend[] | null> {
+  console.log('Userid= '+ userId)
   return await prisma.friend.findMany({
     where: {
       userId

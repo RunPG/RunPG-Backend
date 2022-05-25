@@ -21,12 +21,12 @@ export async function getByName(name: string): Promise<Spell | null> {
     }
   })
 }
-
-export async function create(name: string, classId: number): Promise<Spell | null> {
+/*
+export async function create(name: string, _class: HeroClass): Promise<Spell | null> {
   return await prisma.spell.create({
     data: {
-      classId,
+      class:_class,
       name
     }
   })
-}
+}*/

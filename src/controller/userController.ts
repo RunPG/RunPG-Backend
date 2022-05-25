@@ -102,13 +102,35 @@ userController.post('/', async (req, res) => {
   }
 })
 
+userController.get('/:userId/friend/:friendId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get one friend of an user'
+   */
+  let friend
+  try {
+    friend = await userService.getFriend(parseInt(req.params.userId),parseInt(req.params.friendId))
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (friend == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(friend)
+  }
+})
+
 userController.get('/:userId/friend', async (req, res) => {
   /**
    * #swagger.summary = 'Get all friends of an user'
    */
+
   let friends
   try {
-    friends = await userService.getAllFriends(req.body.userId)
+    friends = await userService.getAllFriends(parseInt(req.params.userId))
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
