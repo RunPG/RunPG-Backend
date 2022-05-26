@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { NotificationType, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -47,8 +47,39 @@ async function main() : Promise<void> {
     ],
     skipDuplicates: true
   })
-}
+  await prisma.notification.createMany({
+    data: [
+      {
+        senderId: 2,
+        receiverId:1,
+        type: NotificationType.FRIENDLIST
+      },
+      {
+        senderId: 2,
+        receiverId:1,
+        type: NotificationType.LOBBY
+      }
+      ,
+      {
+        senderId: 3,
+        receiverId:1,
+        type: NotificationType.FRIENDLIST
+      },
+      {
+        senderId: 2,
+        receiverId:3,
+        type: NotificationType.FRIENDLIST
+      },
+      {
+        senderId: 3,
+        receiverId:4,
+        type: NotificationType.GUILD
+      }
 
+    ],
+    skipDuplicates: true
+  })
+}
 main()
   .then(() => {
     console.log('Migration done')

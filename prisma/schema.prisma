@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 enum EquipementType {
   WEAPON
   HELMET
@@ -17,7 +18,11 @@ enum EquipementType {
   LEGGINGS
   GLOVES
 }
-
+enum NotificationType{
+  FRIENDLIST
+  LOBBY
+  GUILD
+}
 enum HeroClass {
   MAGE
   BERSERKER
@@ -166,6 +171,8 @@ model User {
   friends            Friend[]   @relation("friend")
   lastCaloriesUpdate DateTime   @default(now())
   ownerGuild         Guild?     @relation("guildOwner")
+  notificationSent   Notification[] @relation("sender")
+  notificationReceived  Notification[] @relation("receiver")
 }
 
 model Guild {
@@ -176,4 +183,12 @@ model Guild {
   users       User[]
 
   owner User @relation("guildOwner", fields: [ownerId], references: [id])
+}
+model Notification {
+  senderId                 Int
+  receiverId               Int
+  type                     NotificationType
+  sender   User @relation("sender",fields: [senderId],references: [id])
+  receiver User @relation("receiver",fields: [receiverId],references: [id])
+  @@unique([senderId, receiverId,type])
 }

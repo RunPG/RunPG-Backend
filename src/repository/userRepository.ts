@@ -76,3 +76,4 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
     }
   })
 }
+
