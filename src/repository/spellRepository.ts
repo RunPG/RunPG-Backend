@@ -1,6 +1,5 @@
-import { PrismaClient, Spell } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { Spell } from '@prisma/client'
+import prisma from './client'
 
 export async function getAllSpells(): Promise<Spell[] | null> {
   return await prisma.spell.findMany()

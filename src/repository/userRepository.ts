@@ -1,8 +1,6 @@
-import { PrismaClient, User, Friend } from '@prisma/client'
+import { User, Friend } from '@prisma/client'
+import prisma from './client'
 
-
-
-const prisma = new PrismaClient()
 export async function getAllUsers(): Promise<User[] | null> {
   return await prisma.user.findMany()
 }
@@ -76,4 +74,3 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
     }
   })
 }
-
