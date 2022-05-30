@@ -1,6 +1,7 @@
+import { NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { userService } from '../service'
+import { userService,notificationService } from '../service'
 
 const userController = Router()
 
@@ -102,13 +103,35 @@ userController.post('/', async (req, res) => {
   }
 })
 
+userController.get('/:userId/friend/:friendId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get one friend of an user'
+   */
+  let friend
+  try {
+    friend = await userService.getFriend(parseInt(req.params.userId),parseInt(req.params.friendId))
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (friend == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(friend)
+  }
+})
+
 userController.get('/:userId/friend', async (req, res) => {
   /**
    * #swagger.summary = 'Get all friends of an user'
    */
+
   let friends
   try {
-    friends = await userService.getAllFriends(req.body.userId)
+    friends = await userService.getAllFriends(parseInt(req.params.userId))
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -175,6 +198,134 @@ userController.post('/:userId/xp', async (req, res) => {
     await userService.incrementExperience(userId, xp)
   } catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+})
+userController.get('/:userId/notification', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get all received notifications'
+   */
+  const userId:number =  parseInt(req.params.userId)
+  if (userId == null)
+  {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifications
+  try {
+    notifications = await notificationService.getAllNotifications(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (notifications == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(notifications)
+  }
+})
+userController.get('/:userId/notification/:type', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get all received notifications by type'
+   */
+  const userId:number =  parseInt(req.params.userId)
+  const type:string = req.params.type
+  if (userId == null || type == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifType:NotificationType
+  if (Object.values(NotificationType).some((col: string) => col === type))
+    notifType = <NotificationType> type
+  else{
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifications
+  try {
+    notifications = await notificationService.getAllNotificationsByType(userId,notifType)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (notifications == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(notifications)
+  }
+})
+
+userController.get('/:userId/notification/:type/:senderId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get one specific received notification by type'
+   */
+  const userId:number = parseInt(req.params.userId)
+  const senderId:number =  parseInt(req.params.senderId)
+  const type:string = req.params.type
+  if (userId == null || type == null || senderId == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifType:NotificationType
+  if (Object.values(NotificationType).some((col: string) => col === type))
+    notifType = <NotificationType> type
+  else{
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notification
+  try {
+    notification = await notificationService.getNotification(userId,senderId,notifType)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (notification == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(notification)
+  }
+})
+userController.post('/:userId/notification/:type/:senderId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Create a notification'
+   */
+  const userId:number = parseInt(req.params.userId)
+  const senderId:number =  parseInt(req.params.senderId)
+  const type:string = req.params.type
+  if (userId == null || senderId == null || type == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifType:NotificationType
+  if (Object.values(NotificationType).some((col: string) => col === type))
+    notifType = <NotificationType> type
+  else{
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let creatednotification
+  try {
+    creatednotification = await notificationService.create(userId,senderId,notifType)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (creatednotification == null) {
+    res.status(StatusCodes.CONFLICT).send(`user with id '${userId}' notification already exists`)
+  }
+  else {
+    res.send(creatednotification)
   }
 })
 

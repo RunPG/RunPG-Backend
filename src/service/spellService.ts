@@ -12,11 +12,11 @@ export async function getById(id: number): Promise<Spell | null> {
 export async function getByName(name: string): Promise<Spell | null> {
   return await spellRepository.getByName(name)
 }
-
+/*
 export async function create(name: string, classId: number): Promise<Spell | null> {
   if (await spellRepository.getByName(name) != null) {
     return null
   }
 
   return await spellRepository.create(name, classId)
-}
+}*/

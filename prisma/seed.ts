@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { NotificationType, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -30,11 +30,24 @@ async function main() : Promise<void> {
         userId: 1,
         friendId:3
       }
+      ,
+      {
+        userId: 2,
+        friendId:1
+      },
+      {
+        userId: 2,
+        friendId:3
+      },
+      {
+        userId: 3,
+        friendId:1
+      }
+
     ],
     skipDuplicates: true
   })
 }
-
 main()
   .then(() => {
     console.log('Migration done')

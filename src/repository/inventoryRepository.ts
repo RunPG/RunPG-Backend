@@ -23,7 +23,6 @@ export async function create(userId: number): Promise<Inventory | null> {
   return await prisma.inventory.create({
     data: {
       userId,
-      itemTypeId: 0,
       stackSize: 0
     }
   })
