@@ -29,7 +29,7 @@ This will start a detached PostgreSQL docker container.
 
 **2. Update local database:**
 ```
-dotenv -e .env -- npx prisma migrate dev
+npx prisma migrate dev
 ```
 This will create all the necessary tables in the newly created database.
 
