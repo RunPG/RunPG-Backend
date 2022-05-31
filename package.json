@@ -9,8 +9,8 @@
   "scripts": {
     "docker:up": "sudo docker-compose up -d --force-recreate",
     "docker:down": "sudo docker-compose down",
-    "prisma:reset": "npx prisma migrate reset -f",
-    "prisma:migrate": "npx prisma migrate dev -f",
+    "prisma:reset": "npx prisma migrate reset",
+    "prisma:migrate": "npx prisma migrate dev",
     "prisma:seed": "ts-node --transpile-only prisma/seed.ts",
     "dev": "nodemon",
     "clean": "rm -rf dist node_modules",
