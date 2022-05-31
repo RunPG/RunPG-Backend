@@ -7,6 +7,7 @@
 - Visual Studio Code with optional (but recommended) plugins
   - ESLint
   - Prisma
+- [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)
 
 ## Start dev env
 **0a. Install project, if not already installed:**
@@ -18,7 +19,7 @@ npm ci
 ```
 echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"\nPORT=5000' > .env
 ```
-Creates a .env file contain a URL used for database connection.
+Creates a .env file containing a URL used for database connection and the API port.
 
 **1. Start database:**
 ```
@@ -28,7 +29,7 @@ This will start a detached PostgreSQL docker container.
 
 **2. Update local database:**
 ```
-npx prisma migrate dev
+dotenv -e .env -- npx prisma migrate dev
 ```
 This will create all the necessary tables in the newly created database.
 
@@ -45,3 +46,16 @@ Creates data in your database.
 npm run dev
 ```
 Starts server in dev mode, file updates will automatically apply.
+
+## Run tests
+**0. Create a .env.test file if not created yet:**
+```
+echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001' > .env.test
+```
+Creates a .env.test file containing a URL used for database connection and the API port.
+
+**1. Run tests**
+```
+npm run test
+```
+Run all Jest tests.

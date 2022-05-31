@@ -7,11 +7,11 @@
     "node": "^16.14.2"
   },
   "scripts": {
-    "dev": "nodemon",
-    "clean": "rm -rf dist",
-    "seed": "ts-node --transpile-only prisma/seed.ts",
-    "start": "tsc && node dist/app.js",
-    "test": "jest -i --config src/jest.config.ts",
+    "dev": "dotenv -e .env -- nodemon",
+    "clean": "rm -rf dist node_modules",
+    "seed": "dotenv -e .env -- ts-node --transpile-only prisma/seed.ts",
+    "start": "dotenv -e .env -- tsc && node dist/app.js",
+    "test": "dotenv -e .env.test -- jest -i --config src/jest.config.ts",
     "build": "tsc",
     "lint": "eslint -c .eslintrc.json --ext .ts src/",
     "swagger-autogen": "node src/swagger.js",
