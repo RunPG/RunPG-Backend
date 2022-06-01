@@ -20,7 +20,11 @@ jobs:
     - name: Run lint check
       run: npm run lint
     - name: Create .env.test file
-      run: echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001' > .env.test
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_DATABASE_URL: "postgresql://api:password@localhost:5433/runpg?schema=public"
+        envkey_PORT: 5001
+        file_name: .env.test
     - name: Start test database
       run: npm run docker:up
     - name: Apply Prisma migrations
