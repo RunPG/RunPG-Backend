@@ -19,6 +19,8 @@ jobs:
       run: npm ci
     - name: Run lint check
       run: npm run lint
+    - name: Create .env.test file
+      run: echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001' > .env.test
     - name: Start test database
       run: npm run docker:up
     - name: Apply Prisma migrations
