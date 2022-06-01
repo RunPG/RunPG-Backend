@@ -13,7 +13,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i -g dotenv-cli
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run test
+    - name: Install dotenv-cli globally
+      run: npm i -g dotenv-cli
+    - name: Install and build project
+      run: npm ci
+    - name: Run lint check
+      run: npm run lint
+    - name: Start test database
+      run: npm run docker:up
+    - name: Apply Prisma migrations
+      run: npm run test:migrate
+    - name: Run tests
+      run: npm run test
