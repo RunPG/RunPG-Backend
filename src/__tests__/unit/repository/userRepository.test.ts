@@ -1,6 +1,12 @@
-import { prismaMock } from '../../prismaMock'
-import { userRepository } from '../../repository'
+import { prismaMock } from '../../../prismaMock'
+import { userRepository } from '../../../repository'
 import { User } from '@prisma/client'
+
+/**
+ * User repository unit test
+ *
+ * @group unit/user
+ */
 
 test('should get user with id 1', async () => {
   const user: User = {

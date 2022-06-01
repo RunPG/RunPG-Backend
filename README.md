@@ -37,7 +37,7 @@ Note: If you re-created your database and the migration doesn't do anything, run
 
 **4. Seed database**
 ```
-npm run seed
+npm run prisma:seed
 ```
 Creates data in your database.
 
@@ -54,8 +54,22 @@ echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public
 ```
 Creates a .env.test file containing a URL used for database connection and the API port.
 
-**1. Run tests**
+**1. Make sure you started databases running**
+
+See "1. Start database:" in "Start dev env" section.
+
+**2. Update test database:**
+```
+npm run test:migrate
+```
+Apply Prisma migrations to the test database.
+
+**3. Run tests**
 ```
 npm run test
 ```
-Run all Jest tests.
+Run all Jest tests (unit and integration).
+
+To run unit tests only: `npm run test:unit`
+
+To run integration tests only: `npm run test:integration`
