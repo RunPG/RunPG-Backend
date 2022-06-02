@@ -1,6 +1,5 @@
-import { PrismaClient, Notification,NotificationType } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { Notification,NotificationType } from '@prisma/client'
+import prisma from './client'
 
 export async function getNotification(receiverId: number,senderId:number,type:NotificationType): Promise<Notification | null> {
   return await prisma.notification.findUnique({

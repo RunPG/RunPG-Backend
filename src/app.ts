@@ -6,7 +6,6 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
 const app = express()
-const PORT = process.env.PORT
 
 app.use(express.json())
 app.use(morgan('common'))
@@ -23,10 +22,6 @@ app.use('/spell', spellController
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-app.listen(PORT, () => {
-  console.log(`Server started on ${PORT}`)
-})
-
 app.get('/health', (_, res) => {
   /**
    * #swagger.tags = ['Health']
@@ -34,3 +29,5 @@ app.get('/health', (_, res) => {
    */
   res.sendStatus(StatusCodes.OK)
 })
+
+export default app

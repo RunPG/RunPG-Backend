@@ -1,6 +1,5 @@
-import { PrismaClient, Inventory } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { Inventory } from '@prisma/client'
+import prisma from './client'
 
 export async function getById(id: number): Promise<Inventory | null> {
   return await prisma.inventory.findUnique({
