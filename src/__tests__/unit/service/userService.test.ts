@@ -6,7 +6,7 @@ import { User } from '@prisma/client'
 /**
  * User service unit test
  *
- * @group unit/service
+ * @group unit/service/user
  */
 test('Get a user by name', async () => {
   const expected : User = {

@@ -5,7 +5,7 @@ import { User } from '@prisma/client'
 /**
  * User repository unit test
  *
- * @group unit/user
+ * @group unit/repository/user
  */
 
 test('should get user with id 1', async () => {
