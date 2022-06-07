@@ -13,7 +13,7 @@ const request = supertest(app)
  */
 
 it('Get a user by name', async () => {
-  const expected : User = {
+  const expected: User = {
     id: 1,
     name: 'Test',
     characterId: null,
