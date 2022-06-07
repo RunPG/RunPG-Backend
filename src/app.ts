@@ -11,13 +11,13 @@ app.use(express.json())
 app.use(morgan('common'))
 
 app.use('/user', userController
-// #swagger.tags = ['User']
+  // #swagger.tags = ['User']
 )
 app.use('/inventory', inventoryController
-// #swagger.tags = ['Inventory']
+  // #swagger.tags = ['Inventory']
 )
 app.use('/spell', spellController
-// #swagger.tags = ['Spell']
+  // #swagger.tags = ['Spell']
 )
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))

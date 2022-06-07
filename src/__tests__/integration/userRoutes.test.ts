@@ -1,8 +1,9 @@
 import app from '../../app'
 import supertest from 'supertest'
 import prisma from '../../repository/client'
+import { StatusCodes } from 'http-status-codes'
 
-const requestWithSupertest = supertest(app)
+const request = supertest(app)
 
 /**
  * User integration test
@@ -25,13 +26,15 @@ afterAll(async () => {
   await prisma.$disconnect()
 })
 
-it('GET user by is should return the user', async () => {
-  const userId = 'Gabriel'
+it('GET user by its name should return the user', async () => {
+  const userName = 'Gabriel'
 
-  const user = await requestWithSupertest.get(`/user/name/${userId}`)
+  const getUserByName = await request.get(`/user/name/${userName}`)
 
-  expect(user.status).toEqual(200)
-  expect(user.type).toEqual(expect.stringContaining('json'))
-  expect(user.body).toHaveProperty('id')
-  expect(user.body).toHaveProperty('name')
+  expect(getUserByName.statusCode).toEqual(StatusCodes.OK)
+  expect(getUserByName.type).toEqual(expect.stringContaining('json'))
+  expect(getUserByName.body.id).toBe(1)
+  expect(getUserByName.body.name).toBe('Gabriel')
+  expect(getUserByName.body.characterId).toBe(null)
+  expect(getUserByName.body.guildId).toBe(null)
 })
