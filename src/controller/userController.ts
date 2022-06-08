@@ -335,7 +335,7 @@ userController.post('/:userId/notification/:type/:senderId', async (req, res) =>
 })
 userController.delete('/:userId/notification/:type/:senderId', async (req, res) => {
   /**
-   * #swagger.summary = 'Create a notification'
+   * #swagger.summary = 'delete a notification'
    */
   const userId: number = parseInt(req.params.userId)
   const senderId: number = parseInt(req.params.senderId)
