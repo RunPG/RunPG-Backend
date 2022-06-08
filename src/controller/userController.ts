@@ -333,5 +333,39 @@ userController.post('/:userId/notification/:type/:senderId', async (req, res) =>
     res.send(creatednotification)
   }
 })
+userController.delete('/:userId/notification/:type/:senderId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Create a notification'
+   */
+  const userId: number = parseInt(req.params.userId)
+  const senderId: number = parseInt(req.params.senderId)
+  const type: string = req.params.type
+  if (userId == null || senderId == null || type == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let notifType: NotificationType
+  if (Object.values(NotificationType).some((col: string) => col === type)) {
+    notifType = <NotificationType>type
+  }
+  else {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+  let creatednotification
+  try {
+    creatednotification = await notificationService.deleteNotification(userId, senderId, notifType)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
 
+  if (creatednotification == null) {
+    res.status(StatusCodes.CONFLICT).send(`user with id '${userId}' notification already exists`)
+  }
+  else {
+    res.send(creatednotification)
+  }
+})
 export default userController

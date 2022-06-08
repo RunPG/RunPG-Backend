@@ -19,3 +19,6 @@ export async function getAllNotifications(receiverId: number): Promise<Notificat
 export async function getAllNotificationsByType(receiverId: number, type: NotificationType): Promise<Notification[] | null> {
   return await notificationRepository.getAllNotificationsByType(receiverId, type)
 }
+export async function deleteNotification(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
+  return await notificationRepository.deleteNotification(receiverId,senderId,type)
+}

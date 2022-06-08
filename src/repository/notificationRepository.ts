@@ -41,3 +41,15 @@ export async function create(receiverId: number, senderId: number, type: Notific
     }
   })
 }
+export async function deleteNotification(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
+  return await prisma.notification.delete({
+    where: {
+      senderId_receiverId_type:{
+        senderId,
+        receiverId,
+        type
+      }
+    }
+  })
+}
+
