@@ -9,20 +9,12 @@ userController.get('/', async (_, res) => {
   /**
    * #swagger.summary = 'Get all users'
    */
-  let users
   try {
-    users = await userService.getAllUsers()
+    res.send(await userService.getAllUsers())
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
-  }
-
-  if (users == null) {
-    res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-  else {
-    res.send(users)
   }
 })
 

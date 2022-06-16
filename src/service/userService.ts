@@ -13,7 +13,7 @@ export async function create(name: string): Promise<User | null> {
   return await userRepository.create(name)
 }
 
-export async function getAllUsers(): Promise<User[] | null> {
+export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
 
