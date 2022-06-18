@@ -53,7 +53,7 @@ userController.get('/:userId', async (req, res) => {
 
   let user
   try {
-    user = await userService.getUserById(userId)
+    user = await userService.getById(userId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -187,7 +187,12 @@ userController.post('/:userId/xp', async (req, res) => {
   }
 
   try {
-    await userService.incrementExperience(userId, xp)
+    if (await userService.incrementExperience(userId, xp)) {
+      res.sendStatus(StatusCodes.OK)
+    } else {
+      res.status(StatusCodes.NOT_FOUND)
+        .send(`User with id ${userId} not found`)
+    }
   } catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }
