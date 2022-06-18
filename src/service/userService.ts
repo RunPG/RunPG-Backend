@@ -46,6 +46,10 @@ export async function incrementExperience(idUser: number, xp: number): Promise<b
   return true
 }
 
+export async function getUserById(id: number): Promise<User | null> {
+  return await userRepository.getById(id)
+}
+
 export async function joinGuild(id: number, guildId: number): Promise<User | null> {
   return await userRepository.joinGuild(id, guildId)
 }
