@@ -361,3 +361,27 @@ userController.delete('/:userId/notification/:type/:senderId', async (req, res) 
   }
 })
 export default userController
+
+userController.post('/:userId/join/:guildId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Join the guild'
+   */
+  const guildId = Number(req.params.guildId)
+  const userId = Number(req.params.userId)
+  if (!guildId || !userId) { res.sendStatus(StatusCodes.BAD_REQUEST) }
+  let user
+  try {
+    user = await userService.joinGuild(userId, guildId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (user == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(user)
+  }
+})

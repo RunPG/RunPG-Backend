@@ -74,3 +74,13 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
     }
   })
 }
+export async function joinGuild(id: number, guildId: number): Promise<User | null> {
+  return await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      guildId
+    }
+  })
+}
