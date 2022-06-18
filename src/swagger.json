@@ -61,11 +61,7 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        "responses": {}
       }
     },
     "/user/name/{name}": {
@@ -191,7 +187,7 @@
       }
     },
     "/user/{userId}/xp": {
-      "post": {
+      "put": {
         "tags": [
           "User"
         ],
@@ -308,6 +304,38 @@
           "User"
         ],
         "summary": "Create a notification",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "delete a notification",
         "description": "",
         "parameters": [
           {
