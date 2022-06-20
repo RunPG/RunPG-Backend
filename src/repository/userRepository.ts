@@ -1,7 +1,7 @@
 import { User, Friend } from '@prisma/client'
 import prisma from './client'
 
-export async function getAllUsers(): Promise<User[] | null> {
+export async function getAllUsers(): Promise<User[]> {
   return await prisma.user.findMany()
 }
 
@@ -21,7 +21,7 @@ export async function getById(id: number): Promise<User | null> {
   })
 }
 
-export async function create(name: string): Promise<User | null> {
+export async function create(name: string): Promise<User> {
   return await prisma.user.create({
     data: {
       name

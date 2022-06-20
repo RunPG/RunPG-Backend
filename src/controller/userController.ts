@@ -9,20 +9,12 @@ userController.get('/', async (_, res) => {
   /**
    * #swagger.summary = 'Get all users'
    */
-  let users
   try {
-    users = await userService.getAllUsers()
+    res.send(await userService.getAllUsers())
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
-  }
-
-  if (users == null) {
-    res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-  else {
-    res.send(users)
   }
 })
 
@@ -51,17 +43,15 @@ userController.get('/:userId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a user by his id'
    */
-  let userId
-  try {
-    userId = parseInt(req.params.userId)
-  } catch (error) {
+  const userId = parseInt(req.params.userId)
+  if (isNaN(userId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let user
   try {
-    user = await userService.getUserById(userId)
+    user = await userService.getById(userId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -99,7 +89,7 @@ userController.post('/', async (req, res) => {
     res.status(StatusCodes.CONFLICT).send(`username '${name}' already exists`)
   }
   else {
-    res.send(createduser)
+    res.status(StatusCodes.CREATED).send(createduser)
   }
 })
 
@@ -175,16 +165,13 @@ userController.post('/:userId/friend/:id', async (req, res) => {
   }
 })
 
-userController.post('/:userId/xp', async (req, res) => {
+userController.put('/:userId/xp', async (req, res) => {
   /**
    * #swagger.summary = 'Update an user experience value'
    */
-  let userId
-  let xp
-  try {
-    userId = Number(req.params.userId)
-    xp = Number(req.body.xp)
-  } catch (error) {
+  const userId = Number(req.params.userId)
+  const xp = Number(req.body.xp)
+  if (isNaN(userId) || isNaN(xp)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
@@ -195,7 +182,12 @@ userController.post('/:userId/xp', async (req, res) => {
   }
 
   try {
-    await userService.incrementExperience(userId, xp)
+    if (await userService.incrementExperience(userId, xp)) {
+      res.sendStatus(StatusCodes.OK)
+    } else {
+      res.status(StatusCodes.NOT_FOUND)
+        .send(`User with id ${userId} not found`)
+    }
   } catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }

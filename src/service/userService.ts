@@ -1,8 +1,16 @@
 import { User, Friend } from '@prisma/client'
 import { userRepository } from '../repository'
 
+export async function getById(id: number): Promise<User | null> {
+  return await userRepository.getById(id)
+}
+
 export async function getByName(name: string): Promise<User | null> {
   return await userRepository.getByName(name)
+}
+
+export async function getAllUsers(): Promise<User[]> {
+  return await userRepository.getAllUsers()
 }
 
 export async function create(name: string): Promise<User | null> {
@@ -11,10 +19,6 @@ export async function create(name: string): Promise<User | null> {
   }
 
   return await userRepository.create(name)
-}
-
-export async function getAllUsers(): Promise<User[] | null> {
-  return await userRepository.getAllUsers()
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
@@ -33,13 +37,11 @@ export async function addFriend(userId: number, friendId: number): Promise<Frien
   return await userRepository.addFriend(userId, friendId)
 }
 
-// TODO: Add User not found exception
-export async function incrementExperience(idUser: number, xp: number): Promise<void> {
-  if (await userRepository.getById(idUser) != null) {
-    await userRepository.incrementExperience(idUser, xp)
+export async function incrementExperience(idUser: number, xp: number): Promise<boolean> {
+  if (await userRepository.getById(idUser) == null) {
+    return false
   }
-}
 
-export async function getUserById(id: number): Promise<User | null> {
-  return await userRepository.getById(id)
+  await userRepository.incrementExperience(idUser, xp)
+  return true
 }
