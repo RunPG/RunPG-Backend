@@ -8,24 +8,16 @@ spellController.get('/', async (_req, res) => {
   /**
    * #swagger.summary = 'Get all spells'
    */
-  let users
   try {
-    users = await spellService.getAllSpells()
+    const users = await spellService.getAllSpells()
+    res.send(users)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-    return
-  }
-
-  if (users == null) {
-    res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-  else {
-    res.send(users)
   }
 })
 
-spellController.get('/:name', async (req, res) => {
+spellController.get('/name/:name', async (req, res) => {
   /**
    * #swagger.summary = 'Get a spell by name'
    */
@@ -50,9 +42,15 @@ spellController.get('/:id', async (req, res) => {
   /**
    * #swagger.summary = 'Get a spell by id'
    */
+  const spellId = Number(req.params.id)
+  if (isNaN(spellId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
   let spell
   try {
-    spell = await spellService.getById(Number(req.params.id))
+    spell = await spellService.getById(spellId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
