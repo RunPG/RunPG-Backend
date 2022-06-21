@@ -1,7 +1,7 @@
 import { Spell } from '@prisma/client'
 import prisma from './client'
 
-export async function getAllSpells(): Promise<Spell[] | null> {
+export async function getAllSpells(): Promise<Spell[]> {
   return await prisma.spell.findMany()
 }
 

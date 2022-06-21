@@ -460,7 +460,7 @@
         "responses": {}
       }
     },
-    "/spell/{name}": {
+    "/spell/name/{name}": {
       "get": {
         "tags": [
           "Spell"

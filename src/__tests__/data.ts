@@ -1,3 +1,4 @@
+import { Spell } from '@prisma/client'
 import { Friend, User } from '@prisma/client'
 
 export const user1: User = {
@@ -19,4 +20,22 @@ export const user2: User = {
 export const friend: Friend = {
   userId: 1,
   friendId: 2
+}
+
+export const spell1: Spell = {
+  id: 1,
+  name: 'Basic Attack',
+  cooldown: 10,
+  manaCost: 20,
+  description: 'Swing your weapon and maybe you will kill something.',
+  class: 'BERSERKER'
+}
+
+export const spell2: Spell = {
+  id: 2,
+  name: 'Heal',
+  cooldown: 5,
+  manaCost: 15,
+  description: 'Do sparkles with your fingers to sparkle up someone\'s health',
+  class: 'PRIEST'
 }
