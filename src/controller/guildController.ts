@@ -16,14 +16,9 @@ GuildController.get('/', async (_, res) => {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
-
-  if (guilds == null) {
-    res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-  else {
-    res.send(guilds)
-  }
+  res.send(guilds)
 })
+
 GuildController.get('/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a guild by id'
@@ -101,7 +96,7 @@ GuildController.put('/:guildId', async (req, res) => {
   }
 
   if (createdGuild == null) {
-    res.status(StatusCodes.CONFLICT).send(('guild does not exist'))
+    res.status(StatusCodes.NOT_FOUND).send(('guild does not exist'))
   }
   else {
     res.send(createdGuild)
