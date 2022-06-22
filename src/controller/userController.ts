@@ -366,9 +366,11 @@ userController.post('/:userId/join/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Join the guild'
    */
-  const guildId = Number(req.params.guildId)
-  const userId = Number(req.params.userId)
-  if (!guildId || !userId) { res.sendStatus(StatusCodes.BAD_REQUEST) }
+  const guildId = parseInt(req.params.guildId)
+  const userId = parseInt(req.params.userId)
+  if (isNaN(guildId) || isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+  }
   let user
   try {
     user = await userService.joinGuild(userId, guildId)

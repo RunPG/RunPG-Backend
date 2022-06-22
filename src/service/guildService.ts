@@ -1,7 +1,7 @@
 import { Guild } from '@prisma/client'
 import { guildRepository } from '../repository'
 
-export async function getAll(): Promise<Guild[] | null> {
+export async function getAll(): Promise<Guild[]> {
   return await guildRepository.getAll()
 }
 

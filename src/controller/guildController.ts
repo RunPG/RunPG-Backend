@@ -16,20 +16,20 @@ GuildController.get('/', async (_, res) => {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
-
-  if (guilds == null) {
-    res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-  else {
-    res.send(guilds)
-  }
+  res.send(guilds)
 })
+
 GuildController.get('/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a guild by id'
    */
-  const guildId = Number(req.params.guildId)
-  if (!guildId) { res.sendStatus(StatusCodes.BAD_REQUEST) }
+  const guildId = parseInt(req.params.guildId)
+
+  if (isNaN(guildId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
   let Guild
   try {
     Guild = await guildService.getById(guildId)
@@ -80,16 +80,16 @@ GuildController.put('/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Update a guild'
    */
-  const new_guild_values = req.body.new_guild_values
-  const guildId = Number(req.params.guildId)
+  const newGuildValues = req.body.newGuildValues
+  const guildId = parseInt(req.params.guildId)
 
-  if (new_guild_values == null || guildId == null) {
+  if (newGuildValues == null || isNaN(guildId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
   let createdGuild
   try {
-    createdGuild = await guildService.updateGuild(guildId, new_guild_values)
+    createdGuild = await guildService.updateGuild(guildId, newGuildValues)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -97,7 +97,7 @@ GuildController.put('/:guildId', async (req, res) => {
   }
 
   if (createdGuild == null) {
-    res.status(StatusCodes.CONFLICT).send(('guild does not exist'))
+    res.status(StatusCodes.NOT_FOUND).send(('guild does not exist'))
   }
   else {
     res.send(createdGuild)
