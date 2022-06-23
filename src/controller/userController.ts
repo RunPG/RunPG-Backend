@@ -1,6 +1,7 @@
 import { NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
+import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
 import { userService, notificationService } from '../service'
 
 const userController = Router()
@@ -370,15 +371,21 @@ userController.post('/:userId/join/:guildId', async (req, res) => {
   const userId = parseInt(req.params.userId)
   if (isNaN(guildId) || isNaN(userId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
   }
   let user
   try {
     user = await userService.joinGuild(userId, guildId)
   }
   catch (error) {
-    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    if (error instanceof AlreadyInAGuildError) {
+      res.sendStatus(StatusCodes.CONFLICT)
+    }
+
+    else { res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR) }
     return
   }
+
 
   if (user == null) {
     res.sendStatus(StatusCodes.NOT_FOUND)

@@ -1,6 +1,8 @@
+import { User } from '@prisma/client'
+import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
 import { userRepository } from '../../../repository'
 import { userService } from '../../../service'
-import { user1, user2 } from '../../testData'
+import { guild1, user1, user2 } from '../../testData'
 
 /**
  * User service unit test
@@ -159,7 +161,7 @@ test('create should throw when userRepository.create throws', async () => {
   expect(userRepository.getByName).toBeCalledWith(user1.name)
 })
 
-test('incrementExperience should return true when the value is updated',async () => {
+test('incrementExperience should return true when the value is updated', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -178,7 +180,7 @@ test('incrementExperience should return true when the value is updated',async ()
 })
 
 
-test('incrementExperience should return false when the user is not found',async () => {
+test('incrementExperience should return false when the user is not found', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -196,7 +198,7 @@ test('incrementExperience should return false when the user is not found',async 
   expect(userRepository.incrementExperience).not.toBeCalled()
 })
 
-test('incrementExperience should throw when userRepository.getById throws',async () => {
+test('incrementExperience should throw when userRepository.getById throws', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -216,7 +218,7 @@ test('incrementExperience should throw when userRepository.getById throws',async
   expect(userRepository.incrementExperience).not.toBeCalled()
 })
 
-test('incrementExperience should throw when userRepository.incrementExperience throws',async () => {
+test('incrementExperience should throw when userRepository.incrementExperience throws', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -234,4 +236,50 @@ test('incrementExperience should throw when userRepository.incrementExperience t
   await expect(call).rejects.toThrow()
   expect(userRepository.getById).toBeCalledWith(user1.id)
   expect(userRepository.incrementExperience).toBeCalledWith(user1.id, xp)
+})
+
+test('joinGuild should make the user join the guild and return it', async () => {
+  userRepository.joinGuild = jest.fn(async () => {
+    return user2
+  })
+
+  const result = await userService.joinGuild(user2.id, guild1.id)
+
+  expect(result).toEqual(user2)
+  expect(userRepository.joinGuild).toBeCalledWith(user2.id, guild1.id)
+})
+
+test('joinGuild should return null since the user does not exist', async () => {
+  userRepository.joinGuild = jest.fn(async () => {
+    return null
+  })
+
+  const result = await userService.joinGuild(user2.id, guild1.id)
+
+  expect(result).toEqual(null)
+  expect(userRepository.joinGuild).toBeCalledWith(user2.id, guild1.id)
+})
+
+test('joinGuild should throw since userRepository.joinGuild does', async () => {
+  userRepository.joinGuild = jest.fn(async () => {
+    throw new Error()
+  })
+
+  const call = async (): Promise<User | null> => {
+    return await userService.joinGuild(user2.id, guild1.id)
+  }
+
+  await expect(call).rejects.toThrow()
+})
+
+test('joinGuild should throw since the user already has a guild', async () => {
+  userRepository.joinGuild = jest.fn(async () => {
+    throw new AlreadyInAGuildError()
+  })
+
+  const call = async (): Promise<User | null> => {
+    return await userService.joinGuild(user2.id, guild1.id)
+  }
+
+  await expect(call).rejects.toThrow(AlreadyInAGuildError)
 })

@@ -1,5 +1,5 @@
 import prisma from '../../repository/client'
-import { characters, equipementBases, equipements, spells, statistics, users } from '../testData'
+import { characters, equipementBases, equipements, guilds, spells, statistics, users } from '../testData'
 
 export async function seedDatabase(): Promise<void> {
 
@@ -23,9 +23,14 @@ export async function seedDatabase(): Promise<void> {
     data: characters
   })
 
+  const createGuild = prisma.guild.createMany({
+    data: guilds
+  })
+
   const createUser = prisma.user.createMany({
     data: users
   })
+
 
   await prisma.$transaction([
     createEquipementBase,
@@ -33,6 +38,7 @@ export async function seedDatabase(): Promise<void> {
     createEquipement,
     createSpell,
     createCharacter,
+    createGuild,
     createUser
   ])
 }
@@ -44,6 +50,7 @@ export async function clearDatabase(): Promise<void> {
   const deleteEquipement = prisma.equipement.deleteMany()
   const deleteEquipementBase = prisma.equipementBase.deleteMany()
   const deleteStat = prisma.statistics.deleteMany()
+  const deleteGuild = prisma.guild.deleteMany()
 
   await prisma.$transaction([
     deleteUser,
@@ -51,7 +58,8 @@ export async function clearDatabase(): Promise<void> {
     deleteEquipement,
     deleteEquipementBase,
     deleteSpell,
-    deleteStat
+    deleteStat,
+    deleteGuild
   ])
 
   await prisma.$disconnect()

@@ -1,4 +1,4 @@
-import { Character, Equipement, EquipementBase, Spell, Statistics } from '@prisma/client'
+import { Character, Equipement, EquipementBase, Guild, Spell, Statistics } from '@prisma/client'
 import { Friend, User } from '@prisma/client'
 
 /**
@@ -24,7 +24,7 @@ export const user3: User = {
   id: 3,
   name: 'User3',
   characterId: 1,
-  guildId: null,
+  guildId: 1,
   lastCaloriesUpdate: new Date(2022, 1, 4)
 }
 
@@ -188,31 +188,31 @@ export const equipementBases = [
  * Equipement
  */
 
-export const equipement1 : Equipement = {
+export const equipement1: Equipement = {
   id: 1,
   equipementBaseId: 1,
   statisticsId: 1
 }
 
-export const equipement2 : Equipement = {
+export const equipement2: Equipement = {
   id: 2,
   equipementBaseId: 2,
   statisticsId: 2
 }
 
-export const equipement3 : Equipement = {
+export const equipement3: Equipement = {
   id: 3,
   equipementBaseId: 3,
   statisticsId: 3
 }
 
-export const equipement4 : Equipement = {
+export const equipement4: Equipement = {
   id: 4,
   equipementBaseId: 4,
   statisticsId: 4
 }
 
-export const equipement5 : Equipement = {
+export const equipement5: Equipement = {
   id: 5,
   equipementBaseId: 5,
   statisticsId: 5
@@ -230,7 +230,7 @@ export const equipements = [
  * Statistics
  */
 
-export const statistics1 : Statistics = {
+export const statistics1: Statistics = {
   id: 1,
   agility: 1,
   defense: 1,
@@ -243,7 +243,7 @@ export const statistics1 : Statistics = {
   vitality: 1
 }
 
-export const statistics2 : Statistics = {
+export const statistics2: Statistics = {
   id: 2,
   agility: 1,
   defense: 1,
@@ -256,7 +256,7 @@ export const statistics2 : Statistics = {
   vitality: 1
 }
 
-export const statistics3 : Statistics = {
+export const statistics3: Statistics = {
   id: 3,
   agility: 1,
   defense: 1,
@@ -269,7 +269,7 @@ export const statistics3 : Statistics = {
   vitality: 1
 }
 
-export const statistics4 : Statistics = {
+export const statistics4: Statistics = {
   id: 4,
   agility: 1,
   defense: 1,
@@ -282,7 +282,7 @@ export const statistics4 : Statistics = {
   vitality: 1
 }
 
-export const statistics5 : Statistics = {
+export const statistics5: Statistics = {
   id: 5,
   agility: 1,
   defense: 1,
@@ -295,7 +295,7 @@ export const statistics5 : Statistics = {
   vitality: 1
 }
 
-export const statistics6 : Statistics = {
+export const statistics6: Statistics = {
   id: 6,
   agility: 1,
   defense: 1,
@@ -315,4 +315,27 @@ export const statistics = [
   statistics4,
   statistics5,
   statistics6
+]
+
+/**
+ * Guilds
+ */
+
+export const guild1: Guild = {
+  id: 1,
+  name: 'guild1',
+  ownerId: 3,
+  description: 'description guild1'
+}
+
+export const guild2: Guild = {
+  id: 2,
+  name: 'guild2',
+  ownerId: 2,
+  description: 'description guild2'
+}
+
+export const guilds = [
+  guild1,
+  guild2
 ]

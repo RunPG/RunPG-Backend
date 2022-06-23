@@ -62,8 +62,6 @@ GuildController.post('/', async (req, res) => {
     createdGuild = await guildService.create(guild)
   }
   catch (error) {
-    console.log(error)
-
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
@@ -72,6 +70,7 @@ GuildController.post('/', async (req, res) => {
     res.status(StatusCodes.CONFLICT).send('guild already exists')
   }
   else {
+    res.status(StatusCodes.CREATED)
     res.send(createdGuild)
   }
 })
