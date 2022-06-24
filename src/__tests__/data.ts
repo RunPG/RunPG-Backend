@@ -17,6 +17,14 @@ export const user2: User = {
   lastCaloriesUpdate: new Date(2000, 7, 12)
 }
 
+export const user3: User = {
+  id: 3,
+  name: 'User3',
+  characterId: 1,
+  guildId: null,
+  lastCaloriesUpdate: new Date(2022, 1, 4)
+}
+
 export const friend: Friend = {
   userId: 1,
   friendId: 2
