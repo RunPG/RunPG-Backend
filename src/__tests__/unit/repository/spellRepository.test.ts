@@ -1,7 +1,7 @@
 import { Spell } from '@prisma/client'
 import { prismaMock } from '../../../prismaMock'
 import { spellRepository } from '../../../repository'
-import { spell1, spell2 } from '../../data'
+import { spell1, spell2 } from '../../testData'
 
 /**
  * Spell repository unit test

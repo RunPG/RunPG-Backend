@@ -1,6 +1,6 @@
 import { userRepository } from '../../../repository'
 import { userService } from '../../../service'
-import { user1, user2 } from '../../data'
+import { user1, user2 } from '../../testData'
 
 /**
  * User service unit test

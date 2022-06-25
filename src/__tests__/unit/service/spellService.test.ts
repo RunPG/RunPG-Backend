@@ -1,7 +1,7 @@
 import { Spell } from '@prisma/client'
 import { spellRepository } from '../../../repository'
 import { spellService } from '../../../service'
-import { spell1, spell2 } from '../../data'
+import { spell1, spell2 } from '../../testData'
 
 /**
  * Spell service unit test

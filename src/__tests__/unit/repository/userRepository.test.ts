@@ -1,7 +1,7 @@
 import { prismaMock } from '../../../prismaMock'
 import { userRepository } from '../../../repository'
 import { User } from '@prisma/client'
-import { user1, user2 } from '../../data'
+import { user1, user2 } from '../../testData'
 
 /**
  * User repository unit test
