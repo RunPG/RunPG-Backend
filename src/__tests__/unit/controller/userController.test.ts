@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../../app'
 import { userService } from '../../../service'
-import { user1 } from '../../data'
+import { user1 } from '../../testData'
 
 const request = supertest(app)
 

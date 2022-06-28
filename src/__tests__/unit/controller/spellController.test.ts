@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../../app'
 import { spellService } from '../../../service'
-import { spell1, spell2 } from '../../data'
+import { spell1, spell2 } from '../../testData'
 
 const request = supertest(app)
 
@@ -12,30 +12,6 @@ const request = supertest(app)
  *
  * @group unit/controller/spell
  */
-
-test('Get all spells should return all spells and code 200 when success', async () => {
-  const expected: Spell[] = [spell1, spell2]
-
-  spellService.getAllSpells = jest.fn(async () => {
-    return expected
-  })
-
-  const result = await request.get('/spell')
-
-  expect(result.statusCode).toEqual(StatusCodes.OK)
-  expect(result.body).toEqual(expected)
-})
-
-test('Get all spells should return nothing and code 500 when userService throws', async () => {
-  spellService.getAllSpells = jest.fn(async () => {
-    throw new Error()
-  })
-
-  const result = await request.get('/spell')
-
-  expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
-  expect(result.body).toEqual({})
-})
 
 test('Get all spells should return all spells and code 200 when success', async () => {
   const expected: Spell[] = [spell1, spell2]
