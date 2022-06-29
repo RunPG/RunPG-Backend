@@ -6,13 +6,15 @@ import { userService, notificationService } from '../service'
 const userController = Router()
 
 userController.get('/', async (_, res) => {
-  /**
-   * #swagger.summary = 'Get all users'
-   */
+  // #swagger.description = 'Get all users'
   try {
     res.send(await userService.getAllUsers())
+    /* #swagger.responses[200] = {
+    description: 'users successfully obtained',
+  }*/
   }
   catch (error) {
+    // #swagger.responses[500] = { description: 'Server encountered an internal error' }
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
@@ -21,7 +23,13 @@ userController.get('/', async (_, res) => {
 userController.get('/name/:name', async (req, res) => {
   /**
    * #swagger.summary = 'Get a user by his name'
-   */
+  * #swagger.description = 'Get a user by his name'
+  * #swagger.responses[200] = {
+  description: 'User found',
+  }
+  * #swagger.responses[404] = { description: 'Could not find the user' }
+  * #swagger.responses[500] = { description: 'wrong user name' }
+  */
   let user
   try {
     user = await userService.getByName(req.params.name)
@@ -41,8 +49,15 @@ userController.get('/name/:name', async (req, res) => {
 
 userController.get('/:userId', async (req, res) => {
   /**
-   * #swagger.summary = 'Get a user by his id'
-   */
+   * #swagger.description = 'Get a user by id'
+   * #swagger.responses[200] = {
+     description: 'User found',
+    }
+   * #swagger.responses[404] = { description: 'Could not find the user' }
+   * #swagger.responses[400] = { description: 'wrong user id' }
+    }
+  */
+
   const userId = parseInt(req.params.userId)
   if (isNaN(userId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
@@ -68,8 +83,18 @@ userController.get('/:userId', async (req, res) => {
 
 userController.post('/', async (req, res) => {
   /**
-   * #swagger.summary = 'Create a new user'
-   */
+ * #swagger.description = 'Create a new user'
+  * #swagger.parameters['name'] = {
+  in: 'body',
+  description: 'new user name',
+  required: true,
+  }
+ * #swagger.responses[200] = {
+   description: 'User created',
+  }
+ * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+ * #swagger.responses[400] = { description: 'no user name found' }
+*/
   const name = req.body.name
   if (name == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
@@ -95,8 +120,13 @@ userController.post('/', async (req, res) => {
 
 userController.get('/:userId/friend/:friendId', async (req, res) => {
   /**
-   * #swagger.summary = 'Get one friend of an user'
-   */
+ * #swagger.description = 'Get a friend'
+ * #swagger.responses[200] = {
+   description: 'Friend found',
+  }
+ * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+ * #swagger.responses[400] = { description: 'no friend found' }
+*/
   let friend
   try {
     friend = await userService.getFriend(parseInt(req.params.userId), parseInt(req.params.friendId))
@@ -116,9 +146,13 @@ userController.get('/:userId/friend/:friendId', async (req, res) => {
 
 userController.get('/:userId/friend', async (req, res) => {
   /**
-   * #swagger.summary = 'Get all friends of an user'
-   */
-
+  * #swagger.description = 'Get all the friends'
+  * #swagger.responses[200] = {
+  description: 'Friends found',
+  }
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'no friends found' }
+  */
   let friends
   try {
     friends = await userService.getAllFriends(parseInt(req.params.userId))
@@ -138,8 +172,14 @@ userController.get('/:userId/friend', async (req, res) => {
 
 userController.post('/:userId/friend/:id', async (req, res) => {
   /**
-   * #swagger.summary = 'Add a friend to an user'
-   */
+ * #swagger.description = 'Add a new friend'
+ * #swagger.responses[200] = {
+   description: 'Friend added',
+  }
+ * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+ * #swagger.responses[400] = { description: 'Bad userId or id' }
+ * #swagger.responses[409] = { description: 'This friend is already added !' }
+  */
   const userId = Number(req.params.userId)
   const friendId = Number(req.params.id)
 
@@ -167,8 +207,17 @@ userController.post('/:userId/friend/:id', async (req, res) => {
 
 userController.put('/:userId/xp', async (req, res) => {
   /**
-   * #swagger.summary = 'Update an user experience value'
-   */
+  * #swagger.description = 'Modify user xp'
+  * #swagger.parameters['xp'] = {
+  in: 'body',
+  description: 'new user xp',
+  required: true,
+  }
+  * #swagger.responses[200] = { description: 'User xp modified'}
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Bad userId or xp' }
+  * #swagger.responses[404] = { description: 'User not found' }
+  */
   const userId = Number(req.params.userId)
   const xp = Number(req.body.xp)
   if (isNaN(userId) || isNaN(xp)) {
@@ -195,8 +244,12 @@ userController.put('/:userId/xp', async (req, res) => {
 
 userController.get('/:userId/notification', async (req, res) => {
   /**
-   * #swagger.summary = 'Get all received notifications'
-   */
+  * #swagger.description = 'Get all user notifications'
+  * #swagger.responses[200] = { description: 'Notifications found'}
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Bad userId' }
+  * #swagger.responses[404] = { description: 'Notifications not found' }
+  */
   const userId: number = parseInt(req.params.userId)
   if (userId == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
@@ -221,8 +274,12 @@ userController.get('/:userId/notification', async (req, res) => {
 
 userController.get('/:userId/notification/:type', async (req, res) => {
   /**
-   * #swagger.summary = 'Get all received notifications by type'
-   */
+  * #swagger.description = 'Get all user notifications by type'
+  * #swagger.responses[200] = { description: 'Notifications found'}
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Bad userId or type' }
+  * #swagger.responses[404] = { description: 'Notifications not found' }
+  */
   const userId: number = parseInt(req.params.userId)
   const type: string = req.params.type
   if (userId == null || type == null) {
@@ -256,7 +313,11 @@ userController.get('/:userId/notification/:type', async (req, res) => {
 
 userController.get('/:userId/notification/:type/:senderId', async (req, res) => {
   /**
-   * #swagger.summary = 'Get one specific received notification by type'
+   * #swagger.description = 'Get all user notifications by type'
+   * #swagger.responses[200] = { description: 'Notifications found'}
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId or type' }
+   * #swagger.responses[404] = { description: 'Notifications not found' }
    */
   const userId: number = parseInt(req.params.userId)
   const senderId: number = parseInt(req.params.senderId)
@@ -292,7 +353,10 @@ userController.get('/:userId/notification/:type/:senderId', async (req, res) => 
 
 userController.post('/:userId/notification/:type/:senderId', async (req, res) => {
   /**
-   * #swagger.summary = 'Create a notification'
+   * #swagger.description = 'Create a notification'
+   * #swagger.responses[200] = { description: 'Notification created'}
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId or type or senderId' }
    */
   const userId: number = parseInt(req.params.userId)
   const senderId: number = parseInt(req.params.senderId)
@@ -327,7 +391,11 @@ userController.post('/:userId/notification/:type/:senderId', async (req, res) =>
 })
 userController.delete('/:userId/notification/:type/:senderId', async (req, res) => {
   /**
-   * #swagger.summary = 'delete a notification'
+   * #swagger.description = 'Delete a notification'
+   * #swagger.responses[200] = { description: 'Notification deleted'}
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId or type or senderId' }
+   * #swagger.responses[404] = { description: 'notification does not exist' }
    */
   const userId: number = parseInt(req.params.userId)
   const senderId: number = parseInt(req.params.senderId)
@@ -344,20 +412,20 @@ userController.delete('/:userId/notification/:type/:senderId', async (req, res) 
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
-  let creatednotification
+  let deletedNotification
   try {
-    creatednotification = await notificationService.deleteNotification(userId, senderId, notifType)
+    deletedNotification = await notificationService.deleteNotification(userId, senderId, notifType)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (creatednotification == null) {
-    res.status(StatusCodes.CONFLICT).send(`user with id '${userId}' notification already exists`)
+  if (deletedNotification == null) {
+    res.status(StatusCodes.NOT_FOUND).send(`user with id '${userId}' notification does not exist`)
   }
   else {
-    res.send(creatednotification)
+    res.send(deletedNotification)
   }
 })
 export default userController

@@ -6,8 +6,10 @@ const spellController = Router()
 
 spellController.get('/', async (_req, res) => {
   /**
-   * #swagger.summary = 'Get all spells'
-   */
+ * #swagger.description = 'get all spells'
+ * #swagger.responses[200] = { description: 'Got all spells'}
+ * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+ */
   try {
     const users = await spellService.getAllSpells()
     res.send(users)
@@ -19,7 +21,10 @@ spellController.get('/', async (_req, res) => {
 
 spellController.get('/name/:name', async (req, res) => {
   /**
-   * #swagger.summary = 'Get a spell by name'
+   * #swagger.description = 'Get a spell by its name'
+   * #swagger.responses[200] = { description: 'Spell found'}
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[404] = { description: 'Spell not found' }
    */
   let spell
   try {
@@ -40,8 +45,11 @@ spellController.get('/name/:name', async (req, res) => {
 
 spellController.get('/:id', async (req, res) => {
   /**
-   * #swagger.summary = 'Get a spell by id'
-   */
+  * #swagger.description = 'Create a notification'
+  * #swagger.responses[200] = { description: 'Notification created'}
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Bad userId or type or senderId' }
+  */
   const spellId = Number(req.params.id)
   if (isNaN(spellId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)

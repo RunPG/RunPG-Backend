@@ -32,12 +32,14 @@
         "tags": [
           "User"
         ],
-        "summary": "Get all users",
-        "description": "",
+        "description": "Get all users",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "users successfully obtained"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -45,11 +47,10 @@
         "tags": [
           "User"
         ],
-        "summary": "Create a new user",
-        "description": "",
+        "description": "Create a new user",
         "parameters": [
           {
-            "name": "body",
+            "name": "name",
             "in": "body",
             "schema": {
               "type": "object",
@@ -58,10 +59,22 @@
                   "example": "any"
                 }
               }
-            }
+            },
+            "description": "new user name",
+            "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "no user name found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/name/{name}": {
@@ -70,7 +83,7 @@
           "User"
         ],
         "summary": "Get a user by his name",
-        "description": "",
+        "description": "Get a user by his name",
         "parameters": [
           {
             "name": "name",
@@ -81,7 +94,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User found"
+          },
+          "404": {
+            "description": "Could not find the user"
+          },
+          "500": {
+            "description": "wrong user name"
           }
         }
       }
@@ -91,8 +110,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get a user by his id",
-        "description": "",
+        "description": "Get a user by id",
         "parameters": [
           {
             "name": "userId",
@@ -103,7 +121,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User found"
+          },
+          "400": {
+            "description": "wrong user id"
+          },
+          "404": {
+            "description": "Could not find the user"
           }
         }
       }
@@ -113,8 +137,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get one friend of an user",
-        "description": "",
+        "description": "Get a friend",
         "parameters": [
           {
             "name": "userId",
@@ -131,7 +154,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Friend found"
+          },
+          "400": {
+            "description": "no friend found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -141,8 +170,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get all friends of an user",
-        "description": "",
+        "description": "Get all the friends",
         "parameters": [
           {
             "name": "userId",
@@ -153,7 +181,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Friends found"
+          },
+          "400": {
+            "description": "no friends found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -163,8 +197,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Add a friend to an user",
-        "description": "",
+        "description": "Add a new friend",
         "parameters": [
           {
             "name": "userId",
@@ -181,7 +214,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Friend added"
+          },
+          "400": {
+            "description": "Bad userId or id"
+          },
+          "409": {
+            "description": "This friend is already added !"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -191,8 +233,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Update an user experience value",
-        "description": "",
+        "description": "Modify user xp",
         "parameters": [
           {
             "name": "userId",
@@ -201,7 +242,7 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "xp",
             "in": "body",
             "schema": {
               "type": "object",
@@ -210,10 +251,25 @@
                   "example": "any"
                 }
               }
-            }
+            },
+            "description": "new user xp",
+            "required": true
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "User xp modified"
+          },
+          "400": {
+            "description": "Bad userId or xp"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/{userId}/notification": {
@@ -221,8 +277,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get all received notifications",
-        "description": "",
+        "description": "Get all user notifications",
         "parameters": [
           {
             "name": "userId",
@@ -233,7 +288,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notifications found"
+          },
+          "400": {
+            "description": "Bad userId"
+          },
+          "404": {
+            "description": "Notifications not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -243,8 +307,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get all received notifications by type",
-        "description": "",
+        "description": "Get all user notifications by type",
         "parameters": [
           {
             "name": "userId",
@@ -261,7 +324,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notifications found"
+          },
+          "400": {
+            "description": "Bad userId or type"
+          },
+          "404": {
+            "description": "Notifications not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -271,8 +343,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Get one specific received notification by type",
-        "description": "",
+        "description": "Get all user notifications by type",
         "parameters": [
           {
             "name": "userId",
@@ -295,7 +366,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notifications found"
+          },
+          "400": {
+            "description": "Bad userId or type"
+          },
+          "404": {
+            "description": "Notifications not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -303,8 +383,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Create a notification",
-        "description": "",
+        "description": "Create a notification",
         "parameters": [
           {
             "name": "userId",
@@ -327,7 +406,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notification created"
+          },
+          "400": {
+            "description": "Bad userId or type or senderId"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -335,8 +420,7 @@
         "tags": [
           "User"
         ],
-        "summary": "delete a notification",
-        "description": "",
+        "description": "Delete a notification",
         "parameters": [
           {
             "name": "userId",
@@ -359,7 +443,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notification deleted"
+          },
+          "400": {
+            "description": "Bad userId or type or senderId"
+          },
+          "404": {
+            "description": "notification does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -369,7 +462,6 @@
         "tags": [
           "Inventory"
         ],
-        "summary": "Get an inventory by id",
         "description": "",
         "parameters": [
           {
@@ -441,12 +533,14 @@
         "tags": [
           "Spell"
         ],
-        "summary": "Get all spells",
-        "description": "",
+        "description": "get all spells",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Got all spells"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -465,8 +559,7 @@
         "tags": [
           "Spell"
         ],
-        "summary": "Get a spell by name",
-        "description": "",
+        "description": "Get a spell by its name",
         "parameters": [
           {
             "name": "name",
@@ -477,7 +570,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Spell found"
+          },
+          "404": {
+            "description": "Spell not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -487,8 +586,7 @@
         "tags": [
           "Spell"
         ],
-        "summary": "Get a spell by id",
-        "description": "",
+        "description": "Create a notification",
         "parameters": [
           {
             "name": "id",
@@ -499,7 +597,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notification created"
+          },
+          "400": {
+            "description": "Bad userId or type or senderId"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }

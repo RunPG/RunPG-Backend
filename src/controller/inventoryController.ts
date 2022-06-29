@@ -6,9 +6,6 @@ const inventoryController = Router()
 
 // FIXME: Useless route ? we should get by userId instead
 inventoryController.get('/:id', async (req, res) => {
-  /**
-   * #swagger.summary = 'Get an inventory by id'
-   */
   let inventory
   try {
     inventory = await inventoryService.getById(Number(req.params.id))
