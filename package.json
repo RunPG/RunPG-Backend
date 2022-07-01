@@ -14,7 +14,7 @@
     "prisma:seed": "ts-node --transpile-only prisma/seed.ts",
     "dev": "nodemon",
     "clean": "rm -rf dist node_modules",
-    "start": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
     "test:migrate": "dotenv -e .env.test -- npx prisma migrate dev",
     "test:unit": "dotenv -e .env.test -- jest -i --config src/jest.config.unit.ts --group=unit",
     "test:integration": "dotenv -e .env.test -- jest -i --config src/jest.config.integration.ts --group=integration",
