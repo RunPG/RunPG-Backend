@@ -3,6 +3,7 @@ services:
   runpg_db:
     container_name: runpg_db
     image: postgres:14.2
+    restart: always
     environment:
       - POSTGRES_USER=api
       - POSTGRES_PASSWORD=password
@@ -11,6 +12,7 @@ services:
   runpg_db_test:
     container_name: runpg_db_test
     image: postgres:14.2
+    restart: always
     environment:
       - POSTGRES_USER=api
       - POSTGRES_PASSWORD=password

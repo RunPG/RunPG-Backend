@@ -7,7 +7,7 @@
     "node": "^16.14.2"
   },
   "scripts": {
-    "docker:up": "sudo docker-compose up -d --force-recreate",
+    "docker:up": "sudo docker-compose -f docker-compose.dev.yml up -d --force-recreate",
     "docker:down": "sudo docker-compose down",
     "prisma:reset": "npx prisma migrate reset",
     "prisma:migrate": "npx prisma migrate dev",
