@@ -31,7 +31,6 @@ export async function seedDatabase(): Promise<void> {
     data: users
   })
 
-
   await prisma.$transaction([
     createEquipementBase,
     createStatistics,

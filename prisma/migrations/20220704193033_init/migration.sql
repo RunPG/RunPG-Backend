@@ -2,6 +2,9 @@
 CREATE TYPE "EquipementType" AS ENUM ('WEAPON', 'HELMET', 'CHESTPLATE', 'LEGGINGS', 'GLOVES');
 
 -- CreateEnum
+CREATE TYPE "NotificationType" AS ENUM ('FRIENDLIST', 'LOBBY', 'GUILD');
+
+-- CreateEnum
 CREATE TYPE "HeroClass" AS ENUM ('MAGE', 'BERSERKER', 'PRIEST', 'ROGUE', 'PALADIN');
 
 -- CreateEnum
@@ -109,6 +112,7 @@ CREATE TABLE "User" (
     "guildId" INTEGER,
     "characterId" INTEGER,
     "lastCaloriesUpdate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isGuildOwner" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -117,10 +121,16 @@ CREATE TABLE "User" (
 CREATE TABLE "Guild" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "ownerId" INTEGER NOT NULL,
+    "description" TEXT,
 
     CONSTRAINT "Guild_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Notification" (
+    "senderId" INTEGER NOT NULL,
+    "receiverId" INTEGER NOT NULL,
+    "type" "NotificationType" NOT NULL
 );
 
 -- CreateIndex
@@ -145,7 +155,7 @@ CREATE UNIQUE INDEX "User_characterId_key" ON "User"("characterId");
 CREATE UNIQUE INDEX "Guild_name_key" ON "Guild"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Guild_ownerId_key" ON "Guild"("ownerId");
+CREATE UNIQUE INDEX "Notification_senderId_receiverId_type_key" ON "Notification"("senderId", "receiverId", "type");
 
 -- AddForeignKey
 ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_itemId_fkey" FOREIGN KEY ("itemId") REFERENCES "Item"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -205,4 +215,7 @@ ALTER TABLE "User" ADD CONSTRAINT "User_characterId_fkey" FOREIGN KEY ("characte
 ALTER TABLE "User" ADD CONSTRAINT "User_guildId_fkey" FOREIGN KEY ("guildId") REFERENCES "Guild"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Guild" ADD CONSTRAINT "Guild_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Notification" ADD CONSTRAINT "Notification_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Notification" ADD CONSTRAINT "Notification_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

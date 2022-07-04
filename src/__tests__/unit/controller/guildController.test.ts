@@ -23,7 +23,6 @@ test('GET a guild by id should return the guild returned by guildService and cod
   expect(result.type).toEqual(expect.stringContaining('json'))
   expect(result.body.id).toEqual(guild1.id)
   expect(result.body.name).toEqual(guild1.name)
-  expect(result.body.ownerId).toEqual(guild1.ownerId)
 })
 
 test('GET a guild by id should return null and code 404 when guildService returns null', async () => {
@@ -69,7 +68,6 @@ test('Create a guild should return the new guild and code 201', async () => {
   expect(result.type).toEqual(expect.stringContaining('json'))
   expect(result.body.id).toEqual(guild1.id)
   expect(result.body.name).toEqual(guild1.name)
-  expect(result.body.ownerId).toEqual(guild1.ownerId)
 })
 
 test('Create an already existing guild should return nothing and code 409', async () => {
@@ -113,13 +111,7 @@ test('Update guild should return the guild modified and code 200 on success', as
     .send({ newGuildValues: guild1 })
 
   expect(result.statusCode).toEqual(StatusCodes.OK)
-  expect(result.body).toEqual(
-    {
-      'description': 'description guild2',
-      'id': 2,
-      'name': 'guild2',
-      'ownerId': 2
-    })
+  expect(result.body).toEqual(guild2)
 })
 
 test('Update guild should return nothing and code 400 on parse guildId error', async () => {

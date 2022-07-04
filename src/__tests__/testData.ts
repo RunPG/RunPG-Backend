@@ -8,8 +8,9 @@ export const user1: User = {
   id: 1,
   name: 'User1',
   characterId: null,
-  guildId: null,
-  lastCaloriesUpdate: new Date(2020, 0, 1)
+  guildId: 1,
+  lastCaloriesUpdate: new Date(2020, 0, 1),
+  isGuildOwner: true
 }
 
 export const user2: User = {
@@ -17,15 +18,17 @@ export const user2: User = {
   name: 'User2',
   characterId: null,
   guildId: null,
-  lastCaloriesUpdate: new Date(2000, 7, 12)
+  lastCaloriesUpdate: new Date(2000, 7, 12),
+  isGuildOwner: false
 }
 
 export const user3: User = {
   id: 3,
   name: 'User3',
   characterId: 1,
-  guildId: 1,
-  lastCaloriesUpdate: new Date(2022, 1, 4)
+  guildId: 2,
+  lastCaloriesUpdate: new Date(2022, 1, 4),
+  isGuildOwner: true
 }
 
 export const users = [
@@ -324,14 +327,12 @@ export const statistics = [
 export const guild1: Guild = {
   id: 1,
   name: 'guild1',
-  ownerId: 3,
   description: 'description guild1'
 }
 
 export const guild2: Guild = {
   id: 2,
   name: 'guild2',
-  ownerId: 2,
   description: 'description guild2'
 }
 

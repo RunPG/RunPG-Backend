@@ -45,7 +45,8 @@ async function main(): Promise<void> {
         heroClass: 'BERSERKER',
         rarity: 'COMMON'
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 
   await prisma.statistics.createMany({
@@ -122,7 +123,8 @@ async function main(): Promise<void> {
         strength: 1,
         vitality: 1
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 
   await prisma.equipement.createMany({
@@ -152,7 +154,8 @@ async function main(): Promise<void> {
         equipementBaseId: 5,
         statisticsId: 5
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 
   await prisma.spell.createMany({
@@ -189,7 +192,8 @@ async function main(): Promise<void> {
         description: 'Close your eyes. That\' it.',
         class: 'BERSERKER'
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 
   await prisma.character.createMany({
@@ -209,7 +213,8 @@ async function main(): Promise<void> {
         glovesId: 3,
         leggingsId: 4
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 
   await prisma.user.createMany({
@@ -219,7 +224,6 @@ async function main(): Promise<void> {
         name: 'Gabriel',
         characterId: 1,
         lastCaloriesUpdate: new Date()
-
       },
       {
         id: 2,

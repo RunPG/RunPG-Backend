@@ -171,19 +171,16 @@ model User {
   user                 Friend[]       @relation("user")
   friends              Friend[]       @relation("friend")
   lastCaloriesUpdate   DateTime       @default(now())
-  ownerGuild           Guild?         @relation("guildOwner")
   notificationSent     Notification[] @relation("sender")
   notificationReceived Notification[] @relation("receiver")
+  isGuildOwner         Boolean        @default(false)
 }
 
 model Guild {
   id          Int     @id @default(autoincrement())
   name        String  @unique
   description String?
-  ownerId     Int     @unique
   users       User[]
-
-  owner User @relation("guildOwner", fields: [ownerId], references: [id])
 }
 
 model Notification {
