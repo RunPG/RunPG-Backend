@@ -12,4 +12,8 @@ RUN npm ci
 
 COPY . .
 
-CMD npx prisma migrate dev && npm run prisma:seed && npm run build && npm run start
+RUN npx prisma generate
+
+RUN npm run build
+
+CMD npx prisma migrate deploy && npm run prisma:seed && npm run start
