@@ -733,6 +733,28 @@
           }
         }
       }
+    },
+    "/equipement/{id}": {
+      "get": {
+        "tags": [
+          "equipement"
+        ],
+        "summary": "Get the equipement by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   }
 }
