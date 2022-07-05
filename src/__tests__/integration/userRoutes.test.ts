@@ -78,7 +78,7 @@ test('Create a user should return the new user and code 201', async () => {
   expect(result.type).toEqual(expect.stringContaining('json'))
   expect(result.body.name).toEqual(user1.name)
   expect(result.body.characterId).toEqual(user1.characterId)
-  expect(result.body.guildId).toEqual(user1.guildId)
+  expect(result.body.guildId).toEqual(null)
 })
 
 test('Create an already existing user should return nothing and code 409', async () => {

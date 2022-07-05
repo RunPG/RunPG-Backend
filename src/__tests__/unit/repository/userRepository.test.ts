@@ -1,7 +1,8 @@
 import { prismaMock } from '../../../prismaMock'
 import { userRepository } from '../../../repository'
 import { User } from '@prisma/client'
-import { user1, user2 } from '../../testData'
+import { guild1, user1, user2 } from '../../testData'
+import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
 
 /**
  * User repository unit test
@@ -83,6 +84,39 @@ test('create should throw when asked to create User2 that already exists', async
   expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name } })
 })
 
+test('join a guild should return the user that just joined the guild', async () => {
+  prismaMock.user.findUnique.mockResolvedValue(user2)
+  prismaMock.user.update.mockResolvedValue(user2)
+
+  const result = await userRepository.joinGuild(user2.id, guild1.id)
+
+  expect(result).toEqual(user2)
+  expect(prismaMock.user.update).toBeCalledWith({
+    where: {
+      id: 2
+    },
+    data: {
+      guildId: 1
+    }
+  })
+})
+
+test('join a guild should return null because the user does not exist', async () => {
+  prismaMock.user.findUnique.mockResolvedValue(null)
+  prismaMock.user.update.mockResolvedValue(user2)
+  const result = await userRepository.joinGuild(user2.id, guild1.id)
+  expect(result).toEqual(null)
+})
+
+test('join a guild should throw a AlreadyInAGuildError because the user already has a guild', async () => {
+  prismaMock.user.findUnique.mockResolvedValue(user1)
+  prismaMock.user.update.mockResolvedValue(user1)
+
+  const call = async (): Promise<User | null> => await userRepository.joinGuild(user1.id, guild1.id)
+
+  expect(call).rejects.toThrow(AlreadyInAGuildError)
+
+})
 // test('incrementExperience should call user.update with new date and new xp value', async () => {
 //   const xp = 50
 

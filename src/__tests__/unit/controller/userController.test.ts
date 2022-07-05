@@ -1,8 +1,9 @@
 import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../../app'
+import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
 import { userService } from '../../../service'
-import { user1 } from '../../testData'
+import { user1, user2, guild1 } from '../../testData'
 
 const request = supertest(app)
 
@@ -126,7 +127,7 @@ test('Create an already existing user should return nothing and code 409', async
   expect(result.body).toEqual({})
 })
 
-test('Create a user should return nothing and code 400 when their is no name given', async () => {
+test('Create a user should return nothing and code 400 when there is no name given', async () => {
   const result = await request.post('/user')
 
   expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
@@ -215,5 +216,75 @@ test('Update user xp should return nothing and code 500 when userService throws'
     .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
+  expect(result.body).toEqual({})
+})
+
+test('POST make user join a guild should return the user and code 200', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    return user1
+  })
+
+  const result = await request.post(`/user/${user1.id}/join/${guild1.id}`)
+
+  expect(result.statusCode).toEqual(StatusCodes.OK)
+  expect(result.type).toEqual(expect.stringContaining('json'))
+  expect(result.body.id).toEqual(user1.id)
+  expect(result.body.name).toEqual(user1.name)
+  expect(result.body.characterId).toEqual(user1.characterId)
+  expect(result.body.guildId).toEqual(guild1.id)
+  expect(result.body.lastCaloriesUpdate).toEqual(user1.lastCaloriesUpdate.toISOString())
+})
+
+test('POST make user join a guild should return null and code 404 when userService returns null', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    return null
+  })
+
+  const result = await request.post(`/user/${user1.id}/join/${guild1.id}`)
+
+  expect(result.statusCode).toEqual(StatusCodes.NOT_FOUND)
+  expect(result.body).toEqual({})
+})
+
+test('POST make user join a guild should return null and code 500 when userService throws', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    throw new Error()
+  })
+
+  const result = await request.post(`/user/${user2.id}/join/${guild1.id}`)
+
+  expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
+  expect(result.body).toEqual({})
+})
+
+
+test('POST make user join a guild with wrong userId should return null and code 400', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    return user1
+  })
+  const result = await request.post(`/user/NaN/join/${guild1.id}`)
+
+  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
+  expect(result.body).toEqual({})
+})
+
+test('POST make user join a guild with wrong guildId should return null and code 400', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    return user1
+  })
+
+  const result = await request.post(`/user/${user2.id}/join/NaN`)
+
+  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
+  expect(result.body).toEqual({})
+})
+
+test('POST make user join a guild while already having a guild should return null and code 409', async () => {
+  userService.joinGuild = jest.fn(async () => {
+    throw new AlreadyInAGuildError()
+  })
+  const result = await request.post(`/user/${user1.id}/join/${guild1.id}`)
+
+  expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
 })

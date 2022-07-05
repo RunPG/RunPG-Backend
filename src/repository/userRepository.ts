@@ -1,6 +1,6 @@
 import { User, Friend } from '@prisma/client'
 import prisma from './client'
-
+import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
 export async function getAllUsers(): Promise<User[]> {
   return await prisma.user.findMany()
 }
@@ -71,6 +71,27 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
         }
       },
       lastCaloriesUpdate: new Date() // FIXME: Check date is utc
+    }
+  })
+}
+export async function joinGuild(id: number, guildId: number): Promise<User | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      id
+    }
+  })
+  if (user == null) {
+    return null
+  }
+  if (user.guildId != null) {
+    throw new AlreadyInAGuildError()
+  }
+  return await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      guildId
     }
   })
 }

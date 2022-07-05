@@ -457,6 +457,34 @@
         }
       }
     },
+    "/user/{userId}/join/{guildId}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Join the guild",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guildId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [
@@ -604,6 +632,101 @@
           },
           "500": {
             "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/guild/": {
+      "get": {
+        "tags": [
+          "guild"
+        ],
+        "summary": "Get all the guildes",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "guild"
+        ],
+        "summary": "create a guild",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "guild": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/guild/{guildId}": {
+      "get": {
+        "tags": [
+          "guild"
+        ],
+        "summary": "Get a guild by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "guildId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "guild"
+        ],
+        "summary": "Update a guild",
+        "description": "",
+        "parameters": [
+          {
+            "name": "guildId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newGuildValues": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

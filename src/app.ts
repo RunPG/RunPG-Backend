@@ -1,7 +1,7 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import morgan from 'morgan'
-import { inventoryController, spellController, userController } from './controller'
+import { guildController, inventoryController, spellController, userController } from './controller'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
@@ -18,6 +18,9 @@ app.use('/inventory', inventoryController
 )
 app.use('/spell', spellController
   // #swagger.tags = ['Spell']
+)
+app.use('/guild', guildController
+  // #swagger.tags = ['guild']
 )
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))

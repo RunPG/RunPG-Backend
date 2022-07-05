@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum EquipementType {
   WEAPON
   HELMET
@@ -18,11 +17,13 @@ enum EquipementType {
   LEGGINGS
   GLOVES
 }
-enum NotificationType{
+
+enum NotificationType {
   FRIENDLIST
   LOBBY
   GUILD
 }
+
 enum HeroClass {
   MAGE
   BERSERKER
@@ -161,34 +162,33 @@ model Character {
 }
 
 model User {
-  id                 Int        @id @default(autoincrement())
-  name               String     @unique
-  guildId            Int?
-  characterId        Int?       @unique
-  character          Character? @relation(fields: [characterId], references: [id])
-  guild              Guild?     @relation(fields: [guildId], references: [id])
-  user               Friend[]   @relation("user")
-  friends            Friend[]   @relation("friend")
-  lastCaloriesUpdate DateTime   @default(now())
-  ownerGuild         Guild?     @relation("guildOwner")
-  notificationSent   Notification[] @relation("sender")
-  notificationReceived  Notification[] @relation("receiver")
+  id                   Int            @id @default(autoincrement())
+  name                 String         @unique
+  guildId              Int?
+  characterId          Int?           @unique
+  character            Character?     @relation(fields: [characterId], references: [id])
+  guild                Guild?         @relation(fields: [guildId], references: [id])
+  user                 Friend[]       @relation("user")
+  friends              Friend[]       @relation("friend")
+  lastCaloriesUpdate   DateTime       @default(now())
+  notificationSent     Notification[] @relation("sender")
+  notificationReceived Notification[] @relation("receiver")
+  isGuildOwner         Boolean        @default(false)
 }
 
 model Guild {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
-  description String
-  ownerId     Int    @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
   users       User[]
-
-  owner User @relation("guildOwner", fields: [ownerId], references: [id])
 }
+
 model Notification {
-  senderId                 Int
-  receiverId               Int
-  type                     NotificationType
-  sender   User @relation("sender",fields: [senderId],references: [id])
-  receiver User @relation("receiver",fields: [receiverId],references: [id])
-  @@unique([senderId, receiverId,type])
+  senderId   Int
+  receiverId Int
+  type       NotificationType
+  sender     User             @relation("sender", fields: [senderId], references: [id])
+  receiver   User             @relation("receiver", fields: [receiverId], references: [id])
+
+  @@unique([senderId, receiverId, type])
 }
