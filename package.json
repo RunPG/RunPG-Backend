@@ -7,22 +7,21 @@
     "node": "^16.14.2"
   },
   "scripts": {
-    "docker:up": "sudo docker-compose up -d --force-recreate",
+    "docker:up": "sudo docker-compose -f docker-compose.dev.yml up -d --force-recreate",
     "docker:down": "sudo docker-compose down",
     "prisma:reset": "npx prisma migrate reset",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:seed": "ts-node --transpile-only prisma/seed.ts",
     "dev": "nodemon",
     "clean": "rm -rf dist node_modules",
-    "start": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
     "test:migrate": "dotenv -e .env.test -- npx prisma migrate dev",
     "test:unit": "dotenv -e .env.test -- jest -i --config src/jest.config.unit.ts --group=unit",
     "test:integration": "dotenv -e .env.test -- jest -i --config src/jest.config.integration.ts --group=integration",
     "test": "npm run test:unit && npm run test:integration",
     "build": "tsc",
     "lint": "eslint -c .eslintrc.json --ext .ts src/",
-    "swagger-autogen": "node src/swagger.js",
-    "prepublish": "npm run build"
+    "swagger-autogen": "node src/swagger.js"
   },
   "author": "",
   "license": "ISC",

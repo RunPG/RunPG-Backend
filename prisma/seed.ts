@@ -309,3 +309,6 @@ main()
   .catch(err => {
     console.error(err)
   })
+  .finally(() => {
+    prisma.$disconnect()
+  })
