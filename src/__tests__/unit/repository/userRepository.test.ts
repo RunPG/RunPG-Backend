@@ -48,6 +48,24 @@ test('getByName should return null when asked User1 and User1 does not exists', 
   expect(prismaMock.user.findUnique).toBeCalledWith({ where: { name: user1.name } })
 })
 
+test('getByUid should return User1 when asked User1 and User1 exists', async () => {
+  prismaMock.user.findUnique.mockResolvedValue(user1)
+
+  const result = await userRepository.getByUid(user1.uid)
+
+  expect(result).toEqual(user1)
+  expect(prismaMock.user.findUnique).toBeCalledWith({ where: { uid: user1.uid } })
+})
+
+test('getByUid should return null when asked User1 and User1 does not exists', async () => {
+  prismaMock.user.findUnique.mockResolvedValue(null)
+
+  const result = await userRepository.getByName(user1.uid)
+
+  expect(result).toEqual(null)
+  expect(prismaMock.user.findUnique).toBeCalledWith({ where: { name: user1.uid } })
+})
+
 test('getById should return User1 when asked 1 and 1 exists', async () => {
   prismaMock.user.findUnique.mockResolvedValue(user1)
 
@@ -69,19 +87,19 @@ test('getById should return user null when asked 1 and 1 does not exists', async
 test('create should create a new user with name User2 when asked to create one with name User2', async () => {
   prismaMock.user.create.mockResolvedValue(user2)
 
-  const result = await userRepository.create(user2.name)
+  const result = await userRepository.create(user2.name, user2.uid)
 
   expect(result).toEqual(user2)
-  expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name } })
+  expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name, uid: user2.uid } })
 })
 
 test('create should throw when asked to create User2 that already exists', async () => {
   prismaMock.user.create.mockRejectedValue(new Error())
 
-  const call = async (): Promise<User> => await userRepository.create(user2.name)
+  const call = async (): Promise<User> => await userRepository.create(user2.name, user2.uid)
 
   expect(call).rejects.toThrow()
-  expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name } })
+  expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name, uid: user2.uid } })
 })
 
 test('join a guild should return the user that just joined the guild', async () => {

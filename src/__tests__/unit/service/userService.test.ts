@@ -108,15 +108,20 @@ test('create should return a user when userRepository.getByName return null', as
     return null
   })
 
+  userRepository.getByUid = jest.fn(async () => {
+    return null
+  })
+
   userRepository.create = jest.fn(async () => {
     return user1
   })
 
-  const result = await userService.create(user1.name)
+  const result = await userService.create(user1.name, user1.uid)
 
   expect(result).toEqual(user1)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
-  expect(userRepository.create).toBeCalledWith(user1.name)
+  expect(userRepository.getByUid).toBeCalledWith(user1.uid)
+  expect(userRepository.create).toBeCalledWith(user1.name, user1.uid)
 })
 
 test('create should return null when userRepository.getByName returns a user', async () => {
@@ -124,7 +129,7 @@ test('create should return null when userRepository.getByName returns a user', a
     return user1
   })
 
-  const result = await userService.create(user1.name)
+  const result = await userService.create(user1.name, user1.uid)
 
   expect(result).toEqual(null)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
@@ -137,7 +142,37 @@ test('create should throw when userRepository.getByName throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name)
+    await userService.create(user1.name, user2.uid)
+  }
+
+  await expect(call).rejects.toThrow()
+  expect(userRepository.create).not.toBeCalled()
+})
+
+test('create should return null when userRepository.getByUid returns a user', async () => {
+  userRepository.getByName = jest.fn(async () => {
+    return null
+  })
+
+  userRepository.getByUid = jest.fn(async () => {
+    return user1
+  })
+
+  const result = await userService.create(user1.name, user1.uid)
+
+  expect(result).toEqual(null)
+  expect(userRepository.getByName).toBeCalledWith(user1.name)
+  expect(userRepository.getByUid).toBeCalledWith(user1.uid)
+  expect(userRepository.create).not.toBeCalled()
+})
+
+test('create should throw when userRepository.getByUid throws', async () => {
+  userRepository.getByUid = jest.fn(async () => {
+    throw new Error()
+  })
+
+  const call = async (): Promise<void> => {
+    await userService.create(user1.name, user1.uid)
   }
 
   await expect(call).rejects.toThrow()
@@ -154,7 +189,7 @@ test('create should throw when userRepository.create throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name)
+    await userService.create(user1.name, user2.uid)
   }
 
   await expect(call).rejects.toThrow()

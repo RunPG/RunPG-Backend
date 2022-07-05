@@ -10,7 +10,8 @@ export const user1: User = {
   characterId: null,
   guildId: 1,
   lastCaloriesUpdate: new Date(2020, 0, 1),
-  isGuildOwner: true
+  isGuildOwner: true,
+  uid: 'g123456789565'
 }
 
 export const user2: User = {
@@ -19,7 +20,8 @@ export const user2: User = {
   characterId: null,
   guildId: null,
   lastCaloriesUpdate: new Date(2000, 7, 12),
-  isGuildOwner: false
+  isGuildOwner: false,
+  uid: 'g594506501721'
 }
 
 export const user3: User = {
@@ -28,7 +30,8 @@ export const user3: User = {
   characterId: 1,
   guildId: 2,
   lastCaloriesUpdate: new Date(2022, 1, 4),
-  isGuildOwner: true
+  isGuildOwner: true,
+  uid: 'g5496780416163'
 }
 
 export const users = [

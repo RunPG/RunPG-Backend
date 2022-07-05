@@ -97,14 +97,15 @@ userController.post('/', async (req, res) => {
  * #swagger.responses[400] = { description: 'no user name found' }
 */
   const name = req.body.name
-  if (name == null) {
+  const uid = req.body.uid
+  if (name == null || uid == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createduser
   try {
-    createduser = await userService.create(name)
+    createduser = await userService.create(name, uid)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -112,7 +113,7 @@ userController.post('/', async (req, res) => {
   }
 
   if (createduser == null) {
-    res.status(StatusCodes.CONFLICT).send(`username '${name}' already exists`)
+    res.status(StatusCodes.CONFLICT).send(`${name}:${uid} already exists`)
   }
   else {
     res.status(StatusCodes.CREATED).send(createduser)
