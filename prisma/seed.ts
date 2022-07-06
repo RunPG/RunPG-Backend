@@ -6,7 +6,6 @@ async function main(): Promise<void> {
   await prisma.equipementBase.createMany({
     data: [
       {
-        id: 1,
         name: 'Helmet',
         description: 'A helmet you found on the side of the road, you are not even sure this is a helmet. It\'s unique in its own way !',
         rarity: 'RELIC',
@@ -14,7 +13,6 @@ async function main(): Promise<void> {
         equipementType: 'HELMET'
       },
       {
-        id: 2,
         name: 'Shirt',
         description: 'A shirt that your mom made you.',
         rarity: 'RELIC',
@@ -22,7 +20,6 @@ async function main(): Promise<void> {
         equipementType: 'CHESTPLATE'
       },
       {
-        id: 3,
         name: 'Cooking gloves',
         description: 'Gloves you took from your house in a hurry.',
         equipementType: 'GLOVES',
@@ -30,7 +27,6 @@ async function main(): Promise<void> {
         rarity: 'COMMON'
       },
       {
-        id: 4,
         name: 'Leggings',
         description: 'They are not your size, but you still carry them. Why ?',
         rarity: 'COMMON',
@@ -38,7 +34,6 @@ async function main(): Promise<void> {
         equipementType: 'LEGGINGS'
       },
       {
-        id: 5,
         name: 'Wood axe',
         description: 'Used to cut wood, seems efficient to also cut enemies',
         equipementType: 'WEAPON',
@@ -52,7 +47,6 @@ async function main(): Promise<void> {
   await prisma.statistics.createMany({
     data: [
       {
-        id: 1,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -64,7 +58,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 2,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -76,7 +69,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 3,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -88,7 +80,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 4,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -100,7 +91,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 5,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -112,7 +102,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 6,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -124,7 +113,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 7,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -136,7 +124,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 8,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -148,7 +135,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 9,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -160,7 +146,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 10,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -172,7 +157,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 11,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -184,7 +168,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 12,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -196,7 +179,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 13,
         agility: 1,
         defense: 1,
         endurance: 1,
@@ -214,57 +196,46 @@ async function main(): Promise<void> {
   await prisma.equipement.createMany({
     data: [
       {
-        id: 1,
         equipementBaseId: 1,
         statisticsId: 1
       },
       {
-        id: 2,
         equipementBaseId: 2,
         statisticsId: 2
       },
       {
-        id: 3,
         equipementBaseId: 3,
         statisticsId: 3
       },
       {
-        id: 4,
         equipementBaseId: 4,
         statisticsId: 4
       },
       {
-        id: 5,
         equipementBaseId: 5,
         statisticsId: 5
       },
       {
-        id: 6,
         equipementBaseId: 1,
         statisticsId: 7
       },
       {
-        id: 7,
         equipementBaseId: 2,
         statisticsId: 8
       },
       {
-        id: 8,
         equipementBaseId: 3,
         statisticsId: 9
       },
       {
-        id: 9,
         equipementBaseId: 4,
         statisticsId: 10
       },
       {
-        id: 10,
         equipementBaseId: 5,
         statisticsId: 11
       },
       {
-        id: 11,
         equipementBaseId: 1,
         statisticsId: 13
       }
@@ -275,7 +246,6 @@ async function main(): Promise<void> {
   await prisma.spell.createMany({
     data: [
       {
-        id: 1,
         name: 'Basic Attack',
         cooldown: 10,
         manaCost: 20,
@@ -283,7 +253,6 @@ async function main(): Promise<void> {
         class: 'PALADIN'
       },
       {
-        id: 2,
         name: 'Heal',
         cooldown: 5,
         manaCost: 15,
@@ -291,7 +260,6 @@ async function main(): Promise<void> {
         class: 'PALADIN'
       },
       {
-        id: 3,
         name: 'Smash',
         cooldown: 1,
         manaCost: 2,
@@ -299,7 +267,6 @@ async function main(): Promise<void> {
         class: 'PALADIN'
       },
       {
-        id: 4,
         name: 'Sleep',
         cooldown: 50,
         manaCost: 0,
@@ -307,7 +274,6 @@ async function main(): Promise<void> {
         class: 'PALADIN'
       },
       {
-        id: 5,
         name: 'Boule de feu',
         cooldown: 10,
         manaCost: 20,
@@ -315,7 +281,6 @@ async function main(): Promise<void> {
         class: 'MAGE'
       },
       {
-        id: 6,
         name: 'Embrasement',
         cooldown: 5,
         manaCost: 15,
@@ -329,7 +294,6 @@ async function main(): Promise<void> {
   await prisma.character.createMany({
     data: [
       {
-        id: 1,
         class: 'PALADIN',
         experience: 1337,
         firstSpellId: 1,
@@ -344,7 +308,6 @@ async function main(): Promise<void> {
         leggingsId: 4
       },
       {
-        id: 2,
         class: 'MAGE',
         experience: 1337,
         firstSpellId: 5,
@@ -365,27 +328,23 @@ async function main(): Promise<void> {
   await prisma.user.createMany({
     data: [
       {
-        id: 1,
         name: 'Gabriel',
         lastCaloriesUpdate: new Date(),
         uid: 'zzz'
       },
       {
-        id: 2,
         name: 'yott94',
         uid: 'g03636930156556937198',
         lastCaloriesUpdate: new Date(),
         characterId: 1
       },
       {
-        id: 3,
         name: 'LeMoutonZen',
         uid: 'g05184935568108008541',
         lastCaloriesUpdate: new Date(),
         characterId: 2
       },
       {
-        id: 4,
         name: 'Kieran',
         uid: 'cccc',
         lastCaloriesUpdate: new Date()
@@ -455,8 +414,7 @@ async function main(): Promise<void> {
   await prisma.inventory.createMany({
     data: [
       {
-        id: 1,
-        userId: 2,
+        userId: 3,
         stackSize: 1,
         equipementId: 11
       }
@@ -471,6 +429,6 @@ main()
   .catch(err => {
     console.error(err)
   })
-  .finally(() => {
-    prisma.$disconnect()
+  .finally(async () => {
+    await prisma.$disconnect()
   })

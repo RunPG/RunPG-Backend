@@ -2,7 +2,7 @@ import { NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
-import { userService, notificationService } from '../service'
+import { userService, notificationService, inventoryService } from '../service'
 
 const userController = Router()
 
@@ -87,14 +87,14 @@ userController.post('/', async (req, res) => {
  * #swagger.description = 'Create a new user'
   * #swagger.parameters['name'] = {
   in: 'body',
-  description: 'new user name',
+  description: 'new user name and uid',
   required: true,
   }
  * #swagger.responses[200] = {
    description: 'User created',
   }
  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
- * #swagger.responses[400] = { description: 'no user name found' }
+ * #swagger.responses[400] = { description: 'no user found' }
 */
   const name = req.body.name
   const uid = req.body.uid
@@ -108,6 +108,7 @@ userController.post('/', async (req, res) => {
     createduser = await userService.create(name, uid)
   }
   catch (error) {
+    console.log(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
@@ -391,6 +392,7 @@ userController.post('/:userId/notification/:type/:senderId', async (req, res) =>
     res.send(creatednotification)
   }
 })
+
 userController.delete('/:userId/notification/:type/:senderId', async (req, res) => {
   /**
    * #swagger.description = 'Delete a notification'
@@ -461,5 +463,62 @@ userController.post('/:userId/join/:guildId', async (req, res) => {
   }
   else {
     res.send(user)
+  }
+})
+
+userController.post('/:userId/inventory/equipement', async (req, res) => {
+  /**
+  * #swagger.summary = 'Give an equipement to an user'
+  */
+  const userId = Number(req.params.userId)
+  const equipementBaseId = Number(req.body.equipementBaseId)
+  if (isNaN(userId) || isNaN(equipementBaseId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let inventory
+  try {
+    inventory = await inventoryService.createEquipement(userId, equipementBaseId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (inventory == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(inventory)
+  }
+})
+
+userController.post('/:userId/inventory/item', async (req, res) => {
+  /**
+  * #swagger.summary = 'Give items to an user'
+  */
+  const userId = Number(req.params.userId)
+  const itemId = Number(req.body.itemId)
+  const stackSize = Number(req.body.stackSize)
+  if (isNaN(userId) || isNaN(itemId) || isNaN(stackSize) || stackSize < 1) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let inventory
+  try {
+    inventory = await inventoryService.createItem(userId, itemId, stackSize)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (inventory == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(inventory)
   }
 })

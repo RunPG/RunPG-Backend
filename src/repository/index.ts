@@ -6,6 +6,7 @@ import * as guildRepository from './guildRepository'
 import * as equipementRepository from './equipementRepository'
 import * as equipementBaseRepository from './equipementBaseRepository'
 import * as statisticsRepository from './statisticsRepository'
+import * as itemRepository from './itemRepository'
 
 export {
   userRepository,
@@ -15,5 +16,6 @@ export {
   guildRepository,
   equipementRepository,
   equipementBaseRepository,
-  statisticsRepository
+  statisticsRepository,
+  itemRepository
 }
