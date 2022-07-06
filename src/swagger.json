@@ -642,7 +642,7 @@
     "/guild/": {
       "get": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Get all the guildes",
         "description": "",
@@ -655,7 +655,7 @@
       },
       "post": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "create a guild",
         "description": "",
@@ -683,7 +683,7 @@
     "/guild/{guildId}": {
       "get": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Get a guild by id",
         "description": "",
@@ -703,7 +703,7 @@
       },
       "put": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Update a guild",
         "description": "",
@@ -737,7 +737,7 @@
     "/equipement/{id}": {
       "get": {
         "tags": [
-          "equipement"
+          "Equipement"
         ],
         "summary": "Get the equipement by id",
         "description": "",
@@ -749,6 +749,21 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/equipementBase/": {
+      "get": {
+        "tags": [
+          "Equipement Base"
+        ],
+        "summary": "Get all equipements bases",
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
