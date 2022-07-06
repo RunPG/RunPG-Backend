@@ -5,12 +5,29 @@ import { equipementBaseService } from '../service'
 const equipementBaseController = Router()
 
 
-equipementBaseController.get('/', async (_, res) => {
+equipementBaseController.get('/', async (req, res) => {
   /**
- * #swagger.summary = 'Get all equipements bases'
- */
+  * #swagger.summary = 'Get equipement base'
+  */
+  const id = Number(req.query.id)
+  if (req.query.id != null && isNaN(id)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
   try {
-    res.send(await equipementBaseService.getAll())
+    if (req.query.id != null) {
+      const equipementBase = await equipementBaseService.getById(id)
+      if (equipementBase == null) {
+        res.sendStatus(StatusCodes.NOT_FOUND)
+      }
+      else {
+        res.send([equipementBase])
+      }
+    }
+    else {
+      res.send(await equipementBaseService.getAll())
+    }
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
