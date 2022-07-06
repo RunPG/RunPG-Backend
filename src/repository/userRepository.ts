@@ -21,10 +21,11 @@ export async function getById(id: number): Promise<User | null> {
   })
 }
 
-export async function create(name: string): Promise<User> {
+export async function create(name: string, uid: string): Promise<User> {
   return await prisma.user.create({
     data: {
-      name
+      name,
+      uid
     }
   })
 }
@@ -92,6 +93,14 @@ export async function joinGuild(id: number, guildId: number): Promise<User | nul
     },
     data: {
       guildId
+    }
+  })
+}
+
+export async function getByUid(uid: string): Promise<User | null> {
+  return await prisma.user.findUnique({
+    where: {
+      uid
     }
   })
 }

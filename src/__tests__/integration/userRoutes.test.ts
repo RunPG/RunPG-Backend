@@ -26,6 +26,7 @@ test('GET a user by name should return the user returned by userService and code
   expect(result.type).toEqual(expect.stringContaining('json'))
   expect(result.body.id).toEqual(user1.id)
   expect(result.body.name).toEqual(user1.name)
+  expect(result.body.uid).toEqual(user1.uid)
   expect(result.body.characterId).toEqual(user1.characterId)
   expect(result.body.guildId).toEqual(user1.guildId)
   expect(result.body.lastCaloriesUpdate).toEqual(user1.lastCaloriesUpdate.toISOString())
@@ -72,7 +73,7 @@ test('GET a user by id with wrong param should return null and code 400', async 
 
 test('Create a user should return the new user and code 201', async () => {
   const result = await request.post('/user')
-    .send({ name: user1.name })
+    .send({ name: user1.name, uid: user1.uid })
 
   expect(result.statusCode).toEqual(StatusCodes.CREATED)
   expect(result.type).toEqual(expect.stringContaining('json'))
@@ -85,13 +86,13 @@ test('Create an already existing user should return nothing and code 409', async
   await seedDatabase()
 
   const result = await request.post('/user')
-    .send({ name: user1.name })
+    .send({ name: user1.name, uid: user1.uid })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
 })
 
-test('Create a user should return nothing and code 400 when their is no name given', async () => {
+test('Create a user should return nothing and code 400 when their is no data given', async () => {
   const result = await request.post('/user')
 
   expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)

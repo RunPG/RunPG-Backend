@@ -9,10 +9,14 @@ export async function getById(id: number): Promise<Inventory | null> {
   })
 }
 
-export async function getByUserId(userId: number): Promise<Inventory | null> {
-  return await prisma.inventory.findFirst({
+export async function getByUserId(userId: number): Promise<Inventory[]> {
+  return await prisma.inventory.findMany({
     where: {
-      userId
+      owner: {
+        user: {
+          id: userId
+        }
+      }
     }
   })
 }

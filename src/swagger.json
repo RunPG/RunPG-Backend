@@ -57,6 +57,9 @@
               "properties": {
                 "name": {
                   "example": "any"
+                },
+                "uid": {
+                  "example": "any"
                 }
               }
             },
@@ -506,7 +509,7 @@
         }
       }
     },
-    "/inventory/{userId}": {
+    "/inventory/user/{userId}": {
       "get": {
         "tags": [
           "Inventory"
@@ -722,6 +725,28 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/equipement/{id}": {
+      "get": {
+        "tags": [
+          "equipement"
+        ],
+        "summary": "Get the equipement by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

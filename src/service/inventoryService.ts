@@ -5,7 +5,7 @@ export async function getById(id: number): Promise<Inventory | null> {
   return await inventoryRepository.getById(id)
 }
 
-export async function getByuserId(userId: number): Promise<Inventory | null> {
+export async function getByUserId(userId: number): Promise<Inventory[]> {
   return await inventoryRepository.getByUserId(userId)
 }
 

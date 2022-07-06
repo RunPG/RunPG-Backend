@@ -13,12 +13,12 @@ export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
 
-export async function create(name: string): Promise<User | null> {
-  if (await userRepository.getByName(name) != null) {
+export async function create(name: string, uid: string): Promise<User | null> {
+  if (await userRepository.getByName(name) != null || await userRepository.getByUid(uid) != null) {
     return null
   }
 
-  return await userRepository.create(name)
+  return await userRepository.create(name, uid)
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
