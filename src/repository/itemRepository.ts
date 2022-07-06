@@ -8,3 +8,7 @@ export async function getById(id: number): Promise<Item | null> {
     }
   })
 }
+
+export async function getAll(): Promise<Item[]> {
+  return await prisma.item.findMany()
+}

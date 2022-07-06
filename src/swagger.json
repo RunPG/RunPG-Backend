@@ -813,6 +813,27 @@
           }
         }
       }
+    },
+    "/item/": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "summary": "Get items",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   }
 }
