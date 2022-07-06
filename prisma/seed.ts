@@ -44,6 +44,27 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
+  await prisma.item.createMany({
+    data: [
+      {
+        name: 'Bave de slime',
+        description: 'C\'est visqueux ...',
+        isConsomable: false
+      },
+      {
+        name: 'Potion de vie',
+        description: 'Redonne de la vie',
+        isConsomable: true
+      },
+      {
+        name: 'Bombe',
+        description: 'Explose une fois lancée sur un ennemi',
+        isConsomable: true
+      }
+    ],
+    skipDuplicates: true
+  })
+
   await prisma.statistics.createMany({
     data: [
       {
@@ -417,8 +438,19 @@ async function main(): Promise<void> {
         userId: 3,
         stackSize: 1,
         equipementId: 11
+      },
+      {
+        userId: 3,
+        stackSize: 5,
+        itemId: 2
+      },
+      {
+        userId: 3,
+        stackSize: 3,
+        itemId: 3
       }
-    ]
+    ],
+    skipDuplicates: true
   })
 }
 
