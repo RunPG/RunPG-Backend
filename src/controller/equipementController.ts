@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
+import EquipementInfo from '../objects/EquipementInfo'
 import { equipementService } from '../service'
 
 const equipementController = Router()
@@ -14,20 +15,20 @@ equipementController.get('/:id', async (req, res) => {
     return
   }
 
-  let equipement
+  let equipementInfo: EquipementInfo | null
   try {
-    equipement = await equipementService.getById(id)
+    equipementInfo = await equipementService.getById(id)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (equipement == null) {
+  if (equipementInfo == null) {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.send(equipement)
+    res.send(equipementInfo)
   }
 })
 
