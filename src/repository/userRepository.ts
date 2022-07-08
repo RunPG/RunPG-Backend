@@ -21,11 +21,12 @@ export async function getById(id: number): Promise<User | null> {
   })
 }
 
-export async function create(name: string, uid: string): Promise<User> {
+export async function create(name: string, uid: string, characterId: number): Promise<User> {
   return await prisma.user.create({
     data: {
       name,
-      uid
+      uid,
+      characterId
     }
   })
 }

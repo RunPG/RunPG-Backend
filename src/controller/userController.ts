@@ -1,4 +1,4 @@
-import { NotificationType } from '@prisma/client'
+import { HeroClass, NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
@@ -84,28 +84,37 @@ userController.get('/:userId', async (req, res) => {
 
 userController.post('/', async (req, res) => {
   /**
- * #swagger.description = 'Create a new user'
+  * #swagger.description = 'Create a new user'
   * #swagger.parameters['name'] = {
   in: 'body',
-  description: 'new user name and uid',
+  description: 'new user name',
   required: true,
   }
- * #swagger.responses[200] = {
-   description: 'User created',
+  * #swagger.parameters['uid'] = {
+  in: 'body',
+  description: 'new user google play games uid',
+  required: true,
   }
- * #swagger.responses[500] = { description: 'Server encountered an internal error' }
- * #swagger.responses[400] = { description: 'no user found' }
-*/
+  * #swagger.parameters['heroClass'] = {
+  in: 'body',
+  description: 'new user selected class',
+  required: true,
+  }
+  * #swagger.responses[200] = { description: 'User created' }
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Request is not valid' }
+  */
   const name = req.body.name
   const uid = req.body.uid
-  if (name == null || uid == null) {
+  const heroClass: HeroClass = req.body.heroClass as HeroClass
+  if (name == null || uid == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createduser
   try {
-    createduser = await userService.create(name, uid)
+    createduser = await userService.create(name, uid, heroClass)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

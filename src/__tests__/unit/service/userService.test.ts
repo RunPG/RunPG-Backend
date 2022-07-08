@@ -1,8 +1,8 @@
-import { User } from '@prisma/client'
+import { HeroClass, User } from '@prisma/client'
 import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
-import { userRepository } from '../../../repository'
+import { characterRepository, userRepository } from '../../../repository'
 import { userService } from '../../../service'
-import { guild1, user1, user2 } from '../../testData'
+import { character1, guild1, user1, user2 } from '../../testData'
 
 /**
  * User service unit test
@@ -112,16 +112,20 @@ test('create should return a user when userRepository.getByName return null', as
     return null
   })
 
+  characterRepository.create = jest.fn(async () => {
+    return character1
+  })
+
   userRepository.create = jest.fn(async () => {
     return user1
   })
 
-  const result = await userService.create(user1.name, user1.uid)
+  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
 
   expect(result).toEqual(user1)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
   expect(userRepository.getByUid).toBeCalledWith(user1.uid)
-  expect(userRepository.create).toBeCalledWith(user1.name, user1.uid)
+  expect(userRepository.create).toBeCalledWith(user1.name, user1.uid, character1.id)
 })
 
 test('create should return null when userRepository.getByName returns a user', async () => {
@@ -129,7 +133,7 @@ test('create should return null when userRepository.getByName returns a user', a
     return user1
   })
 
-  const result = await userService.create(user1.name, user1.uid)
+  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
 
   expect(result).toEqual(null)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
@@ -142,7 +146,7 @@ test('create should throw when userRepository.getByName throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name, user2.uid)
+    await userService.create(user1.name, user2.uid, HeroClass.MAGE)
   }
 
   await expect(call).rejects.toThrow()
@@ -158,7 +162,7 @@ test('create should return null when userRepository.getByUid returns a user', as
     return user1
   })
 
-  const result = await userService.create(user1.name, user1.uid)
+  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
 
   expect(result).toEqual(null)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
@@ -172,7 +176,7 @@ test('create should throw when userRepository.getByUid throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name, user1.uid)
+    await userService.create(user1.name, user1.uid, HeroClass.MAGE)
   }
 
   await expect(call).rejects.toThrow()
@@ -189,7 +193,7 @@ test('create should throw when userRepository.create throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name, user2.uid)
+    await userService.create(user1.name, user2.uid, HeroClass.MAGE)
   }
 
   await expect(call).rejects.toThrow()

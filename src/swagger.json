@@ -60,11 +60,34 @@
                 },
                 "uid": {
                   "example": "any"
+                },
+                "heroClass": {
+                  "example": "any"
                 }
               }
             },
-            "description": "new user name and uid",
+            "description": "new user name",
             "required": true
+          },
+          {
+            "name": "uid",
+            "in": "body",
+            "description": "new user google play games uid",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          {
+            "name": "heroClass",
+            "in": "body",
+            "description": "new user selected class",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
           }
         ],
         "responses": {
@@ -72,7 +95,7 @@
             "description": "User created"
           },
           "400": {
-            "description": "no user found"
+            "description": "Request is not valid"
           },
           "500": {
             "description": "Server encountered an internal error"

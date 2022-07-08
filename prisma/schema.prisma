@@ -41,7 +41,6 @@ enum Rarity {
 }
 
 // TODO: Guiler, hotel des ventes, demandes d'ami
-// FIXME: userId linked to character is error prone
 model Inventory {
   id        Int @id @default(autoincrement())
   userId    Int
