@@ -7,27 +7,27 @@ jobs:
       matrix:
         node-version: [16.14.2]
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install dotenv-cli globally
-      run: npm i -g dotenv-cli
-    - name: Install and build project
-      run: npm ci
-    - name: Run lint check
-      run: npm run lint
-    - name: Create .env.test file
-      uses: SpicyPizza/create-envfile@v1.3
-      with:
-        envkey_DATABASE_URL: "postgresql://api:password@localhost:5433/runpg?schema=public"
-        envkey_PORT: 5001
-        file_name: .env.test
-    - name: Start test database
-      run: npm run docker:up
-    - name: Apply Prisma migrations
-      run: npm run test:migrate
-    - name: Run tests
-      run: npm run test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dotenv-cli globally
+        run: npm i -g dotenv-cli
+      - name: Install and build project
+        run: npm ci
+      - name: Run lint check
+        run: npm run lint
+      - name: Create .env.test file
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_DATABASE_URL: "postgresql://api:password@localhost:5433/runpg?schema=public"
+          envkey_PORT: 5001
+          file_name: .env.test
+      - name: Start test database
+        run: npm run dev:up
+      - name: Apply Prisma migrations
+        run: npm run test:migrate
+      - name: Run tests
+        run: npm run test
