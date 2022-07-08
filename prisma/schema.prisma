@@ -59,7 +59,6 @@ model Statistics {
   id         Int          @id @default(autoincrement())
   level      Int
   vitality   Int
-  endurance  Int
   strength   Int
   defense    Int
   power      Int
