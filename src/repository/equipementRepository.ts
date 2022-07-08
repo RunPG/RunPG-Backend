@@ -8,3 +8,12 @@ export async function getById(id: number): Promise<Equipement | null> {
     }
   })
 }
+
+export async function create(equipementBaseId: number, statisticsId: number): Promise<Equipement> {
+  return await prisma.equipement.create({
+    data: {
+      equipementBaseId,
+      statisticsId
+    }
+  })
+}

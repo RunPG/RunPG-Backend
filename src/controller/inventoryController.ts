@@ -52,31 +52,4 @@ inventoryController.get('/user/:userId', async (req, res) => {
   }
 })
 
-inventoryController.post('/', async (req, res) => {
-  /**
-   * #swagger.summary = 'Update an inventory'
-   */
-  const userId = req.body.userId
-  if (userId == null) {
-    res.sendStatus(StatusCodes.BAD_REQUEST)
-    return
-  }
-
-  let createdinventory
-  try {
-    createdinventory = await inventoryService.create(userId)
-  }
-  catch (error) {
-    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-    return
-  }
-
-  if (createdinventory == null) {
-    res.status(StatusCodes.CONFLICT).send(`user with id '${userId}' inventory already exists`)
-  }
-  else {
-    res.send(createdinventory)
-  }
-})
-
 export default inventoryController

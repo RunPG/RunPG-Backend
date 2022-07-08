@@ -63,7 +63,7 @@
                 }
               }
             },
-            "description": "new user name",
+            "description": "new user name and uid",
             "required": true
           }
         ],
@@ -72,7 +72,7 @@
             "description": "User created"
           },
           "400": {
-            "description": "no user name found"
+            "description": "no user found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -488,6 +488,77 @@
         }
       }
     },
+    "/user/{userId}/inventory/equipement": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Give an equipement to an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "equipementBaseId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/{userId}/inventory/item": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Give items to an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemId": {
+                  "example": "any"
+                },
+                "stackSize": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [
@@ -522,34 +593,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/inventory/": {
-      "post": {
-        "tags": [
-          "Inventory"
-        ],
-        "summary": "Update an inventory",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -642,7 +685,7 @@
     "/guild/": {
       "get": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Get all the guildes",
         "description": "",
@@ -655,7 +698,7 @@
       },
       "post": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "create a guild",
         "description": "",
@@ -683,7 +726,7 @@
     "/guild/{guildId}": {
       "get": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Get a guild by id",
         "description": "",
@@ -703,7 +746,7 @@
       },
       "put": {
         "tags": [
-          "guild"
+          "Guild"
         ],
         "summary": "Update a guild",
         "description": "",
@@ -737,7 +780,7 @@
     "/equipement/{id}": {
       "get": {
         "tags": [
-          "equipement"
+          "Equipement"
         ],
         "summary": "Get the equipement by id",
         "description": "",
@@ -746,6 +789,48 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/equipementBase/": {
+      "get": {
+        "tags": [
+          "Equipement Base"
+        ],
+        "summary": "Get equipement base",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/item/": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "summary": "Get items",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
             "type": "string"
           }
         ],

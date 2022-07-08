@@ -50,7 +50,7 @@ model Inventory {
   equipementId Int?
   itemId       Int?
 
-  owner      Character   @relation(fields: [userId], references: [id])
+  owner      User        @relation(fields: [userId], references: [id])
   equipement Equipement? @relation(fields: [equipementId], references: [id])
   item       Item?       @relation(fields: [itemId], references: [id])
 }
@@ -157,8 +157,7 @@ model Character {
   gloves     Equipement @relation("gloves", fields: [glovesId], references: [id])
   weapon     Equipement @relation("weapon", fields: [weaponId], references: [id])
 
-  inventory Inventory[]
-  user      User?
+  user User?
 }
 
 model User {
@@ -175,6 +174,7 @@ model User {
   notificationSent     Notification[] @relation("sender")
   notificationReceived Notification[] @relation("receiver")
   isGuildOwner         Boolean        @default(false)
+  Inventory            Inventory[]
 }
 
 model Guild {
