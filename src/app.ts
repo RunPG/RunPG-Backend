@@ -5,10 +5,14 @@ import { equipementBaseController, equipementController, guildController, invent
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
+const TEST = Number(process.env.TEST)
+
 const app = express()
 
 app.use(express.json())
-app.use(morgan('common'))
+if (isNaN(TEST) || TEST === 0) {
+  app.use(morgan('common'))
+}
 
 app.use('/user', userController
   // #swagger.tags = ['User']
