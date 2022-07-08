@@ -6,6 +6,7 @@ import * as guildService from './guildService'
 import * as equipementService from './equipementService'
 import * as equipementBaseService from './equipementBaseService'
 import * as itemService from './itemService'
+import * as characterService from './characterService'
 
 export {
   userService,
@@ -15,5 +16,6 @@ export {
   guildService,
   equipementService,
   equipementBaseService,
-  itemService
+  itemService,
+  characterService
 }

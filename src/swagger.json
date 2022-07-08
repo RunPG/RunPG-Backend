@@ -66,28 +66,8 @@
                 }
               }
             },
-            "description": "new user name",
+            "description": "new user",
             "required": true
-          },
-          {
-            "name": "uid",
-            "in": "body",
-            "description": "new user google play games uid",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
-          },
-          {
-            "name": "heroClass",
-            "in": "body",
-            "description": "new user selected class",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
           }
         ],
         "responses": {
@@ -573,6 +553,28 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/{userId}/character": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a character of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

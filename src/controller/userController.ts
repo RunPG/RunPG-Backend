@@ -2,7 +2,7 @@ import { HeroClass, NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
-import { userService, notificationService, inventoryService } from '../service'
+import { userService, notificationService, inventoryService, characterService } from '../service'
 
 const userController = Router()
 
@@ -87,17 +87,7 @@ userController.post('/', async (req, res) => {
   * #swagger.description = 'Create a new user'
   * #swagger.parameters['name'] = {
   in: 'body',
-  description: 'new user name',
-  required: true,
-  }
-  * #swagger.parameters['uid'] = {
-  in: 'body',
-  description: 'new user google play games uid',
-  required: true,
-  }
-  * #swagger.parameters['heroClass'] = {
-  in: 'body',
-  description: 'new user selected class',
+  description: 'new user',
   required: true,
   }
   * #swagger.responses[200] = { description: 'User created' }
@@ -528,5 +518,32 @@ userController.post('/:userId/inventory/item', async (req, res) => {
   }
   else {
     res.send(inventory)
+  }
+})
+
+userController.post('/:userId/character', async (req, res) => {
+  /**
+  * #swagger.summary = 'Get a character of an user'
+  */
+  const userId = Number(req.params.userId)
+  if (isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let character
+  try {
+    character = await characterService.getByUserId(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (character == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(character)
   }
 })

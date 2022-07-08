@@ -19,3 +19,13 @@ export async function create(heroClass: HeroClass): Promise<Character> {
     }
   })
 }
+
+export async function getByUserId(userId: number): Promise<Character | null> {
+  return await prisma.character.findFirst({
+    where: {
+      user: {
+        id: userId
+      }
+    }
+  })
+}
