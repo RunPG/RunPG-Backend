@@ -521,7 +521,7 @@ userController.post('/:userId/inventory/item', async (req, res) => {
   }
 })
 
-userController.post('/:userId/character', async (req, res) => {
+userController.get('/:userId/character', async (req, res) => {
   /**
   * #swagger.summary = 'Get a character of an user'
   */

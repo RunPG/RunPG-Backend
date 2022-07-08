@@ -563,7 +563,7 @@
       }
     },
     "/user/{userId}/character": {
-      "post": {
+      "get": {
         "tags": [
           "User"
         ],
