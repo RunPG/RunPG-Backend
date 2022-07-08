@@ -27,3 +27,11 @@ export async function createItem(userId: number, itemId: number, stackSize: numb
 
   return await inventoryRepository.createItem(userId, itemId, stackSize)
 }
+
+export async function updateQuantity(id: number, quantity: number): Promise<Inventory | null> {
+  if (inventoryRepository.getById(id) == null) {
+    return null
+  }
+
+  return await inventoryRepository.updateQuantity(id, quantity)
+}

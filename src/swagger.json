@@ -627,6 +627,40 @@
         }
       }
     },
+    "/inventory/{id}/quantity": {
+      "put": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Update the quantity of an inventory",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/spell/": {
       "get": {
         "tags": [
