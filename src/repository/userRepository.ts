@@ -41,7 +41,6 @@ export async function getFriend(userId: number, friendId: number): Promise<Frien
 }
 
 export async function getAllFriends(userId: number): Promise<Friend[] | null> {
-  console.log('Userid= ' + userId)
   return await prisma.friend.findMany({
     where: {
       userId

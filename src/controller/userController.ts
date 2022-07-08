@@ -108,7 +108,6 @@ userController.post('/', async (req, res) => {
     createduser = await userService.create(name, uid)
   }
   catch (error) {
-    console.log(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
