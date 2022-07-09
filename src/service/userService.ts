@@ -1,5 +1,5 @@
 import { User, Friend, HeroClass } from '@prisma/client'
-import { characterRepository, userRepository } from '../repository'
+import { characterRepository, friendRepository, inventoryRepository, notificationRepository, userRepository } from '../repository'
 
 export async function getById(id: number): Promise<User | null> {
   return await userRepository.getById(id)
@@ -62,4 +62,15 @@ export async function getUserById(id: number): Promise<User | null> {
 
 export async function joinGuild(id: number, guildId: number): Promise<User | null> {
   return await userRepository.joinGuild(id, guildId)
+}
+
+export async function deleteById(id: number): Promise<boolean> {
+  if (await userRepository.getById(id) == null) {
+    return false
+  }
+
+  await friendRepository.deleteByUserId(id)
+  await notificationRepository.deleteByUserId(id)
+  await inventoryRepository.deleteByUserId(id)
+  return await userRepository.deleteById(id) != null
 }

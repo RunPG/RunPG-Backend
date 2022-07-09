@@ -41,6 +41,7 @@ export async function create(receiverId: number, senderId: number, type: Notific
     }
   })
 }
+
 export async function deleteNotification(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
   return await prisma.notification.delete({
     where: {
@@ -53,3 +54,17 @@ export async function deleteNotification(receiverId: number, senderId: number, t
   })
 }
 
+export async function deleteByUserId(userId: number): Promise<void> {
+  await prisma.notification.deleteMany({
+    where: {
+      OR: [
+        {
+          receiverId: userId
+        },
+        {
+          senderId: userId
+        }
+      ]
+    }
+  })
+}

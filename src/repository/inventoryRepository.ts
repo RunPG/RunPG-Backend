@@ -47,3 +47,11 @@ export async function updateQuantity(id: number, quantity: number): Promise<Inve
     }
   })
 }
+
+export async function deleteByUserId(userId: number): Promise<void> {
+  await prisma.inventory.deleteMany({
+    where: {
+      userId
+    }
+  })
+}

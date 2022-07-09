@@ -104,3 +104,11 @@ export async function getByUid(uid: string): Promise<User | null> {
     }
   })
 }
+
+export async function deleteById(id: number): Promise<User | null> {
+  return await prisma.user.delete({
+    where: {
+      id
+    }
+  })
+}
