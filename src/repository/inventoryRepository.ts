@@ -36,3 +36,14 @@ export async function createItem(userId: number, itemId: number, stackSize: numb
     }
   })
 }
+
+export async function updateQuantity(id: number, quantity: number): Promise<Inventory> {
+  return await prisma.inventory.update({
+    where: {
+      id
+    },
+    data: {
+      stackSize: quantity
+    }
+  })
+}

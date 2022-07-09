@@ -1,5 +1,5 @@
-import { User, Friend } from '@prisma/client'
-import { userRepository } from '../repository'
+import { User, Friend, HeroClass } from '@prisma/client'
+import { characterRepository, userRepository } from '../repository'
 
 export async function getById(id: number): Promise<User | null> {
   return await userRepository.getById(id)
@@ -13,12 +13,22 @@ export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
 
-export async function create(name: string, uid: string): Promise<User | null> {
+export async function create(name: string, uid: string, heroClass: HeroClass): Promise<User | null> {
   if (await userRepository.getByName(name) != null || await userRepository.getByUid(uid) != null) {
     return null
   }
 
-  return await userRepository.create(name, uid)
+  // TODO: Get class seed
+
+  // TODO: create stats
+  // TODO: create Equipement
+
+  // create character
+  const character = await characterRepository.create(heroClass)
+
+  // TODO: add items to inventory
+
+  return await userRepository.create(name, uid, character.id)
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {

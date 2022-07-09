@@ -60,10 +60,13 @@
                 },
                 "uid": {
                   "example": "any"
+                },
+                "heroClass": {
+                  "example": "any"
                 }
               }
             },
-            "description": "new user name and uid",
+            "description": "new user",
             "required": true
           }
         ],
@@ -72,7 +75,7 @@
             "description": "User created"
           },
           "400": {
-            "description": "no user found"
+            "description": "Request is not valid"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -559,6 +562,28 @@
         }
       }
     },
+    "/user/{userId}/character": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a character of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [
@@ -593,6 +618,40 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/inventory/{id}/quantity": {
+      "put": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Update the quantity of an inventory",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

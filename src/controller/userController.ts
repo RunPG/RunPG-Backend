@@ -1,8 +1,8 @@
-import { NotificationType } from '@prisma/client'
+import { HeroClass, NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
-import { userService, notificationService, inventoryService } from '../service'
+import { userService, notificationService, inventoryService, characterService } from '../service'
 
 const userController = Router()
 
@@ -84,28 +84,27 @@ userController.get('/:userId', async (req, res) => {
 
 userController.post('/', async (req, res) => {
   /**
- * #swagger.description = 'Create a new user'
+  * #swagger.description = 'Create a new user'
   * #swagger.parameters['name'] = {
   in: 'body',
-  description: 'new user name and uid',
+  description: 'new user',
   required: true,
   }
- * #swagger.responses[200] = {
-   description: 'User created',
-  }
- * #swagger.responses[500] = { description: 'Server encountered an internal error' }
- * #swagger.responses[400] = { description: 'no user found' }
-*/
+  * #swagger.responses[200] = { description: 'User created' }
+  * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+  * #swagger.responses[400] = { description: 'Request is not valid' }
+  */
   const name = req.body.name
   const uid = req.body.uid
-  if (name == null || uid == null) {
+  const heroClass: HeroClass = req.body.heroClass as HeroClass
+  if (name == null || uid == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createduser
   try {
-    createduser = await userService.create(name, uid)
+    createduser = await userService.create(name, uid, heroClass)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -519,5 +518,32 @@ userController.post('/:userId/inventory/item', async (req, res) => {
   }
   else {
     res.send(inventory)
+  }
+})
+
+userController.get('/:userId/character', async (req, res) => {
+  /**
+  * #swagger.summary = 'Get a character of an user'
+  */
+  const userId = Number(req.params.userId)
+  if (isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let character
+  try {
+    character = await characterService.getByUserId(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (character == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(character)
   }
 })

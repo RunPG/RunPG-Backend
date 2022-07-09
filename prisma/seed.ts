@@ -70,7 +70,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -81,7 +80,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -92,7 +90,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -103,7 +100,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -114,7 +110,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -125,7 +120,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -136,7 +130,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -147,7 +140,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -158,7 +150,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -169,7 +160,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -180,7 +170,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -191,7 +180,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,
@@ -202,7 +190,6 @@ async function main(): Promise<void> {
       {
         agility: 1,
         defense: 1,
-        endurance: 1,
         level: 1,
         power: 1,
         precision: 1,

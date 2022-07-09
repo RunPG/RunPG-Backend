@@ -1,3 +1,4 @@
+import { HeroClass } from '@prisma/client'
 import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../../app'
@@ -104,7 +105,7 @@ test('Create a user should return the new user and code 201', async () => {
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
 
   expect(result.statusCode).toEqual(StatusCodes.CREATED)
   expect(result.type).toEqual(expect.stringContaining('json'))
@@ -122,7 +123,7 @@ test('Create an already existing user should return nothing and code 409', async
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
@@ -142,7 +143,7 @@ test('Create a user should return nothing and code 500 when userService throws',
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
 
   expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
   expect(result.body).toEqual({})

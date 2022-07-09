@@ -52,4 +52,33 @@ inventoryController.get('/user/:userId', async (req, res) => {
   }
 })
 
+inventoryController.put('/:id/quantity', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update the quantity of an inventory'
+   */
+  const id = Number(req.params.id)
+  const quantity = Number(req.body.quantity)
+
+  if (isNaN(id) || isNaN(quantity) || quantity < 0) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let inventory
+  try {
+    inventory = await inventoryService.updateQuantity(id, quantity)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (inventory == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(inventory)
+  }
+})
+
 export default inventoryController
