@@ -119,6 +119,34 @@ userController.post('/', async (req, res) => {
   }
 })
 
+userController.delete('/:userId',async (req, res) => {
+  /**
+  * #swagger.description = 'Delete a user'
+  */
+  const userId = Number(req.params.userId)
+  if (isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let deleted = false
+  try {
+    deleted = await userService.deleteById(userId)
+  }
+  catch (error) {
+    console.log(error)
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (deleted === false) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.sendStatus(StatusCodes.OK)
+  }
+})
+
 userController.get('/:userId/friend/:friendId', async (req, res) => {
   /**
  * #swagger.description = 'Get a friend'

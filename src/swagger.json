@@ -136,6 +136,21 @@
             "description": "Could not find the user"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "description": "Delete a user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       }
     },
     "/user/{userId}/friend/{friendId}": {
