@@ -63,7 +63,7 @@ export const spell1: Spell = {
   cooldown: 10,
   manaCost: 20,
   description: 'Swing your weapon and maybe you will kill something.',
-  class: 'BERSERKER'
+  heroClass: 'BERSERKER'
 }
 
 export const spell2: Spell = {
@@ -72,7 +72,7 @@ export const spell2: Spell = {
   cooldown: 5,
   manaCost: 15,
   description: 'Do sparkles with your fingers to sparkle up someone\'s health',
-  class: 'BERSERKER'
+  heroClass: 'BERSERKER'
 }
 
 export const spell3: Spell = {
@@ -81,7 +81,7 @@ export const spell3: Spell = {
   cooldown: 1,
   manaCost: 2,
   description: 'Combine the power of your two fists into one swing.',
-  class: 'BERSERKER'
+  heroClass: 'BERSERKER'
 }
 
 export const spell4: Spell = {
@@ -90,7 +90,7 @@ export const spell4: Spell = {
   cooldown: 50,
   manaCost: 0,
   description: 'Close your eyes. That\' it.',
-  class: 'BERSERKER'
+  heroClass: 'BERSERKER'
 }
 
 export const spell5: Spell = {
@@ -99,7 +99,7 @@ export const spell5: Spell = {
   cooldown: 5,
   manaCost: 15,
   description: 'Do sparkles with your fingers to sparkle up someone\'s health',
-  class: 'PRIEST'
+  heroClass: 'PRIEST'
 }
 
 export const spells = [
@@ -116,7 +116,7 @@ export const spells = [
 
 export const character1: Character = {
   id: 1,
-  class: 'BERSERKER',
+  heroClass: 'BERSERKER',
   experience: 1337,
   firstSpellId: 1,
   secondSpellId: 2,

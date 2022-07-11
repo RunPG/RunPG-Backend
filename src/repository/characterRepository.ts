@@ -5,7 +5,7 @@ import prisma from './client'
 export async function create(heroClass: HeroClass): Promise<Character> {
   return await prisma.character.create({
     data: {
-      class: heroClass,
+      heroClass,
       statisticsId: 1,
       firstSpellId: 1,
       secondSpellId: 2,

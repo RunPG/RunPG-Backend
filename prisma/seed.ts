@@ -258,42 +258,42 @@ async function main(): Promise<void> {
         cooldown: 10,
         manaCost: 20,
         description: 'Swing your weapon and maybe you will kill something.',
-        class: 'PALADIN'
+        heroClass: 'PALADIN'
       },
       {
         name: 'Heal',
         cooldown: 5,
         manaCost: 15,
         description: 'Do sparkles with your fingers to sparkle up someone\'s health.',
-        class: 'PALADIN'
+        heroClass: 'PALADIN'
       },
       {
         name: 'Smash',
         cooldown: 1,
         manaCost: 2,
         description: 'Combine the power of your two fists into one swing.',
-        class: 'PALADIN'
+        heroClass: 'PALADIN'
       },
       {
         name: 'Sleep',
         cooldown: 50,
         manaCost: 0,
         description: 'Close your eyes. That\'s it.',
-        class: 'PALADIN'
+        heroClass: 'PALADIN'
       },
       {
         name: 'Boule de feu',
         cooldown: 10,
         manaCost: 20,
         description: 'Swing your weapon and maybe you will kill something.',
-        class: 'MAGE'
+        heroClass: 'MAGE'
       },
       {
         name: 'Embrasement',
         cooldown: 5,
         manaCost: 15,
         description: 'Do sparkles with your fingers to sparkle up someone\'s health.',
-        class: 'MAGE'
+        heroClass: 'MAGE'
       }
     ],
     skipDuplicates: true
@@ -302,7 +302,7 @@ async function main(): Promise<void> {
   await prisma.character.createMany({
     data: [
       {
-        class: 'PALADIN',
+        heroClass: 'PALADIN',
         experience: 1337,
         firstSpellId: 1,
         secondSpellId: 2,
@@ -316,7 +316,7 @@ async function main(): Promise<void> {
         leggingsId: 4
       },
       {
-        class: 'MAGE',
+        heroClass: 'MAGE',
         experience: 1337,
         firstSpellId: 5,
         secondSpellId: 5,
