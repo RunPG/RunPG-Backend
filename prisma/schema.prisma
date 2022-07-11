@@ -109,7 +109,7 @@ model Spell {
   id          Int         @id @default(autoincrement())
   name        String      @unique
   description String
-  class       HeroClass
+  heroClass   HeroClass
   manaCost    Int
   cooldown    Int
   firstSpell  Character[] @relation("firstSpell")
@@ -140,7 +140,7 @@ model Character {
   leggingsId    Int
   glovesId      Int
   weaponId      Int
-  class         HeroClass
+  heroClass     HeroClass
 
   statistics Statistics @relation(fields: [statisticsId], references: [id])
 
