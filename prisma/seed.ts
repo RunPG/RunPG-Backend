@@ -6,36 +6,36 @@ async function main(): Promise<void> {
   await prisma.equipementBase.createMany({
     data: [
       {
-        name: 'Helmet',
-        description: 'A helmet you found on the side of the road, you are not even sure this is a helmet. It\'s unique in its own way !',
+        name: 'Casque en cuir',
+        description: 'Un casque que tu as trouvé sur le bord de la route, tu n\'es même pas sûr que ce soit un casque, mais il est unique à tes yeux.',
         rarity: 'RELIC',
         heroClass: 'PALADIN',
         equipementType: 'HELMET'
       },
       {
-        name: 'Shirt',
-        description: 'A shirt that your mom made you.',
+        name: 'T-shirt',
+        description: 'Un t-shirt fait par ta mamounette chérie pour son poussin.',
         rarity: 'RELIC',
         heroClass: 'PALADIN',
         equipementType: 'CHESTPLATE'
       },
       {
-        name: 'Cooking gloves',
-        description: 'Gloves you took from your house in a hurry.',
+        name: 'Gants de cuisine',
+        description: 'Une pair de gant que tu as pris de chez toi dans la panique. Tu regrettes peut-être ton choix maintenant.',
         equipementType: 'GLOVES',
         heroClass: 'PALADIN',
         rarity: 'COMMON'
       },
       {
-        name: 'Leggings',
-        description: 'They are not your size, but you still carry them. Why ?',
+        name: 'Pantalon troué',
+        description: 'Il n\'est même pas à ta taille, mais tu continues à le porter. Pourquoi ?',
         rarity: 'COMMON',
         heroClass: 'PALADIN',
         equipementType: 'LEGGINGS'
       },
       {
-        name: 'Wood axe',
-        description: 'Used to cut wood, seems efficient to also cut enemies',
+        name: 'Hache en pierre',
+        description: 'Coupe difficilement du bois, reste relativement efficace contre les agresseurs.',
         equipementType: 'WEAPON',
         heroClass: 'PALADIN',
         rarity: 'COMMON'
