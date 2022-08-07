@@ -17,7 +17,7 @@ npm ci
 
 **0b. Create a .env file, if not created yet:**
 ```
-echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"\nPORT=5000' > .env
+echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"\nPORT=5000\nENV=DEVELOPMENT' > .env
 ```
 Creates a .env file containing a URL used for database connection and the API port.
 
@@ -50,7 +50,7 @@ Starts server in dev mode, file updates will automatically apply.
 ## Run tests
 **0. Create a .env.test file if not created yet:**
 ```
-echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001' > .env.test
+echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001\nENV=TEST' > .env.test
 ```
 Creates a .env.test file containing a URL used for database connection and the API port.
 
