@@ -4,6 +4,7 @@
 - Node v16.14.2 (LTS)
 - npm 8.6.0
 - Docker and docker-compose
+  - if you have permission issues on linux, follow [these steps](https://docs.docker.com/engine/install/linux-postinstall/).
 - Visual Studio Code with optional (but recommended) plugins
   - ESLint
   - Prisma
