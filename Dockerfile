@@ -15,6 +15,6 @@ COPY . .
 
 RUN npx prisma generate
 
-RUN npm run build
+RUN npm run swagger-autogen
 
 CMD npx prisma migrate deploy && npm run prisma:seed && npm run start
