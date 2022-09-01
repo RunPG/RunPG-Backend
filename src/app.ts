@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import { equipementBaseController, equipementController, guildController, inventoryController, itemController, spellController, userController } from './controller'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
+import path from 'path'
 
 const TEST = Number(process.env.TEST)
 
@@ -44,6 +45,20 @@ app.get('/health', (_, res) => {
    * #swagger.summary = 'Check if the server is up and running'
    */
   res.sendStatus(StatusCodes.OK)
+})
+
+app.get('/', (_, res) => {
+  // #swagger.ignore = true
+  const options = {
+    root: path.join(__dirname, 'resource'),
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  }
+
+  res.sendFile('slime.gif', options)
 })
 
 export default app
