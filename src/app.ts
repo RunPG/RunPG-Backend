@@ -6,12 +6,15 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 import path from 'path'
 
-const TEST = Number(process.env.TEST)
+const ENV = process.env.ENV
+if (ENV === undefined) {
+  console.error('ENV variable missing')
+}
 
 const app = express()
 
 app.use(express.json())
-if (isNaN(TEST) || TEST === 0) {
+if (ENV !== 'TEST') {
   app.use(morgan('common'))
 }
 
