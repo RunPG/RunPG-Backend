@@ -5,7 +5,7 @@ WORKDIR /api
 # Not secure but not a priority
 ENV DATABASE_URL="postgresql://api:password@runpg_db:5432/runpg?schema=public"
 ENV PORT=5000
-ENV DEV=PRODUCTION
+ENV ENV=PRODUCTION
 
 COPY package*.json ./
 
