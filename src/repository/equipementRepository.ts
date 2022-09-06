@@ -17,3 +17,9 @@ export async function create(equipementBaseId: number, statisticsId: number): Pr
     }
   })
 }
+
+export async function createMany(equipements: Equipement[]): Promise<void> {
+  await prisma.equipement.createMany({
+    data: equipements
+  })
+}
