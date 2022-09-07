@@ -24,6 +24,7 @@ jobs:
         with:
           envkey_DATABASE_URL: "postgresql://api:password@localhost:5433/runpg?schema=public"
           envkey_PORT: 5001
+          envkey_ENV: TEST
           file_name: .env.test
       - name: Start test database
         run: npm run dev:up
