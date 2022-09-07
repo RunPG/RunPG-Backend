@@ -1,8 +1,8 @@
 import { HeroClass, User } from '@prisma/client'
 import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
-import { characterRepository, userRepository } from '../../../repository'
+import { characterRepository, equipementRepository, statisticsRepository, userRepository } from '../../../repository'
 import { userService } from '../../../service'
-import { character1, guild1, user1, user2 } from '../../testData'
+import { character1, equipement1, guild1, statistics1, user1, user2 } from '../../testData'
 
 /**
  * User service unit test
@@ -118,6 +118,18 @@ test('create should return a user when userRepository.getByName return null', as
 
   userRepository.create = jest.fn(async () => {
     return user1
+  })
+
+  statisticsRepository.createOnlyOneValues = jest.fn(async () => {
+    return statistics1
+  })
+
+  statisticsRepository.create = jest.fn(async () => {
+    return statistics1
+  })
+
+  equipementRepository.create = jest.fn(async () => {
+    return equipement1
   })
 
   const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
