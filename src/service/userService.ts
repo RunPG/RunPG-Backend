@@ -1,5 +1,6 @@
-import { User, Friend, HeroClass } from '@prisma/client'
-import { characterRepository, friendRepository, inventoryRepository, notificationRepository, userRepository } from '../repository'
+import { User, Friend, HeroClass, Character } from '@prisma/client'
+import { characterRepository, equipementRepository, friendRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
+import { getClassSeed } from './classService'
 
 export async function getById(id: number): Promise<User | null> {
   return await userRepository.getById(id)
@@ -18,15 +19,37 @@ export async function create(name: string, uid: string, heroClass: HeroClass): P
     return null
   }
 
-  // TODO: Get class seed
+  const seed = getClassSeed(heroClass)
 
-  // TODO: create stats
-  // TODO: create Equipement
+  const helmetStats = await statisticsRepository.createOnlyOneValues()
+  const chestplateStats = await statisticsRepository.createOnlyOneValues()
+  const leggingsStats = await statisticsRepository.createOnlyOneValues()
+  const glovesStats = await statisticsRepository.createOnlyOneValues()
+  const weaponStats = await statisticsRepository.createOnlyOneValues()
+  const heroStats = await statisticsRepository.create(seed.statistics)
 
-  // create character
-  const character = await characterRepository.create(heroClass)
+  const helmet = await equipementRepository.create(seed.helmetId, helmetStats.id)
+  const chestplate = await equipementRepository.create(seed.chestplateId, chestplateStats.id)
+  const leggings = await equipementRepository.create(seed.leggingsId, leggingsStats.id)
+  const gloves = await equipementRepository.create(seed.glovesId, glovesStats.id)
+  const weapon = await equipementRepository.create(seed.weaponId, weaponStats.id)
 
-  // TODO: add items to inventory
+  const hero: Character = {
+    id: 0,
+    experience: 0,
+    statisticsId: heroStats.id,
+    helmetId: helmet.id,
+    chestplateId: chestplate.id,
+    leggingsId: leggings.id,
+    glovesId: gloves.id,
+    weaponId: weapon.id,
+    firstSpellId: seed.firstSpellId,
+    secondSpellId: seed.secondSpellId,
+    thirdSpellId: seed.thirdSpellId,
+    fourthSpellId: seed.fourthSpellId,
+    heroClass
+  }
+  const character = await characterRepository.create(hero)
 
   return await userRepository.create(name, uid, character.id)
 }

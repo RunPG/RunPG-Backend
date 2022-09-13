@@ -1,21 +1,22 @@
-import { Character, HeroClass } from '@prisma/client'
+import { Character } from '@prisma/client'
 import prisma from './client'
 
 // TODO: Remove hardcoded values
-export async function create(heroClass: HeroClass): Promise<Character> {
+export async function create(character: Character): Promise<Character> {
   return await prisma.character.create({
     data: {
-      heroClass,
-      statisticsId: 1,
-      firstSpellId: 1,
-      secondSpellId: 2,
-      thirdSpellId: 3,
-      fourthSpellId: 4,
-      helmetId: 1,
-      chestplateId: 2,
-      glovesId: 3,
-      leggingsId: 4,
-      weaponId: 5
+      experience: character.experience,
+      statisticsId: character.statisticsId,
+      helmetId: character.helmetId,
+      chestplateId: character.chestplateId,
+      leggingsId: character.leggingsId,
+      glovesId: character.glovesId,
+      weaponId: character.weaponId,
+      firstSpellId: character.firstSpellId,
+      secondSpellId: character.secondSpellId,
+      thirdSpellId: character.thirdSpellId,
+      fourthSpellId: character.fourthSpellId,
+      heroClass: character.heroClass
     }
   })
 }

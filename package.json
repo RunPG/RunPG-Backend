@@ -24,7 +24,7 @@
     "test": "npm run test:unit && npm run test:integration",
     "build": "tsc && cp -r src/resource/ dist/resource/",
     "lint": "eslint -c .eslintrc.json --ext .ts src/",
-    "swagger-autogen": "npm run build && node src/swagger.js"
+    "swagger-autogen": "node src/swagger.js"
   },
   "author": "",
   "license": "ISC",

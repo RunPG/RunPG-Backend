@@ -7,6 +7,8 @@ const GuildController = Router()
 GuildController.get('/', async (_, res) => {
   /**
    * #swagger.summary = 'Get all the guildes'
+   * #swagger.responses[200] = { description: 'Guilds found' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
    */
   let guilds
   try {
@@ -22,6 +24,10 @@ GuildController.get('/', async (_, res) => {
 GuildController.get('/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a guild by id'
+   * #swagger.responses[200] = { description: 'Guild found' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'guildId is not valid' }
+   * #swagger.responses[404] = { description: 'Guild not found' }
    */
   const guildId = parseInt(req.params.guildId)
 
@@ -50,7 +56,11 @@ GuildController.get('/:guildId', async (req, res) => {
 
 GuildController.post('/', async (req, res) => {
   /**
-   * #swagger.summary = 'create a guild'
+   * #swagger.summary = 'Create a guild'
+   * #swagger.responses[201] = { description: 'Guild created' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Guild body is not valid' }
+   * #swagger.responses[409] = { description: 'Guild already exists' }
    */
   const guild = req.body.guild
   if (guild == null) {
@@ -67,7 +77,7 @@ GuildController.post('/', async (req, res) => {
   }
 
   if (createdGuild == null) {
-    res.status(StatusCodes.CONFLICT).send('guild already exists')
+    res.status(StatusCodes.CONFLICT).send('Guild already exists')
   }
   else {
     res.status(StatusCodes.CREATED)
@@ -78,6 +88,10 @@ GuildController.post('/', async (req, res) => {
 GuildController.put('/:guildId', async (req, res) => {
   /**
    * #swagger.summary = 'Update a guild'
+   * #swagger.responses[200] = { description: 'Guild updated' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Guild body or id is not valid' }
+   * #swagger.responses[404] = { description: 'Guild does not exists' }
    */
   const newGuildValues = req.body.newGuildValues
   const guildId = parseInt(req.params.guildId)
@@ -96,7 +110,7 @@ GuildController.put('/:guildId', async (req, res) => {
   }
 
   if (createdGuild == null) {
-    res.status(StatusCodes.NOT_FOUND).send(('guild does not exist'))
+    res.status(StatusCodes.NOT_FOUND).send(('Guild does not exist'))
   }
   else {
     res.send(createdGuild)

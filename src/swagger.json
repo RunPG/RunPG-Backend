@@ -32,11 +32,12 @@
         "tags": [
           "User"
         ],
-        "description": "Get all users",
+        "summary": "Get all users",
+        "description": "",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "users successfully obtained"
+            "description": "Users successfully obtained"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -47,7 +48,8 @@
         "tags": [
           "User"
         ],
-        "description": "Create a new user",
+        "summary": "Create a new user",
+        "description": "",
         "parameters": [
           {
             "name": "name",
@@ -88,8 +90,8 @@
         "tags": [
           "User"
         ],
-        "summary": "Get a user by his name",
-        "description": "Get a user by his name",
+        "summary": "Get a user by name",
+        "description": "",
         "parameters": [
           {
             "name": "name",
@@ -106,7 +108,7 @@
             "description": "Could not find the user"
           },
           "500": {
-            "description": "wrong user name"
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -116,7 +118,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get a user by id",
+        "summary": "Get a user by id",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -130,10 +133,13 @@
             "description": "User found"
           },
           "400": {
-            "description": "wrong user id"
+            "description": "Wrong user id"
           },
           "404": {
             "description": "Could not find the user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -141,7 +147,8 @@
         "tags": [
           "User"
         ],
-        "description": "Delete a user",
+        "summary": "Delete a user",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -150,7 +157,21 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "400": {
+            "description": "Request is not valid"
+          },
+          "404": {
+            "desctiption": "User not found",
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/{userId}/friend/{friendId}": {
@@ -158,7 +179,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get a friend",
+        "summary": "Get a friend",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -178,7 +200,7 @@
             "description": "Friend found"
           },
           "400": {
-            "description": "no friend found"
+            "description": "Friend not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -191,7 +213,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get all the friends",
+        "summary": "Get all the friends",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -204,8 +227,8 @@
           "200": {
             "description": "Friends found"
           },
-          "400": {
-            "description": "no friends found"
+          "404": {
+            "description": "User not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -218,7 +241,8 @@
         "tags": [
           "User"
         ],
-        "description": "Add a new friend",
+        "summary": "Add a new friend",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -241,7 +265,7 @@
             "description": "Bad userId or id"
           },
           "409": {
-            "description": "This friend is already added !"
+            "description": "This friend is already added"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -254,7 +278,8 @@
         "tags": [
           "User"
         ],
-        "description": "Modify user xp",
+        "summary": "Modify user xp",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -279,7 +304,7 @@
         ],
         "responses": {
           "200": {
-            "description": "User xp modified"
+            "description": "User xp updated"
           },
           "400": {
             "description": "Bad userId or xp"
@@ -298,7 +323,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get all user notifications",
+        "summary": "Get all user notifications",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -315,7 +341,7 @@
             "description": "Bad userId"
           },
           "404": {
-            "description": "Notifications not found"
+            "description": "User not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -328,7 +354,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get all user notifications by type",
+        "summary": "Get all user notifications by type",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -351,7 +378,7 @@
             "description": "Bad userId or type"
           },
           "404": {
-            "description": "Notifications not found"
+            "description": "User not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -364,7 +391,8 @@
         "tags": [
           "User"
         ],
-        "description": "Get all user notifications by type",
+        "summary": "Get all user notifications by type",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -393,7 +421,7 @@
             "description": "Bad userId or type"
           },
           "404": {
-            "description": "Notifications not found"
+            "description": "User not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -404,7 +432,8 @@
         "tags": [
           "User"
         ],
-        "description": "Create a notification",
+        "summary": "Create a notification",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -430,7 +459,10 @@
             "description": "Notification created"
           },
           "400": {
-            "description": "Bad userId or type or senderId"
+            "description": "Bad userId, type or senderId"
+          },
+          "409": {
+            "description": "Notification already exists"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -441,7 +473,8 @@
         "tags": [
           "User"
         ],
-        "description": "Delete a notification",
+        "summary": "Delete a notification",
+        "description": "",
         "parameters": [
           {
             "name": "userId",
@@ -467,10 +500,10 @@
             "description": "Notification deleted"
           },
           "400": {
-            "description": "Bad userId or type or senderId"
+            "description": "Bad userId, type or senderId"
           },
           "404": {
-            "description": "notification does not exist"
+            "description": "Notification does not exist"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -501,7 +534,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User successfully added to guild"
+          },
+          "400": {
+            "description": "Bad userId or guildId"
+          },
+          "404": {
+            "description": "User or guild does not exists"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -535,7 +577,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Equipement successfully added to user inventory"
+          },
+          "400": {
+            "description": "Bad userId or equipementBaseId"
+          },
+          "404": {
+            "description": "User or equipement base does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -545,7 +596,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Give items to an user",
+        "summary": "Give item(s) to an user",
         "description": "",
         "parameters": [
           {
@@ -572,7 +623,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Items(s) successfully added to user inventory"
+          },
+          "400": {
+            "description": "Bad userId, itemId or stackSize"
+          },
+          "404": {
+            "description": "User or item does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -594,7 +654,47 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User character found"
+          },
+          "400": {
+            "description": "Bad userId"
+          },
+          "404": {
+            "description": "User does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/inventory": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get the inventory of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User inventoy found"
+          },
+          "400": {
+            "description": "userId is not valid"
+          },
+          "404": {
+            "description": "User does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -608,28 +708,6 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/inventory/user/{userId}": {
-      "get": {
-        "tags": [
-          "Inventory"
-        ],
-        "summary": "Get the inventory of an user",
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -671,7 +749,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User inventory updated"
+          },
+          "400": {
+            "description": "id or quantity is not valid"
+          },
+          "404": {
+            "description": "Inventory does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -681,7 +768,8 @@
         "tags": [
           "Spell"
         ],
-        "description": "get all spells",
+        "summary": "Get all spells",
+        "description": "",
         "parameters": [],
         "responses": {
           "200": {
@@ -707,7 +795,8 @@
         "tags": [
           "Spell"
         ],
-        "description": "Get a spell by its name",
+        "summary": "Get a spell by name",
+        "description": "",
         "parameters": [
           {
             "name": "name",
@@ -734,7 +823,8 @@
         "tags": [
           "Spell"
         ],
-        "description": "Create a notification",
+        "summary": "Get a spell by id",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -745,10 +835,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Notification created"
+            "description": "Spell found"
           },
           "400": {
-            "description": "Bad userId or type or senderId"
+            "description": "spellId not valid"
+          },
+          "404": {
+            "description": "Spell not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -766,7 +859,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Guilds found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -774,7 +870,7 @@
         "tags": [
           "Guild"
         ],
-        "summary": "create a guild",
+        "summary": "Create a guild",
         "description": "",
         "parameters": [
           {
@@ -793,6 +889,18 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "201": {
+            "description": "Guild created"
+          },
+          "400": {
+            "description": "Guild body is not valid"
+          },
+          "409": {
+            "description": "Guild already exists"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -814,7 +922,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Guild found"
+          },
+          "400": {
+            "description": "guildId is not valid"
+          },
+          "404": {
+            "description": "Guild not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       },
@@ -846,7 +963,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Guild updated"
+          },
+          "400": {
+            "description": "Guild body or id is not valid"
+          },
+          "404": {
+            "description": "Guild does not exists"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -868,7 +994,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Equipement found"
+          },
+          "400": {
+            "description": "Id is not valid"
+          },
+          "404": {
+            "description": "Equipement not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -884,12 +1019,23 @@
           {
             "name": "id",
             "in": "query",
-            "type": "string"
+            "required": false,
+            "type": "number",
+            "description": "Optional id of equipement base to search for"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Equipement base found"
+          },
+          "400": {
+            "description": "Id is not valid"
+          },
+          "404": {
+            "description": "Equipement base not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
@@ -910,7 +1056,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User inventory updated"
+          },
+          "400": {
+            "description": "id or quantity is not valid"
+          },
+          "404": {
+            "description": "Inventory does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
           }
         }
       }
