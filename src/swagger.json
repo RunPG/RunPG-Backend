@@ -63,6 +63,12 @@
                 "uid": {
                   "example": "any"
                 },
+                "mail": {
+                  "example": "any"
+                },
+                "serverSideAccessCode": {
+                  "example": "any"
+                },
                 "heroClass": {
                   "example": "any"
                 }

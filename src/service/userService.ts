@@ -14,7 +14,7 @@ export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
 
-export async function create(name: string, uid: string, heroClass: HeroClass): Promise<User | null> {
+export async function create(name: string, uid: string, mail: string, _serverSideAccessCode: string, heroClass: HeroClass): Promise<User | null> {
   if (await userRepository.getByName(name) != null || await userRepository.getByUid(uid) != null) {
     return null
   }
@@ -51,7 +51,8 @@ export async function create(name: string, uid: string, heroClass: HeroClass): P
   }
   const character = await characterRepository.create(hero)
 
-  return await userRepository.create(name, uid, character.id)
+  // FIXME: Connect to Google and get refresh token
+  return await userRepository.create(name, uid, character.id, mail, 'none')
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {

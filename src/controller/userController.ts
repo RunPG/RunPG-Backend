@@ -91,15 +91,17 @@ userController.post('/', async (req, res) => {
    */
   const name = req.body.name
   const uid = req.body.uid
+  const mail = req.body.mail
+  const serverSideAccessCode = req.body.serverSideAccessCode
   const heroClass: HeroClass = req.body.heroClass as HeroClass
-  if (name == null || uid == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
+  if (name == null || uid == null || mail == null || serverSideAccessCode == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createduser
   try {
-    createduser = await userService.create(name, uid, heroClass)
+    createduser = await userService.create(name, uid, mail, serverSideAccessCode, heroClass)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -107,7 +109,7 @@ userController.post('/', async (req, res) => {
   }
 
   if (createduser == null) {
-    res.status(StatusCodes.CONFLICT).send(`${name}:${uid} already exists`)
+    res.status(StatusCodes.CONFLICT).send(`${name} with ${uid} already exists`)
   }
   else {
     res.status(StatusCodes.CREATED).send(createduser)

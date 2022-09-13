@@ -338,24 +338,32 @@ async function main(): Promise<void> {
       {
         name: 'Gabriel',
         lastCaloriesUpdate: new Date(),
-        uid: 'zzz'
+        uid: 'zzz',
+        mail: 'gabriel@lecherf.com',
+        refreshToken: 'none'
       },
       {
         name: 'yott94',
         uid: 'g03636930156556937198',
         lastCaloriesUpdate: new Date(),
-        characterId: 1
+        characterId: 1,
+        mail: 'eliott.bru@gmail.com',
+        refreshToken: 'none'
       },
       {
         name: 'LeMoutonZen',
         uid: 'g05184935568108008541',
         lastCaloriesUpdate: new Date(),
-        characterId: 2
+        characterId: 2,
+        mail: 'moutonzenyatta@gmail.com',
+        refreshToken: 'none'
       },
       {
         name: 'Kieran',
         uid: 'cccc',
-        lastCaloriesUpdate: new Date()
+        lastCaloriesUpdate: new Date(),
+        mail: 'kieranfooks@gmail.com',
+        refreshToken: 'none'
       }
     ],
     skipDuplicates: true

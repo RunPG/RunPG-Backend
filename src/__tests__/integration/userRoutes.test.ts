@@ -87,7 +87,7 @@ test('Create an already existing user should return nothing and code 409', async
   await seedDatabase()
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid, heroClass: 'MAGE' })
+    .send({ name: user1.name, uid: user1.uid, heroClass: 'MAGE', mail: user1.mail, serverSideAccessCode: '' })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
