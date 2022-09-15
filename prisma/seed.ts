@@ -1,8 +1,11 @@
 import { NotificationType, PrismaClient } from '@prisma/client'
+import moment from 'moment'
 
 const prisma = new PrismaClient()
 
 async function main(): Promise<void> {
+  const now = new Date()
+
   await prisma.equipementBase.createMany({
     data: [
       {
@@ -328,6 +331,20 @@ async function main(): Promise<void> {
         chestplateId: 7,
         glovesId: 8,
         leggingsId: 9
+      },
+      {
+        heroClass: 'PALADIN',
+        experience: 0,
+        firstSpellId: 1,
+        secondSpellId: 2,
+        thirdSpellId: 3,
+        fourthSpellId: 4,
+        weaponId: 5,
+        statisticsId: 6,
+        helmetId: 1,
+        chestplateId: 2,
+        glovesId: 3,
+        leggingsId: 4
       }
     ],
     skipDuplicates: true
@@ -337,7 +354,7 @@ async function main(): Promise<void> {
     data: [
       {
         name: 'Gabriel',
-        lastCaloriesUpdate: new Date(),
+        lastCaloriesUpdate: now,
         uid: 'zzz',
         mail: 'gabriel@lecherf.com',
         refreshToken: 'none'
@@ -345,7 +362,7 @@ async function main(): Promise<void> {
       {
         name: 'yott94',
         uid: 'g03636930156556937198',
-        lastCaloriesUpdate: new Date(),
+        lastCaloriesUpdate: now,
         characterId: 1,
         mail: 'eliott.bru@gmail.com',
         refreshToken: 'none'
@@ -353,17 +370,18 @@ async function main(): Promise<void> {
       {
         name: 'LeMoutonZen',
         uid: 'g05184935568108008541',
-        lastCaloriesUpdate: new Date(),
+        lastCaloriesUpdate: now,
         characterId: 2,
         mail: 'moutonzenyatta@gmail.com',
         refreshToken: 'none'
       },
       {
-        name: 'Kieran',
+        name: 'KiéranF',
         uid: 'cccc',
-        lastCaloriesUpdate: new Date(),
+        lastCaloriesUpdate: moment().subtract(1, 'day').toDate(),
         mail: 'kieranfooks@gmail.com',
-        refreshToken: 'none'
+        refreshToken: '1//03C4ZcMu8bTBeCgYIARAAGAMSNwF-L9Ir-JsifJcnfkZjee2rfLSN4k4NQEF5sb0_5vHA7huJ6O-4KGTvHBELty6V-TJY1J_sYNA',
+        characterId: 3
       }
     ],
     skipDuplicates: true
