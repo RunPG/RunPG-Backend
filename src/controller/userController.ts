@@ -105,6 +105,7 @@ userController.post('/', async (req, res) => {
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    console.error(error)
     return
   }
 
@@ -232,36 +233,26 @@ userController.post('/:userId/friend/:id', async (req, res) => {
 userController.put('/:userId/xp', async (req, res) => {
   /**
    * #swagger.summary = 'Modify user xp'
-   * #swagger.parameters['xp'] = {
-     in: 'body',
-     description: 'new user xp',
-     required: true,
-   }
    * #swagger.responses[200] = { description: 'User xp updated' }
    * #swagger.responses[500] = { description: 'Server encountered an internal error' }
-   * #swagger.responses[400] = { description: 'Bad userId or xp' }
+   * #swagger.responses[400] = { description: 'Bad userId' }
    * #swagger.responses[404] = { description: 'User not found' }
    */
   const userId = Number(req.params.userId)
-  const xp = Number(req.body.xp)
-  if (isNaN(userId) || isNaN(xp)) {
-    res.sendStatus(StatusCodes.BAD_REQUEST)
-    return
-  }
-
-  if (xp < 0) {
+  if (isNaN(userId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   try {
-    if (await userService.incrementExperience(userId, xp)) {
+    if (await userService.updateExperience(userId)) {
       res.sendStatus(StatusCodes.OK)
     } else {
       res.status(StatusCodes.NOT_FOUND)
         .send(`User with id ${userId} not found`)
     }
   } catch (error) {
+    console.error(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }
 })

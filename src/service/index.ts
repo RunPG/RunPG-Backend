@@ -7,6 +7,7 @@ import * as equipementService from './equipementService'
 import * as equipementBaseService from './equipementBaseService'
 import * as itemService from './itemService'
 import * as characterService from './characterService'
+import * as googleService from './googleService'
 
 export {
   userService,
@@ -17,5 +18,6 @@ export {
   equipementService,
   equipementBaseService,
   itemService,
-  characterService
+  characterService,
+  googleService
 }

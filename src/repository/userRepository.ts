@@ -73,10 +73,11 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
           }
         }
       },
-      lastCaloriesUpdate: new Date() // FIXME: Check date is utc
+      lastCaloriesUpdate: new Date()
     }
   })
 }
+
 export async function joinGuild(id: number, guildId: number): Promise<User | null> {
   const user = await prisma.user.findUnique({
     where: {

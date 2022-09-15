@@ -1,4 +1,5 @@
 import { User, Friend, HeroClass, Character } from '@prisma/client'
+import { googleService } from '.'
 import { characterRepository, equipementRepository, friendRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
 import { getClassSeed } from './classService'
 
@@ -14,9 +15,14 @@ export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
 
-export async function create(name: string, uid: string, mail: string, _serverSideAccessCode: string, heroClass: HeroClass): Promise<User | null> {
+export async function create(name: string, uid: string, mail: string, serverSideAccessCode: string, heroClass: HeroClass): Promise<User | null> {
   if (await userRepository.getByName(name) != null || await userRepository.getByUid(uid) != null) {
     return null
+  }
+
+  const refreshToken = await googleService.authenticateUser(serverSideAccessCode)
+  if (refreshToken == null) {
+    throw new Error(`No refresh code given when authenticating user ${name} with id ${uid}`)
   }
 
   const seed = getClassSeed(heroClass)
@@ -51,8 +57,8 @@ export async function create(name: string, uid: string, mail: string, _serverSid
   }
   const character = await characterRepository.create(hero)
 
-  // FIXME: Connect to Google and get refresh token
-  return await userRepository.create(name, uid, character.id, mail, 'none')
+
+  return await userRepository.create(name, uid, character.id, mail, refreshToken)
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
@@ -71,12 +77,15 @@ export async function addFriend(userId: number, friendId: number): Promise<Frien
   return await userRepository.addFriend(userId, friendId)
 }
 
-export async function incrementExperience(idUser: number, xp: number): Promise<boolean> {
-  if (await userRepository.getById(idUser) == null) {
+export async function updateExperience(idUser: number): Promise<boolean> {
+  const user = await userRepository.getById(idUser)
+  if (user == null) {
     return false
   }
 
-  await userRepository.incrementExperience(idUser, xp)
+  const xpGained = await googleService.getCalories(user)
+
+  await userRepository.incrementExperience(idUser, xpGained)
   return true
 }
 

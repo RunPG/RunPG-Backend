@@ -292,20 +292,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "xp",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "xp": {
-                  "example": "any"
-                }
-              }
-            },
-            "description": "new user xp",
-            "required": true
           }
         ],
         "responses": {
@@ -313,7 +299,7 @@
             "description": "User xp updated"
           },
           "400": {
-            "description": "Bad userId or xp"
+            "description": "Bad userId"
           },
           "404": {
             "description": "User not found"
