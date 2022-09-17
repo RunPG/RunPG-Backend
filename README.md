@@ -1,6 +1,7 @@
 # RunPG-Backend
 
 ## Dev env prerequisites
+
 - Node v16.14.2 (LTS)
 - npm 8.6.0
 - Docker and docker-compose
@@ -11,66 +12,79 @@
 - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)
 
 ## Start dev env
-**0a. Install project, if not already installed:**
+
+**0a. Install project, if not already installed**
+
 ```
 npm ci
 ```
 
-**0b. Create a .env file, if not created yet:**
+**0b. Create a .env file, if not created yet**
+
 ```
-echo 'DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"\nPORT=5000\nENV=DEVELOPMENT' > .env
+DATABASE_URL="postgresql://api:password@localhost:5432/runpg?schema=public"
+PORT=5000
+ENV=DEVELOPMENT
+GOOGLE_CLIENT_ID= {Your Google API app client ID}
+GOOGLE_CLIENT_SECRET= {Your Google API app client secret}
 ```
+
+Creates a .env file containing a URL used for database connection, the API port and your Google Web App id.
+
+**0c. Create a .env.test file, if not created yet**
+
+```
+DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"
+PORT=500
+ENV=TEST
+```
+
 Creates a .env file containing a URL used for database connection and the API port.
 
-**1. Start database:**
-```
-sudo docker-compose up -d
-```
-This will start a detached PostgreSQL docker container.
+**1. Start databases**
 
-**2. Update local database:**
 ```
-npx prisma migrate dev
+npm run dev:setup
 ```
-This will create all the necessary tables in the newly created database.
 
-Note: If you re-created your database and the migration doesn't do anything, run `npx prisma migrate reset` instead.
+This will start two detached seeded PostgreSQL docker containers.
 
-**4. Seed database**
-```
-npm run prisma:seed
-```
-Creates data in your database.
+**2. Start dev server**
 
-**3. Start dev server**
 ```
 npm run dev
 ```
+
 Starts server in dev mode, file updates will automatically apply.
 
 ## Run tests
-**0. Create a .env.test file if not created yet:**
-```
-echo 'DATABASE_URL="postgresql://api:password@localhost:5433/runpg?schema=public"\nPORT=5001\nENV=TEST' > .env.test
-```
-Creates a .env.test file containing a URL used for database connection and the API port.
 
 **1. Make sure you started databases running**
 
 See "1. Start database:" in "Start dev env" section.
 
-**2. Update test database:**
-```
-npm run test:migrate
-```
-Apply Prisma migrations to the test database.
-
 **3. Run tests**
+
 ```
 npm run test
 ```
+
 Run all Jest tests (unit and integration).
 
 To run unit tests only: `npm run test:unit`
 
 To run integration tests only: `npm run test:integration`
+
+## Misc
+
+**Access database GUI editor**
+
+```
+npx prisma studio
+```
+
+**Stop Databases**
+
+```
+npm run dev:down
+```
