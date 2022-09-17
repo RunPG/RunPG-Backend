@@ -21,6 +21,14 @@ export async function getById(id: number): Promise<User | null> {
   })
 }
 
+export async function getByMail(mail: string): Promise<User | null> {
+  return await prisma.user.findUnique({
+    where: {
+      mail
+    }
+  })
+}
+
 export async function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string): Promise<User> {
   return await prisma.user.create({
     data: {

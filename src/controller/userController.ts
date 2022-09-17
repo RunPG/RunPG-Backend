@@ -45,6 +45,30 @@ userController.get('/name/:name', async (req, res) => {
   }
 })
 
+userController.get('/mail/:mail', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a user by mail'
+   * #swagger.responses[200] = { description: 'User found' }
+   * #swagger.responses[404] = { description: 'Could not find the user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+  let user
+  try {
+    user = await userService.getByMail(req.params.mail)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (user == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(user)
+  }
+})
+
 userController.get('/:userId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a user by id'

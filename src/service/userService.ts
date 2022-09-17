@@ -11,6 +11,10 @@ export async function getByName(name: string): Promise<User | null> {
   return await userRepository.getByName(name)
 }
 
+export async function getByMail(mail: string): Promise<User | null> {
+  return await userRepository.getByMail(mail)
+}
+
 export async function getAllUsers(): Promise<User[]> {
   return await userRepository.getAllUsers()
 }
