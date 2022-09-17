@@ -45,6 +45,30 @@ userController.get('/name/:name', async (req, res) => {
   }
 })
 
+userController.get('/mail/:mail', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get a user by mail'
+   * #swagger.responses[200] = { description: 'User found' }
+   * #swagger.responses[404] = { description: 'Could not find the user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+  let user
+  try {
+    user = await userService.getByMail(req.params.mail)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (user == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(user)
+  }
+})
+
 userController.get('/:userId', async (req, res) => {
   /**
    * #swagger.summary = 'Get a user by id'
@@ -91,15 +115,17 @@ userController.post('/', async (req, res) => {
    */
   const name = req.body.name
   const uid = req.body.uid
+  const mail = req.body.mail
+  const serverSideAccessCode = req.body.serverSideAccessCode
   const heroClass: HeroClass = req.body.heroClass as HeroClass
-  if (name == null || uid == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
+  if (name == null || uid == null || mail == null || serverSideAccessCode == null || !Object.values(HeroClass).includes(req.body.heroClass)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   let createduser
   try {
-    createduser = await userService.create(name, uid, heroClass)
+    createduser = await userService.create(name, uid, mail, serverSideAccessCode, heroClass)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -107,7 +133,7 @@ userController.post('/', async (req, res) => {
   }
 
   if (createduser == null) {
-    res.status(StatusCodes.CONFLICT).send(`${name}:${uid} already exists`)
+    res.status(StatusCodes.CONFLICT).send(`${name} with ${uid} already exists`)
   }
   else {
     res.status(StatusCodes.CREATED).send(createduser)
@@ -230,30 +256,19 @@ userController.post('/:userId/friend/:id', async (req, res) => {
 userController.put('/:userId/xp', async (req, res) => {
   /**
    * #swagger.summary = 'Modify user xp'
-   * #swagger.parameters['xp'] = {
-     in: 'body',
-     description: 'new user xp',
-     required: true,
-   }
    * #swagger.responses[200] = { description: 'User xp updated' }
    * #swagger.responses[500] = { description: 'Server encountered an internal error' }
-   * #swagger.responses[400] = { description: 'Bad userId or xp' }
+   * #swagger.responses[400] = { description: 'Bad userId' }
    * #swagger.responses[404] = { description: 'User not found' }
    */
   const userId = Number(req.params.userId)
-  const xp = Number(req.body.xp)
-  if (isNaN(userId) || isNaN(xp)) {
-    res.sendStatus(StatusCodes.BAD_REQUEST)
-    return
-  }
-
-  if (xp < 0) {
+  if (isNaN(userId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
   try {
-    if (await userService.incrementExperience(userId, xp)) {
+    if (await userService.updateExperience(userId)) {
       res.sendStatus(StatusCodes.OK)
     } else {
       res.status(StatusCodes.NOT_FOUND)

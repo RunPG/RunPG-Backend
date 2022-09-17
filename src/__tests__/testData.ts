@@ -11,7 +11,9 @@ export const user1: User = {
   guildId: 1,
   lastCaloriesUpdate: new Date(2020, 0, 1),
   isGuildOwner: true,
-  uid: 'g123456789565'
+  uid: 'g123456789565',
+  mail: 'user1@gmail.com',
+  refreshToken: 'none'
 }
 
 export const user2: User = {
@@ -21,7 +23,9 @@ export const user2: User = {
   guildId: null,
   lastCaloriesUpdate: new Date(2000, 7, 12),
   isGuildOwner: false,
-  uid: 'g594506501721'
+  uid: 'g594506501721',
+  mail: 'user2@gmail.com',
+  refreshToken: 'none'
 }
 
 export const user3: User = {
@@ -31,7 +35,9 @@ export const user3: User = {
   guildId: 2,
   lastCaloriesUpdate: new Date(2022, 1, 4),
   isGuildOwner: true,
-  uid: 'g5496780416163'
+  uid: 'g5496780416163',
+  mail: 'user3@gmail.com',
+  refreshToken: 'none'
 }
 
 export const users = [

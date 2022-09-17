@@ -105,7 +105,7 @@ test('Create a user should return the new user and code 201', async () => {
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER, mail: user1.mail, serverSideAccessCode: '' })
 
   expect(result.statusCode).toEqual(StatusCodes.CREATED)
   expect(result.type).toEqual(expect.stringContaining('json'))
@@ -123,7 +123,7 @@ test('Create an already existing user should return nothing and code 409', async
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER, mail: user1.mail, serverSideAccessCode: '' })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
@@ -143,19 +143,18 @@ test('Create a user should return nothing and code 500 when userService throws',
   })
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER })
+    .send({ name: user1.name, uid: user1.uid, heroClass: HeroClass.BERSERKER, mail: user1.mail, serverSideAccessCode: '' })
 
   expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
   expect(result.body).toEqual({})
 })
 
 test('Update user xp should return nothing and code 200 on success', async () => {
-  userService.incrementExperience = jest.fn(async () => {
+  userService.updateExperience = jest.fn(async () => {
     return true
   })
 
   const result = await request.put(`/user/${user1.id}/xp`)
-    .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.OK)
   expect(result.body).toEqual({})
@@ -163,59 +162,29 @@ test('Update user xp should return nothing and code 200 on success', async () =>
 
 test('Update user xp should return nothing and code 400 on parse userId error', async () => {
   const result = await request.put(`/user/${user1.name}/xp`)
-    .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
   expect(result.body).toEqual({})
-  expect(userService.incrementExperience).not.toBeCalled()
-})
-
-test('Update user xp should return nothing and code 400 on parse xp error', async () => {
-  const result = await request.put(`/user/${user1.id}/xp`)
-    .send({ xp: 'test' })
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-  expect(userService.incrementExperience).not.toBeCalled()
-})
-
-
-test('Update user xp should return nothing and code 400 on missing body', async () => {
-  const result = await request.put(`/user/${user1.id}/xp`)
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-  expect(userService.incrementExperience).not.toBeCalled()
-})
-
-test('Update user xp should return nothing and code 400 when xp < 0', async () => {
-  const result = await request.put(`/user/${user1.id}/xp`)
-    .send({ xp: -1 })
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-  expect(userService.incrementExperience).not.toBeCalled()
+  expect(userService.updateExperience).not.toBeCalled()
 })
 
 test('Update user xp should return nothing and code 404 when user does not exists', async () => {
-  userService.incrementExperience = jest.fn(async () => {
+  userService.updateExperience = jest.fn(async () => {
     return false
   })
 
   const result = await request.put(`/user/${user1.id}/xp`)
-    .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.NOT_FOUND)
   expect(result.body).toEqual({})
 })
 
 test('Update user xp should return nothing and code 500 when userService throws', async () => {
-  userService.incrementExperience = jest.fn(async () => {
+  userService.updateExperience = jest.fn(async () => {
     throw new Error()
   })
 
   const result = await request.put(`/user/${user1.id}/xp`)
-    .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
   expect(result.body).toEqual({})

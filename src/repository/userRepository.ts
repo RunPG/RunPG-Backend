@@ -21,12 +21,22 @@ export async function getById(id: number): Promise<User | null> {
   })
 }
 
-export async function create(name: string, uid: string, characterId: number): Promise<User> {
+export async function getByMail(mail: string): Promise<User | null> {
+  return await prisma.user.findUnique({
+    where: {
+      mail
+    }
+  })
+}
+
+export async function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string): Promise<User> {
   return await prisma.user.create({
     data: {
       name,
       uid,
-      characterId
+      characterId,
+      mail,
+      refreshToken
     }
   })
 }
@@ -71,10 +81,11 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
           }
         }
       },
-      lastCaloriesUpdate: new Date() // FIXME: Check date is utc
+      lastCaloriesUpdate: new Date()
     }
   })
 }
+
 export async function joinGuild(id: number, guildId: number): Promise<User | null> {
   const user = await prisma.user.findUnique({
     where: {

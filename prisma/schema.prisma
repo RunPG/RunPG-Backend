@@ -162,6 +162,8 @@ model User {
   id                   Int            @id @default(autoincrement())
   uid                  String         @unique
   name                 String         @unique
+  mail                 String         @unique
+  refreshToken         String
   guildId              Int?
   characterId          Int?           @unique
   character            Character?     @relation(fields: [characterId], references: [id])

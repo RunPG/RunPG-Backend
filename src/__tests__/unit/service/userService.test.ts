@@ -1,7 +1,7 @@
 import { HeroClass, User } from '@prisma/client'
 import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
 import { characterRepository, equipementRepository, statisticsRepository, userRepository } from '../../../repository'
-import { userService } from '../../../service'
+import { googleService, userService } from '../../../service'
 import { character1, equipement1, guild1, statistics1, user1, user2 } from '../../testData'
 
 /**
@@ -103,7 +103,7 @@ test('getAllUsers should throw when userRepository.getAllUsers throws', async ()
   await expect(call).rejects.toThrow()
 })
 
-test('create should return a user when userRepository.getByName return null', async () => {
+test('create should return a user when userRepository.getByName and getById return null', async () => {
   userRepository.getByName = jest.fn(async () => {
     return null
   })
@@ -132,12 +132,16 @@ test('create should return a user when userRepository.getByName return null', as
     return equipement1
   })
 
-  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
+  googleService.authenticateUser = jest.fn(async () => {
+    return user1.refreshToken
+  })
+
+  const result = await userService.create(user1.name, user1.uid, user1.mail, '', HeroClass.MAGE)
 
   expect(result).toEqual(user1)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
   expect(userRepository.getByUid).toBeCalledWith(user1.uid)
-  expect(userRepository.create).toBeCalledWith(user1.name, user1.uid, character1.id)
+  expect(userRepository.create).toBeCalledWith(user1.name, user1.uid, character1.id, user1.mail, user1.refreshToken)
 })
 
 test('create should return null when userRepository.getByName returns a user', async () => {
@@ -145,7 +149,7 @@ test('create should return null when userRepository.getByName returns a user', a
     return user1
   })
 
-  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
+  const result = await userService.create(user1.name, user1.uid, user1.mail, '', HeroClass.MAGE)
 
   expect(result).toEqual(null)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
@@ -158,7 +162,7 @@ test('create should throw when userRepository.getByName throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name, user2.uid, HeroClass.MAGE)
+    await userService.create(user1.name, user2.uid, user1.mail, '', HeroClass.MAGE)
   }
 
   await expect(call).rejects.toThrow()
@@ -174,7 +178,7 @@ test('create should return null when userRepository.getByUid returns a user', as
     return user1
   })
 
-  const result = await userService.create(user1.name, user1.uid, HeroClass.MAGE)
+  const result = await userService.create(user1.name, user1.uid, user1.mail, '', HeroClass.MAGE)
 
   expect(result).toEqual(null)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
@@ -188,31 +192,14 @@ test('create should throw when userRepository.getByUid throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await userService.create(user1.name, user1.uid, HeroClass.MAGE)
+    await userService.create(user1.name, user1.uid, user1.mail, '', HeroClass.MAGE)
   }
 
   await expect(call).rejects.toThrow()
   expect(userRepository.create).not.toBeCalled()
 })
 
-test('create should throw when userRepository.create throws', async () => {
-  userRepository.getByName = jest.fn(async () => {
-    return null
-  })
-
-  userRepository.create = jest.fn(async () => {
-    throw new Error()
-  })
-
-  const call = async (): Promise<void> => {
-    await userService.create(user1.name, user2.uid, HeroClass.MAGE)
-  }
-
-  await expect(call).rejects.toThrow()
-  expect(userRepository.getByName).toBeCalledWith(user1.name)
-})
-
-test('incrementExperience should return true when the value is updated', async () => {
+test('updateExperience should return true when the value is updated', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -223,7 +210,11 @@ test('incrementExperience should return true when the value is updated', async (
     return
   })
 
-  const result = await userService.incrementExperience(user1.id, xp)
+  googleService.getCalories = jest.fn(async () => {
+    return xp
+  })
+
+  const result = await userService.updateExperience(user1.id)
 
   expect(result).toEqual(true)
   expect(userRepository.getById).toBeCalledWith(user1.id)
@@ -231,9 +222,7 @@ test('incrementExperience should return true when the value is updated', async (
 })
 
 
-test('incrementExperience should return false when the user is not found', async () => {
-  const xp = 42
-
+test('updateExperience should return false when the user is not found', async () => {
   userRepository.getById = jest.fn(async () => {
     return null
   })
@@ -242,16 +231,18 @@ test('incrementExperience should return false when the user is not found', async
     return
   })
 
-  const result = await userService.incrementExperience(user1.id, xp)
+  googleService.getCalories = jest.fn(async () => {
+    return 0
+  })
+
+  const result = await userService.updateExperience(user1.id)
 
   expect(result).toEqual(false)
   expect(userRepository.getById).toBeCalledWith(user1.id)
   expect(userRepository.incrementExperience).not.toBeCalled()
 })
 
-test('incrementExperience should throw when userRepository.getById throws', async () => {
-  const xp = 42
-
+test('updateExperience should throw when userRepository.getById throws', async () => {
   userRepository.getById = jest.fn(async () => {
     throw new Error()
   })
@@ -260,8 +251,12 @@ test('incrementExperience should throw when userRepository.getById throws', asyn
     return
   })
 
+  googleService.getCalories = jest.fn(async () => {
+    return 0
+  })
+
   const call = async (): Promise<void> => {
-    await userService.incrementExperience(user1.id, xp)
+    await userService.updateExperience(user1.id)
   }
 
   await expect(call).rejects.toThrow()
@@ -269,7 +264,7 @@ test('incrementExperience should throw when userRepository.getById throws', asyn
   expect(userRepository.incrementExperience).not.toBeCalled()
 })
 
-test('incrementExperience should throw when userRepository.incrementExperience throws', async () => {
+test('updateExperience should throw when userRepository.incrementExperience throws', async () => {
   const xp = 42
 
   userRepository.getById = jest.fn(async () => {
@@ -280,8 +275,12 @@ test('incrementExperience should throw when userRepository.incrementExperience t
     throw new Error()
   })
 
+  googleService.getCalories = jest.fn(async () => {
+    return xp
+  })
+
   const call = async (): Promise<void> => {
-    await userService.incrementExperience(user1.id, xp)
+    await userService.updateExperience(user1.id)
   }
 
   await expect(call).rejects.toThrow()

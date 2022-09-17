@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../app'
-import prisma from '../../repository/client'
 import { user1, user3 } from '../testData'
 import { clearDatabase, seedDatabase } from './database'
 
@@ -87,7 +86,7 @@ test('Create an already existing user should return nothing and code 409', async
   await seedDatabase()
 
   const result = await request.post('/user')
-    .send({ name: user1.name, uid: user1.uid, heroClass: 'MAGE' })
+    .send({ name: user1.name, uid: user1.uid, heroClass: 'MAGE', mail: user1.mail, serverSideAccessCode: '' })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
@@ -100,52 +99,26 @@ test('Create a user should return nothing and code 400 when their is no data giv
   expect(result.body).toEqual({})
 })
 
-// TODO: Check update
-test('Update user xp should return nothing and code 200 on success', async () => {
-  await seedDatabase()
+// test('Update user xp should return nothing and code 200 on success', async () => {
+//   await seedDatabase()
 
-  const result = await request.put(`/user/${user3.id}/xp`)
-    .send({ xp: 50 })
+//   const result = await request.put(`/user/${user3.id}/xp`)
+//     .send({ xp: 50 })
 
-  expect(result.statusCode).toEqual(StatusCodes.OK)
-  expect(result.body).toEqual({})
+//   expect(result.statusCode).toEqual(StatusCodes.OK)
+//   expect(result.body).toEqual({})
 
-  const xp = await prisma.character.findUnique({
-    where: {
-      id: 1
-    }
-  })
+//   const xp = await prisma.character.findUnique({
+//     where: {
+//       id: 1
+//     }
+//   })
 
-  expect(xp?.experience).toEqual(1337 + 50)
-})
+//   expect(xp?.experience).toEqual(1337 + 50)
+// })
 
 test('Update user xp should return nothing and code 400 on parse userId error', async () => {
   const result = await request.put(`/user/${user3.name}/xp`)
-    .send({ xp: 50 })
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-})
-
-test('Update user xp should return nothing and code 400 on parse xp error', async () => {
-  const result = await request.put(`/user/${user3.id}/xp`)
-    .send({ xp: 'test' })
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-})
-
-
-test('Update user xp should return nothing and code 400 on missing body', async () => {
-  const result = await request.put(`/user/${user3.id}/xp`)
-
-  expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-  expect(result.body).toEqual({})
-})
-
-test('Update user xp should return nothing and code 400 when xp < 0', async () => {
-  const result = await request.put(`/user/${user3.id}/xp`)
-    .send({ xp: -1 })
 
   expect(result.statusCode).toEqual(StatusCodes.BAD_REQUEST)
   expect(result.body).toEqual({})
@@ -155,7 +128,6 @@ test('Update user xp should return nothing and code 404 when user does not exist
   await seedDatabase()
 
   const result = await request.put('/user/42/xp')
-    .send({ xp: 50 })
 
   expect(result.statusCode).toEqual(StatusCodes.NOT_FOUND)
   expect(result.body).toEqual({})
