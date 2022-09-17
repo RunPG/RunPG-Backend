@@ -105,7 +105,6 @@ userController.post('/', async (req, res) => {
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-    console.error(error)
     return
   }
 
@@ -252,7 +251,6 @@ userController.put('/:userId/xp', async (req, res) => {
         .send(`User with id ${userId} not found`)
     }
   } catch (error) {
-    console.error(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
   }
 })
