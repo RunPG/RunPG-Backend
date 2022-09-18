@@ -244,7 +244,6 @@ export const equipements = [
 
 export const statistics1: Statistics = {
   id: 1,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,
@@ -256,7 +255,6 @@ export const statistics1: Statistics = {
 
 export const statistics2: Statistics = {
   id: 2,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,
@@ -268,7 +266,6 @@ export const statistics2: Statistics = {
 
 export const statistics3: Statistics = {
   id: 3,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,
@@ -280,7 +277,6 @@ export const statistics3: Statistics = {
 
 export const statistics4: Statistics = {
   id: 4,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,
@@ -292,7 +288,6 @@ export const statistics4: Statistics = {
 
 export const statistics5: Statistics = {
   id: 5,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,
@@ -304,7 +299,6 @@ export const statistics5: Statistics = {
 
 export const statistics6: Statistics = {
   id: 6,
-  agility: 1,
   defense: 1,
   level: 1,
   power: 1,

@@ -17,7 +17,6 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
         statistics: { // To update
           id: 0,
           level: 1,
-          agility: 1,
           defense: 1,
           power: 1,
           precision: 1,
@@ -40,7 +39,6 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
         statistics: { // To update
           id: 0,
           level: 1,
-          agility: 1,
           defense: 1,
           power: 1,
           precision: 1,

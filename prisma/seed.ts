@@ -71,7 +71,6 @@ async function main(): Promise<void> {
   await prisma.statistics.createMany({
     data: [
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -81,7 +80,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -91,7 +89,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -101,7 +98,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -111,7 +107,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -121,7 +116,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -131,7 +125,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -141,7 +134,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -151,7 +143,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -161,7 +152,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -171,7 +161,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -181,7 +170,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -191,7 +179,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        agility: 1,
         defense: 1,
         level: 1,
         power: 1,
