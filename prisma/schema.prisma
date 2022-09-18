@@ -63,7 +63,6 @@ model Statistics {
   power      Int
   resistance Int
   precision  Int
-  agility    Int
   Equipement Equipement[]
   Character  Character[]
 }
