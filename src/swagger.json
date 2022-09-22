@@ -719,6 +719,80 @@
         }
       }
     },
+    "/user/{userId}/activity/{activityId}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Post a user activity",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity noted"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/isAuthorized/{activityId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get if a user can access to an activity",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity found"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [

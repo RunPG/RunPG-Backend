@@ -192,3 +192,10 @@ model Notification {
 
   @@unique([senderId, receiverId, type])
 }
+
+model Activity {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  activityId String
+  date       DateTime @default(now())
+}
