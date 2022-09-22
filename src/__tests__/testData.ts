@@ -13,7 +13,7 @@ export const user1: User = {
   isGuildOwner: true,
   uid: 'g123456789565',
   mail: 'user1@gmail.com',
-  refreshToken: 'none'
+  refreshToken: null
 }
 
 export const user2: User = {
@@ -25,7 +25,7 @@ export const user2: User = {
   isGuildOwner: false,
   uid: 'g594506501721',
   mail: 'user2@gmail.com',
-  refreshToken: 'none'
+  refreshToken: null
 }
 
 export const user3: User = {
@@ -37,7 +37,7 @@ export const user3: User = {
   isGuildOwner: true,
   uid: 'g5496780416163',
   mail: 'user3@gmail.com',
-  refreshToken: 'none'
+  refreshToken: null
 }
 
 export const users = [

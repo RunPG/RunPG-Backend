@@ -136,7 +136,7 @@ test('create should return a user when userRepository.getByName and getById retu
     return user1.refreshToken
   })
 
-  const result = await userService.create(user1.name, user1.uid, user1.mail, '', HeroClass.MAGE)
+  const result = await userService.create(user1.name, user1.uid, user1.mail, 'unity-editor', HeroClass.MAGE)
 
   expect(result).toEqual(user1)
   expect(userRepository.getByName).toBeCalledWith(user1.name)
