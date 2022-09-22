@@ -369,6 +369,14 @@ async function main(): Promise<void> {
         mail: 'kieranfooks@gmail.com',
         refreshToken: '1//03C4ZcMu8bTBeCgYIARAAGAMSNwF-L9Ir-JsifJcnfkZjee2rfLSN4k4NQEF5sb0_5vHA7huJ6O-4KGTvHBELty6V-TJY1J_sYNA',
         characterId: 3
+      },
+      {
+        name: 'Editor',
+        uid: 'unity',
+        lastCaloriesUpdate: now,
+        mail: 'editor@gmail.com',
+        refreshToken: null,
+        characterId: 3
       }
     ],
     skipDuplicates: true

@@ -88,7 +88,7 @@ test('getById should return user null when asked 1 and 1 does not exists', async
 test('create should create a new user with name User2 when asked to create one with name User2', async () => {
   prismaMock.user.create.mockResolvedValue(user2)
 
-  const result = await userRepository.create(user2.name, user2.uid, 1, user2.mail, user2.refreshToken)
+  const result = await userRepository.create(user2.name, user2.uid, 1, user2.mail, user2.refreshToken!)
 
   expect(result).toEqual(user2)
   expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name, uid: user2.uid, characterId: 1, mail: user2.mail, refreshToken: user2.refreshToken } })
@@ -98,7 +98,7 @@ test('create should create a new user with name User2 when asked to create one w
 test('create should throw when asked to create User2 that already exists', async () => {
   prismaMock.user.create.mockRejectedValue(new Error())
 
-  const call = async (): Promise<User> => await userRepository.create(user2.name, user2.uid, 1, user2.mail, user2.refreshToken)
+  const call = async (): Promise<User> => await userRepository.create(user2.name, user2.uid, 1, user2.mail, user2.refreshToken!)
 
   expect(call).rejects.toThrow()
   expect(prismaMock.user.create).toBeCalledWith({ data: { name: user2.name, uid: user2.uid, characterId: 1, mail: user2.mail,  refreshToken: user2.refreshToken } })

@@ -6,6 +6,10 @@ const DAY_IN_MILLISECONDS = moment.duration(1, 'day').asMilliseconds()
 const fitness = google.fitness('v1')
 
 export async function authenticateUser(authCode: string): Promise<string | null> {
+  if (authCode === 'editor') {
+    return null
+  }
+
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
@@ -34,6 +38,10 @@ export async function getAccessCode(refreshCode: string): Promise<string | null>
 }
 
 export async function getCalories(user: User): Promise<number> {
+  if (user.refreshToken == null) {
+    return 0
+  }
+
   const accessToken = await getAccessCode(user.refreshToken)
   if (accessToken == null) {
     throw new Error('Couldn\'t get access token')

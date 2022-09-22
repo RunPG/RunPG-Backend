@@ -24,9 +24,12 @@ export async function create(name: string, uid: string, mail: string, serverSide
     return null
   }
 
-  const refreshToken = await googleService.authenticateUser(serverSideAccessCode)
-  if (refreshToken == null) {
-    throw new Error(`No refresh code given when authenticating user ${name} with id ${uid}`)
+  const refreshToken: string | null = null
+  if (serverSideAccessCode !== 'unity-editor') {
+    const refreshToken = await googleService.authenticateUser(serverSideAccessCode)
+    if (refreshToken == null) {
+      throw new Error(`No refresh code given when authenticating user ${name} with id ${uid}`)
+    }
   }
 
   const seed = getClassSeed(heroClass)
@@ -60,7 +63,6 @@ export async function create(name: string, uid: string, mail: string, serverSide
     heroClass
   }
   const character = await characterRepository.create(hero)
-
 
   return await userRepository.create(name, uid, character.id, mail, refreshToken)
 }
