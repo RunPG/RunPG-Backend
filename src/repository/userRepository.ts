@@ -29,7 +29,7 @@ export async function getByMail(mail: string): Promise<User | null> {
   })
 }
 
-export async function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string): Promise<User> {
+export async function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string | null): Promise<User> {
   return await prisma.user.create({
     data: {
       name,
