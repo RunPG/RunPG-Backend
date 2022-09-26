@@ -2,7 +2,7 @@ import { HeroClass, NotificationType } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
-import { userService, notificationService, inventoryService, characterService } from '../service'
+import { userService, notificationService, inventoryService, characterService, activityService } from '../service'
 
 const userController = Router()
 
@@ -630,5 +630,71 @@ userController.get('/:userId/inventory', async (req, res) => {
   }
   else {
     res.send(inventory)
+  }
+})
+
+userController.post('/:userId/activity/:activityId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Post a user activity'
+   * #swagger.responses[200] = { description: 'Activity noted' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = parseInt(req.params.userId)
+  const activityId = req.params.activityId
+  if (isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let result
+  try {
+    result = await activityService.create(userId, activityId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (result == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(result)
+  }
+})
+
+userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get if a user can access to an activity'
+   * #swagger.responses[200] = { description: 'Activity found' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = parseInt(req.params.userId)
+  const activityId = req.params.activityId
+  if (isNaN(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let result
+  try {
+    result = await activityService.isUserAuthorized(userId, activityId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (result == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(result)
   }
 })
