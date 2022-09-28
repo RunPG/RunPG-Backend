@@ -1,5 +1,5 @@
 import { User, Friend, HeroClass, Character, Statistics } from '@prisma/client'
-import { characterService, googleService } from '.'
+import { characterService, googleService, userService } from '.'
 import CharacterInfo from '../objects/CharacterInfo'
 import Resources from '../objects/Resources'
 import { characterRepository, equipementRepository, friendRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
@@ -161,4 +161,14 @@ export async function updateResources(userId: number, resources: Resources): Pro
   }
 
   return await characterRepository.updateResources(character.id, resources)
+}
+
+export async function getTodayCalories(userId: number): Promise<number | null> {
+  const user = await userRepository.getById(userId)
+  if (user == null) {
+    return null
+  }
+  await userService.updateExperience(userId)
+
+  return await googleService.getTodayCalories(user)
 }

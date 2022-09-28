@@ -915,6 +915,37 @@
         }
       }
     },
+    "/user/{userId}/caloriesToday": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get calories for today",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [

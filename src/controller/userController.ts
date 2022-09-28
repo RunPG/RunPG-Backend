@@ -783,3 +783,35 @@ userController.post('/:userId/resources', async (req, res) => {
     res.send(result)
   }
 })
+
+userController.get('/:userId/caloriesToday', async (req, res) => {
+  /**
+   * #swagger.summary = 'Get calories for today'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  if (!Number.isInteger(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let calories
+  try {
+    calories = await userService.getTodayCalories(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (calories == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send({ calories })
+  }
+})
