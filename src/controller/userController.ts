@@ -2,6 +2,7 @@ import { HeroClass, NotificationType, Statistics } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
+import Resources from '../objects/Resources'
 import { userService, notificationService, inventoryService, characterService, activityService } from '../service'
 
 const userController = Router()
@@ -699,7 +700,6 @@ userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
   }
 })
 
-
 userController.post('/:userId/levelup', async (req, res) => {
   /**
    * #swagger.summary = 'Level up an user'
@@ -720,8 +720,8 @@ userController.post('/:userId/levelup', async (req, res) => {
     resistance: req.body.resistance,
     precision: req.body.precision
   }
-  if (isNaN(userId) || isNaN(statistics.level) || isNaN(statistics.vitality) || isNaN(statistics.strength) || isNaN(statistics.defense)
-    || isNaN(statistics.power) || isNaN(statistics.resistance) || isNaN(statistics.precision) || isNaN(statistics.id)) {
+  if (!Number.isInteger(userId) || !Number.isInteger(statistics.level) || !Number.isInteger(statistics.vitality) || !Number.isInteger(statistics.strength) || !Number.isInteger(statistics.defense)
+    || !Number.isInteger(statistics.power) || !Number.isInteger(statistics.resistance) || !Number.isInteger(statistics.precision) || !Number.isInteger(statistics.id)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
@@ -729,6 +729,47 @@ userController.post('/:userId/levelup', async (req, res) => {
   let result
   try {
     result = await userService.levelUpUser(userId, statistics)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (result == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(result)
+  }
+})
+
+userController.post('/:userId/resources', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update resources of an user'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId or resources is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  const resources: Resources = {
+    gold: req.body.gold,
+    crystal: req.body.crystal,
+    wood: req.body.wood,
+    rock: req.body.rock,
+    cord: req.body.cord,
+    daarunEye: req.body.daarunEye
+  }
+  if (!Number.isInteger(userId) || !Number.isInteger(resources.gold) || !Number.isInteger(resources.crystal) || !Number.isInteger(resources.wood)
+      || !Number.isInteger(resources.rock) || !Number.isInteger(resources.cord) || !Number.isInteger(resources.daarunEye)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let result
+  try {
+    result = await userService.updateResources(userId, resources)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

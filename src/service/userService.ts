@@ -1,6 +1,7 @@
 import { User, Friend, HeroClass, Character, Statistics } from '@prisma/client'
 import { characterService, googleService } from '.'
 import CharacterInfo from '../objects/CharacterInfo'
+import Resources from '../objects/Resources'
 import { characterRepository, equipementRepository, friendRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
 import { getClassSeed } from './classService'
 
@@ -151,4 +152,13 @@ export async function levelUpUser(userId: number, statistics: Statistics): Promi
   await characterRepository.levelUp(character, statistics)
 
   return await characterService.getByUserId(userId)
+}
+
+export async function updateResources(userId: number, resources: Resources): Promise<Character | null> {
+  const character = await characterRepository.getByUserId(userId)
+  if (character == null) {
+    return null
+  }
+
+  return await characterRepository.updateResources(character.id, resources)
 }

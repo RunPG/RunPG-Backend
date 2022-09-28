@@ -857,6 +857,64 @@
         }
       }
     },
+    "/user/{userId}/resources": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update resources of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gold": {
+                  "example": "any"
+                },
+                "crystal": {
+                  "example": "any"
+                },
+                "wood": {
+                  "example": "any"
+                },
+                "rock": {
+                  "example": "any"
+                },
+                "cord": {
+                  "example": "any"
+                },
+                "daarunEye": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId or resources is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [
