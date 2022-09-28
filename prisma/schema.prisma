@@ -140,6 +140,12 @@ model Character {
   glovesId      Int
   weaponId      Int
   heroClass     HeroClass
+  gold          Int?      @default(0)
+  crystal       Int?      @default(0)
+  wood          Int?      @default(0)
+  rock          Int?      @default(0)
+  cord          Int?      @default(0)
+  daarunEye     Int?      @default(0)
 
   statistics Statistics @relation(fields: [statisticsId], references: [id])
 

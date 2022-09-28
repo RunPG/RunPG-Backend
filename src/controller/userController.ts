@@ -1,4 +1,4 @@
-import { HeroClass, NotificationType } from '@prisma/client'
+import { HeroClass, NotificationType, Statistics } from '@prisma/client'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
@@ -685,6 +685,50 @@ userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
   let result
   try {
     result = await activityService.isUserAuthorized(userId, activityId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (result == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(result)
+  }
+})
+
+
+userController.post('/:userId/levelup', async (req, res) => {
+  /**
+   * #swagger.summary = 'Level up an user'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId or stat is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  const statistics: Statistics = {
+    id: req.body.id,
+    level: req.body.level,
+    vitality: req.body.vitality,
+    strength: req.body.strength,
+    defense: req.body.defense,
+    power: req.body.power,
+    resistance: req.body.resistance,
+    precision: req.body.precision
+  }
+  if (isNaN(userId) || isNaN(statistics.level) || isNaN(statistics.vitality) || isNaN(statistics.strength) || isNaN(statistics.defense)
+    || isNaN(statistics.power) || isNaN(statistics.resistance) || isNaN(statistics.precision) || isNaN(statistics.id)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let result
+  try {
+    result = await userService.levelUpUser(userId, statistics)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

@@ -1,4 +1,4 @@
-import { Character } from '@prisma/client'
+import { Character, Statistics } from '@prisma/client'
 import prisma from './client'
 
 // TODO: Remove hardcoded values
@@ -26,6 +26,22 @@ export async function getByUserId(userId: number): Promise<Character | null> {
     where: {
       user: {
         id: userId
+      }
+    }
+  })
+}
+
+export async function levelUp(character: Character, statistics: Statistics): Promise<Character> {
+  return await prisma.character.update({
+    where: {
+      id: character.id
+    },
+    data: {
+      experience: character.experience,
+      statistics: {
+        update: {
+          ...statistics
+        }
       }
     }
   })
