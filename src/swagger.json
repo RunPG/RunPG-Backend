@@ -793,6 +793,159 @@
         }
       }
     },
+    "/user/{userId}/levelup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Level up an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "level": {
+                  "example": "any"
+                },
+                "vitality": {
+                  "example": "any"
+                },
+                "strength": {
+                  "example": "any"
+                },
+                "defense": {
+                  "example": "any"
+                },
+                "power": {
+                  "example": "any"
+                },
+                "resistance": {
+                  "example": "any"
+                },
+                "precision": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId or stat is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/resources": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update resources of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gold": {
+                  "example": "any"
+                },
+                "crystal": {
+                  "example": "any"
+                },
+                "wood": {
+                  "example": "any"
+                },
+                "rock": {
+                  "example": "any"
+                },
+                "cord": {
+                  "example": "any"
+                },
+                "daarunEye": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId or resources is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/caloriesToday": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get calories for today",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
     "/inventory/{id}": {
       "get": {
         "tags": [

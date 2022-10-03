@@ -78,3 +78,35 @@ export async function getCalories(user: User): Promise<number> {
 
   return Math.round(xp)
 }
+
+export async function getTodayCalories(user: User): Promise<number> {
+  if (user.refreshToken == null) {
+    return 0
+  }
+
+  const accessToken = await getAccessCode(user.refreshToken)
+  if (accessToken == null) {
+    throw new Error('Couldn\'t get access token')
+  }
+
+  const startTime = new Date().setHours(0, 0, 0, 0)
+  const endTime = Date.now()
+
+  const res = await fitness.users.dataset.aggregate({
+    access_token: accessToken,
+    userId: 'me',
+    requestBody: {
+      aggregateBy: [{
+        dataTypeName: 'com.google.calories.expended',
+        dataSourceId: 'derived:com.google.calories.expended:com.google.android.gms:merge_calories_expended'
+      }],
+      bucketByTime: {
+        durationMillis: endTime - startTime
+      },
+      startTimeMillis: startTime,
+      endTimeMillis: endTime
+    }
+  } as unknown as fitness_v1.Params$Resource$Users$Dataset$Aggregate)
+
+  return Math.round(res?.data?.bucket?.at(0)?.dataset?.at(0)?.point?.at(0)?.value?.at(0)?.fpVal ?? 0)
+}

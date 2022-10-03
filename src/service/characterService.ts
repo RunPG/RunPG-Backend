@@ -17,3 +17,7 @@ export async function getByUserId(userId: number): Promise<CharacterInfo | null>
     statistics
   }
 }
+
+export function getXpRequired(level: number): number {
+  return level * 500
+}
