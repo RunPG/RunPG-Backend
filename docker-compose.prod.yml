@@ -10,9 +10,9 @@ services:
     ports:
       - '5432:5432'
   runpg_api:
+    container_name: runpg_api
+    image: kieranfooks/runpg:latest
     restart: always
-    build:
-      context: ./
     environment:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
