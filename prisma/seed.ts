@@ -340,29 +340,6 @@ async function main(): Promise<void> {
   await prisma.user.createMany({
     data: [
       {
-        name: 'Gabriel',
-        lastCaloriesUpdate: now,
-        uid: 'zzz',
-        mail: 'gabriel@lecherf.com',
-        refreshToken: 'none'
-      },
-      {
-        name: 'yott94',
-        uid: 'g03636930156556937198',
-        lastCaloriesUpdate: now,
-        characterId: 1,
-        mail: 'eliott.bru@gmail.com',
-        refreshToken: 'none'
-      },
-      {
-        name: 'LeMoutonZen',
-        uid: 'g05184935568108008541',
-        lastCaloriesUpdate: now,
-        characterId: 2,
-        mail: 'moutonzenyatta@gmail.com',
-        refreshToken: 'none'
-      },
-      {
         name: 'KiéranF',
         uid: 'cccc',
         lastCaloriesUpdate: moment().subtract(1, 'day').toDate(),
@@ -376,7 +353,7 @@ async function main(): Promise<void> {
         lastCaloriesUpdate: now,
         mail: 'editor@gmail.com',
         refreshToken: null,
-        characterId: 3
+        characterId: 2
       }
     ],
     skipDuplicates: true
@@ -389,23 +366,9 @@ async function main(): Promise<void> {
         friendId: 2
       },
       {
-        userId: 1,
-        friendId: 3
-      }
-      ,
-      {
         userId: 2,
         friendId: 1
-      },
-      {
-        userId: 2,
-        friendId: 3
-      },
-      {
-        userId: 3,
-        friendId: 1
       }
-
     ],
     skipDuplicates: true
   })
@@ -420,21 +383,6 @@ async function main(): Promise<void> {
         senderId: 2,
         receiverId: 1,
         type: NotificationType.LOBBY
-      },
-      {
-        senderId: 3,
-        receiverId: 1,
-        type: NotificationType.FRIENDLIST
-      },
-      {
-        senderId: 2,
-        receiverId: 3,
-        type: NotificationType.FRIENDLIST
-      },
-      {
-        senderId: 3,
-        receiverId: 4,
-        type: NotificationType.GUILD
       }
     ],
     skipDuplicates: true
@@ -443,17 +391,17 @@ async function main(): Promise<void> {
   await prisma.inventory.createMany({
     data: [
       {
-        userId: 3,
+        userId: 1,
         stackSize: 1,
         equipementId: 11
       },
       {
-        userId: 3,
+        userId: 1,
         stackSize: 5,
         itemId: 2
       },
       {
-        userId: 3,
+        userId: 1,
         stackSize: 3,
         itemId: 3
       }
@@ -465,6 +413,7 @@ async function main(): Promise<void> {
 main()
   .then(() => {
     console.log('Migration done')
+    console.log('coucou')
   })
   .catch(err => {
     console.error(err)
