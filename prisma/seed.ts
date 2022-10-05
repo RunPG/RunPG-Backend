@@ -1,5 +1,6 @@
 import { NotificationType, PrismaClient } from '@prisma/client'
 import moment from 'moment'
+import { equipementBases } from './equipementSeed'
 
 const prisma = new PrismaClient()
 
@@ -8,41 +9,7 @@ async function main(): Promise<void> {
 
   await prisma.equipementBase.createMany({
     data: [
-      {
-        name: 'Casque en cuir',
-        description: 'Un casque que tu as trouvé sur le bord de la route, tu n\'es même pas sûr que ce soit un casque, mais il est unique à tes yeux.',
-        rarity: 'RELIC',
-        heroClass: 'PALADIN',
-        equipementType: 'HELMET'
-      },
-      {
-        name: 'T-shirt',
-        description: 'Un t-shirt fait par ta mamounette chérie pour son poussin.',
-        rarity: 'RELIC',
-        heroClass: 'PALADIN',
-        equipementType: 'CHESTPLATE'
-      },
-      {
-        name: 'Gants de cuisine',
-        description: 'Une pair de gant que tu as pris de chez toi dans la panique. Tu regrettes peut-être ton choix maintenant.',
-        equipementType: 'GLOVES',
-        heroClass: 'PALADIN',
-        rarity: 'COMMON'
-      },
-      {
-        name: 'Pantalon troué',
-        description: 'Il n\'est même pas à ta taille, mais tu continues à le porter. Pourquoi ?',
-        rarity: 'COMMON',
-        heroClass: 'PALADIN',
-        equipementType: 'LEGGINGS'
-      },
-      {
-        name: 'Hache en pierre',
-        description: 'Coupe difficilement du bois, reste relativement efficace contre les agresseurs.',
-        equipementType: 'WEAPON',
-        heroClass: 'PALADIN',
-        rarity: 'COMMON'
-      }
+      ...equipementBases
     ],
     skipDuplicates: true
   })
@@ -71,6 +38,7 @@ async function main(): Promise<void> {
   await prisma.statistics.createMany({
     data: [
       {
+        id: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -80,6 +48,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 2,
         defense: 1,
         level: 1,
         power: 1,
@@ -89,6 +58,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 3,
         defense: 1,
         level: 1,
         power: 1,
@@ -98,6 +68,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 4,
         defense: 1,
         level: 1,
         power: 1,
@@ -107,6 +78,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 5,
         defense: 1,
         level: 1,
         power: 1,
@@ -116,6 +88,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 6,
         defense: 1,
         level: 1,
         power: 1,
@@ -125,6 +98,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 7,
         defense: 1,
         level: 1,
         power: 1,
@@ -134,6 +108,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 8,
         defense: 1,
         level: 1,
         power: 1,
@@ -143,6 +118,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 9,
         defense: 1,
         level: 1,
         power: 1,
@@ -152,6 +128,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 10,
         defense: 1,
         level: 1,
         power: 1,
@@ -161,6 +138,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
+        id: 11,
         defense: 1,
         level: 1,
         power: 1,
@@ -170,15 +148,7 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        defense: 1,
-        level: 1,
-        power: 1,
-        precision: 1,
-        resistance: 1,
-        strength: 1,
-        vitality: 1
-      },
-      {
+        id: 12,
         defense: 1,
         level: 1,
         power: 1,
@@ -215,27 +185,23 @@ async function main(): Promise<void> {
       },
       {
         equipementBaseId: 1,
-        statisticsId: 7
+        statisticsId: 6
       },
       {
         equipementBaseId: 2,
-        statisticsId: 8
+        statisticsId: 7
       },
       {
         equipementBaseId: 3,
-        statisticsId: 9
+        statisticsId: 8
       },
       {
         equipementBaseId: 4,
-        statisticsId: 10
+        statisticsId: 9
       },
       {
         equipementBaseId: 5,
-        statisticsId: 11
-      },
-      {
-        equipementBaseId: 1,
-        statisticsId: 13
+        statisticsId: 10
       }
     ],
     skipDuplicates: true
@@ -293,13 +259,13 @@ async function main(): Promise<void> {
     data: [
       {
         heroClass: 'PALADIN',
-        experience: 1337,
+        experience: 0,
         firstSpellId: 1,
         secondSpellId: 2,
         thirdSpellId: 3,
         fourthSpellId: 4,
         weaponId: 5,
-        statisticsId: 6,
+        statisticsId: 11,
         helmetId: 1,
         chestplateId: 2,
         glovesId: 3,
@@ -307,7 +273,7 @@ async function main(): Promise<void> {
       },
       {
         heroClass: 'MAGE',
-        experience: 1337,
+        experience: 0,
         firstSpellId: 5,
         secondSpellId: 5,
         thirdSpellId: 6,
@@ -318,20 +284,6 @@ async function main(): Promise<void> {
         chestplateId: 7,
         glovesId: 8,
         leggingsId: 9
-      },
-      {
-        heroClass: 'PALADIN',
-        experience: 0,
-        firstSpellId: 1,
-        secondSpellId: 2,
-        thirdSpellId: 3,
-        fourthSpellId: 4,
-        weaponId: 5,
-        statisticsId: 6,
-        helmetId: 1,
-        chestplateId: 2,
-        glovesId: 3,
-        leggingsId: 4
       }
     ],
     skipDuplicates: true
@@ -345,7 +297,7 @@ async function main(): Promise<void> {
         lastCaloriesUpdate: moment().subtract(1, 'day').toDate(),
         mail: 'kieranfooks@gmail.com',
         refreshToken: '1//03C4ZcMu8bTBeCgYIARAAGAMSNwF-L9Ir-JsifJcnfkZjee2rfLSN4k4NQEF5sb0_5vHA7huJ6O-4KGTvHBELty6V-TJY1J_sYNA',
-        characterId: 3
+        characterId: 1
       },
       {
         name: 'Editor',
@@ -393,17 +345,52 @@ async function main(): Promise<void> {
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 11
+        equipementId: 1
       },
       {
         userId: 1,
-        stackSize: 5,
-        itemId: 2
+        stackSize: 1,
+        equipementId: 2
       },
       {
         userId: 1,
-        stackSize: 3,
-        itemId: 3
+        stackSize: 1,
+        equipementId: 3
+      },
+      {
+        userId: 1,
+        stackSize: 1,
+        equipementId: 4
+      },
+      {
+        userId: 1,
+        stackSize: 1,
+        equipementId: 5
+      },
+      {
+        userId: 2,
+        stackSize: 1,
+        equipementId: 6
+      },
+      {
+        userId: 2,
+        stackSize: 1,
+        equipementId: 7
+      },
+      {
+        userId: 2,
+        stackSize: 1,
+        equipementId: 8
+      },
+      {
+        userId: 2,
+        stackSize: 1,
+        equipementId: 9
+      },
+      {
+        userId: 2,
+        stackSize: 1,
+        equipementId: 10
       }
     ],
     skipDuplicates: true
