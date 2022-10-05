@@ -7,8 +7,30 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
       return {
         helmetId: 1,
         chestplateId: 2,
-        leggingsId: 4,
         glovesId: 3,
+        leggingsId: 4,
+        weaponId: 36,
+        firstSpellId: 5,
+        secondSpellId: 5,
+        thirdSpellId: 6,
+        fourthSpellId: 6,
+        statistics: { // To update
+          id: 0,
+          level: 1,
+          defense: 1,
+          power: 1,
+          precision: 1,
+          resistance: 1,
+          strength: 1,
+          vitality: 1
+        }
+      }
+    case HeroClass.PALADIN:
+      return {
+        helmetId: 1,
+        chestplateId: 2,
+        glovesId: 3,
+        leggingsId: 4,
         weaponId: 5,
         firstSpellId: 1,
         secondSpellId: 2,
@@ -25,29 +47,6 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
           vitality: 1
         }
       }
-    case HeroClass.PALADIN:
-      return {
-        helmetId: 1,
-        chestplateId: 2,
-        leggingsId: 4,
-        glovesId: 3,
-        weaponId: 5,
-        firstSpellId: 5,
-        secondSpellId: 6,
-        thirdSpellId: 7,
-        fourthSpellId: 8,
-        statistics: { // To update
-          id: 0,
-          level: 1,
-          defense: 1,
-          power: 1,
-          precision: 1,
-          resistance: 1,
-          strength: 1,
-          vitality: 1
-        }
-      }
-
     default:
       throw new Error('Unsupported hero class')
   }
