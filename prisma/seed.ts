@@ -1,20 +1,15 @@
 import { NotificationType, PrismaClient } from '@prisma/client'
 import moment from 'moment'
-import { equipementBases } from './equipementSeed'
+import { seedEquipementBases } from './equipementSeed'
 
-const prisma = new PrismaClient()
+export const seedPrismaClient = new PrismaClient()
 
 async function main(): Promise<void> {
   const now = new Date()
 
-  await prisma.equipementBase.createMany({
-    data: [
-      ...equipementBases
-    ],
-    skipDuplicates: true
-  })
+  await seedEquipementBases()
 
-  await prisma.item.createMany({
+  await seedPrismaClient.item.createMany({
     data: [
       {
         name: 'Bave de slime',
@@ -35,10 +30,9 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.statistics.createMany({
+  await seedPrismaClient.statistics.createMany({
     data: [
       {
-        id: 1,
         defense: 1,
         level: 1,
         power: 1,
@@ -48,7 +42,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 2,
         defense: 1,
         level: 1,
         power: 1,
@@ -58,7 +51,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 3,
         defense: 1,
         level: 1,
         power: 1,
@@ -68,7 +60,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 4,
         defense: 1,
         level: 1,
         power: 1,
@@ -78,7 +69,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 5,
         defense: 1,
         level: 1,
         power: 1,
@@ -88,7 +78,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 6,
         defense: 1,
         level: 1,
         power: 1,
@@ -98,7 +87,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 7,
         defense: 1,
         level: 1,
         power: 1,
@@ -108,7 +96,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 8,
         defense: 1,
         level: 1,
         power: 1,
@@ -118,7 +105,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 9,
         defense: 1,
         level: 1,
         power: 1,
@@ -128,7 +114,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 10,
         defense: 1,
         level: 1,
         power: 1,
@@ -138,7 +123,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 11,
         defense: 1,
         level: 1,
         power: 1,
@@ -148,7 +132,6 @@ async function main(): Promise<void> {
         vitality: 1
       },
       {
-        id: 12,
         defense: 1,
         level: 1,
         power: 1,
@@ -161,7 +144,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.equipement.createMany({
+  await seedPrismaClient.equipement.createMany({
     data: [
       {
         equipementBaseId: 1,
@@ -207,7 +190,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.spell.createMany({
+  await seedPrismaClient.spell.createMany({
     data: [
       {
         name: 'Basic Attack',
@@ -255,7 +238,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.character.createMany({
+  await seedPrismaClient.character.createMany({
     data: [
       {
         heroClass: 'PALADIN',
@@ -289,7 +272,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.user.createMany({
+  await seedPrismaClient.user.createMany({
     data: [
       {
         name: 'KiéranF',
@@ -311,7 +294,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.friend.createMany({
+  await seedPrismaClient.friend.createMany({
     data: [
       {
         userId: 1,
@@ -324,7 +307,7 @@ async function main(): Promise<void> {
     ],
     skipDuplicates: true
   })
-  await prisma.notification.createMany({
+  await seedPrismaClient.notification.createMany({
     data: [
       {
         senderId: 2,
@@ -340,7 +323,7 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await prisma.inventory.createMany({
+  await seedPrismaClient.inventory.createMany({
     data: [
       {
         userId: 1,
@@ -406,5 +389,5 @@ main()
     console.error(err)
   })
   .finally(async () => {
-    await prisma.$disconnect()
+    await seedPrismaClient.$disconnect()
   })

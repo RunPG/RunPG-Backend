@@ -9,7 +9,7 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
         chestplateId: 2,
         glovesId: 3,
         leggingsId: 4,
-        weaponId: 36,
+        weaponId: 6,
         firstSpellId: 5,
         secondSpellId: 5,
         thirdSpellId: 6,
