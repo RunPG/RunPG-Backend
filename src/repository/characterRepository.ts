@@ -2,7 +2,6 @@ import { Character, Statistics } from '@prisma/client'
 import Resources from '../objects/Resources'
 import prisma from './client'
 
-// TODO: Remove hardcoded values
 export async function create(character: Character): Promise<Character> {
   return await prisma.character.create({
     data: {
@@ -61,6 +60,21 @@ export async function updateResources(id: number, resources: Resources): Promise
       rock: resources.rock,
       cord: resources.cord,
       daarunEye: resources.daarunEye
+    }
+  })
+}
+
+export async function updateEquiped(id: number, helmetId: number, chestplateId: number, glovesId: number, leggingsId: number, weaponId: number): Promise<Character> {
+  return await prisma.character.update({
+    where: {
+      id
+    },
+    data: {
+      helmetId,
+      chestplateId,
+      glovesId,
+      leggingsId,
+      weaponId
     }
   })
 }

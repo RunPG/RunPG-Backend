@@ -516,16 +516,37 @@ userController.post('/:userId/inventory/equipement', async (req, res) => {
    */
   const userId = Number(req.params.userId)
   const equipementBaseId = Number(req.body.equipementBaseId)
-  if (isNaN(userId) || isNaN(equipementBaseId)) {
+  const level = Number(req.body.statistics.level)
+  const vitality = Number(req.body.statistics.vitality)
+  const strength = Number(req.body.statistics.strength)
+  const defense = Number(req.body.statistics.defense)
+  const power = Number(req.body.statistics.power)
+  const resistance = Number(req.body.statistics.resistance)
+  const precision = Number(req.body.statistics.precision)
+
+  if (isNaN(userId) || isNaN(equipementBaseId) || !Number.isInteger(level) || !Number.isInteger(vitality) || !Number.isInteger(strength)
+     || !Number.isInteger(defense) || !Number.isInteger(power) || !Number.isInteger(resistance) || !Number.isInteger(precision)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
+  const statistics: Statistics = {
+    id: 0,
+    level,
+    vitality,
+    strength,
+    defense,
+    power,
+    resistance,
+    precision
+  }
+
   let inventory
   try {
-    inventory = await inventoryService.createEquipement(userId, equipementBaseId)
+    inventory = await inventoryService.createEquipement(userId, equipementBaseId, statistics)
   }
   catch (error) {
+    console.log(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
@@ -813,5 +834,43 @@ userController.get('/:userId/caloriesToday', async (req, res) => {
   }
   else {
     res.send({ calories })
+  }
+})
+
+userController.post('/:userId/equiped', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update user equiped equipements'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  const helmetId = Number(req.body.helmetId)
+  const chestplateId = Number(req.body.chestplateId)
+  const glovesId = Number(req.body.glovesId)
+  const leggingsId = Number(req.body.leggingsId)
+  const weaponId = Number(req.body.weaponId)
+  if (!Number.isInteger(userId) || !Number.isInteger(helmetId) || !Number.isInteger(chestplateId)
+     || !Number.isInteger(glovesId) || !Number.isInteger(leggingsId) || !Number.isInteger(weaponId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let updated
+  try {
+    updated = await userService.updateEquiped(userId, helmetId, chestplateId, glovesId, leggingsId, weaponId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (updated == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(updated)
   }
 })

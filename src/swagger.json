@@ -590,6 +590,9 @@
               "properties": {
                 "equipementBaseId": {
                   "example": "any"
+                },
+                "statistics": {
+                  "example": "any"
                 }
               }
             }
@@ -928,6 +931,61 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
+    "/user/{userId}/equiped": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user equiped equipements",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "helmetId": {
+                  "example": "any"
+                },
+                "chestplateId": {
+                  "example": "any"
+                },
+                "glovesId": {
+                  "example": "any"
+                },
+                "leggingsId": {
+                  "example": "any"
+                },
+                "weaponId": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
