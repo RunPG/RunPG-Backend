@@ -836,3 +836,41 @@ userController.get('/:userId/caloriesToday', async (req, res) => {
     res.send({ calories })
   }
 })
+
+userController.post('/:userId/equiped', async (req, res) => {
+  /**
+   * #swagger.summary = 'Update user equiped equipements'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  const helmetId = Number(req.body.helmetId)
+  const chestplateId = Number(req.body.chestplateId)
+  const glovesId = Number(req.body.glovesId)
+  const leggingsId = Number(req.body.leggingsId)
+  const weaponId = Number(req.body.weaponId)
+  if (!Number.isInteger(userId) || !Number.isInteger(helmetId) || !Number.isInteger(chestplateId)
+     || !Number.isInteger(glovesId) || !Number.isInteger(leggingsId) || !Number.isInteger(weaponId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let updated
+  try {
+    updated = await userService.updateEquiped(userId, helmetId, chestplateId, glovesId, leggingsId, weaponId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (updated == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(updated)
+  }
+})

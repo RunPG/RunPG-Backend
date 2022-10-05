@@ -1,4 +1,4 @@
-import { User, Friend, HeroClass, Character, Statistics } from '@prisma/client'
+import { User, Friend, HeroClass, Character, Statistics, Inventory } from '@prisma/client'
 import { characterService, googleService, userService } from '.'
 import CharacterInfo from '../objects/CharacterInfo'
 import Resources from '../objects/Resources'
@@ -171,4 +171,22 @@ export async function getTodayCalories(userId: number): Promise<number | null> {
   await userService.updateExperience(userId)
 
   return await googleService.getTodayCalories(user)
+}
+
+export async function updateEquiped(userId: number, helmetId: number, chestplateId: number, glovesId: number, leggingsId: number, weaponId: number): Promise<Character | null> {
+  const user = await userRepository.getById(userId)
+  if (user == null) {
+    return null
+  }
+
+  const userInventory = await inventoryRepository.getByUserId(userId)
+  const hasEquipement = (id: number): boolean => userInventory
+    .filter((value: Inventory) => value.id === id)
+    .length === 1
+
+  if (!hasEquipement(helmetId) || !hasEquipement(chestplateId) || !hasEquipement(glovesId) || !hasEquipement(leggingsId) || !hasEquipement(weaponId)) {
+    return null
+  }
+
+  return await characterRepository.updateEquiped(user.characterId!, helmetId, chestplateId, glovesId, leggingsId, weaponId)
 }
