@@ -590,6 +590,9 @@
               "properties": {
                 "equipementBaseId": {
                   "example": "any"
+                },
+                "statistics": {
+                  "example": "any"
                 }
               }
             }

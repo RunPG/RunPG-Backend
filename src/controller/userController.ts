@@ -516,16 +516,37 @@ userController.post('/:userId/inventory/equipement', async (req, res) => {
    */
   const userId = Number(req.params.userId)
   const equipementBaseId = Number(req.body.equipementBaseId)
-  if (isNaN(userId) || isNaN(equipementBaseId)) {
+  const level = Number(req.body.statistics.level)
+  const vitality = Number(req.body.statistics.vitality)
+  const strength = Number(req.body.statistics.strength)
+  const defense = Number(req.body.statistics.defense)
+  const power = Number(req.body.statistics.power)
+  const resistance = Number(req.body.statistics.resistance)
+  const precision = Number(req.body.statistics.precision)
+
+  if (isNaN(userId) || isNaN(equipementBaseId) || !Number.isInteger(level) || !Number.isInteger(vitality) || !Number.isInteger(strength)
+     || !Number.isInteger(defense) || !Number.isInteger(power) || !Number.isInteger(resistance) || !Number.isInteger(precision)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
+  const statistics: Statistics = {
+    id: 0,
+    level,
+    vitality,
+    strength,
+    defense,
+    power,
+    resistance,
+    precision
+  }
+
   let inventory
   try {
-    inventory = await inventoryService.createEquipement(userId, equipementBaseId)
+    inventory = await inventoryService.createEquipement(userId, equipementBaseId, statistics)
   }
   catch (error) {
+    console.log(error)
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
