@@ -240,7 +240,7 @@ const epicMageEquipementBase: EquipementBase[] = [
     id: 26,
     name: 'Chapeau d\'archimage',
     description: 'Non non, je te jure ce chapeau est magique, no noob no arnak !',
-    rarity: 'RARE',
+    rarity: 'EPIC',
     heroClass: 'MAGE',
     equipementType: 'HELMET'
   },
@@ -248,7 +248,7 @@ const epicMageEquipementBase: EquipementBase[] = [
     id: 27,
     name: 'Robe d\'archimage',
     description: 'Avec son slip assorti Petit Bâteau.',
-    rarity: 'RARE',
+    rarity: 'EPIC',
     heroClass: 'MAGE',
     equipementType: 'CHESTPLATE'
   },
@@ -256,7 +256,7 @@ const epicMageEquipementBase: EquipementBase[] = [
     id: 28,
     name: 'Bottes d\'archimage',
     description: 'Les chaussettes de l\'archimage sont-elles sèches ? Archi-sèches ?',
-    rarity: 'RARE',
+    rarity: 'EPIC',
     heroClass: 'MAGE',
     equipementType: 'LEGGINGS'
   },
@@ -264,7 +264,7 @@ const epicMageEquipementBase: EquipementBase[] = [
     id: 29,
     name: 'Gants d\'archimage',
     description: 'Conçus pour tenir bien au chaud vos petites patoches !',
-    rarity: 'RARE',
+    rarity: 'EPIC',
     heroClass: 'MAGE',
     equipementType: 'GLOVES'
   },
@@ -272,7 +272,7 @@ const epicMageEquipementBase: EquipementBase[] = [
     id: 30,
     name: 'Sceptre de pyromancie',
     description: 'Tu es pyromane ? Arrête.',
-    rarity: 'RARE',
+    rarity: 'EPIC',
     heroClass: 'MAGE',
     equipementType: 'WEAPON'
   }
@@ -283,7 +283,7 @@ const legendaryMageEquipementBase: EquipementBase[] = [
     id: 31,
     name: 'Capuche antique',
     description: 'Te rend sombre et mystérieux.',
-    rarity: 'RARE',
+    rarity: 'LEGENDARY',
     heroClass: 'MAGE',
     equipementType: 'HELMET'
   },
@@ -291,7 +291,7 @@ const legendaryMageEquipementBase: EquipementBase[] = [
     id: 32,
     name: 'Robe antique',
     description: 'La température interne est réglée à 24,3 °C de base, avec un petit thermostat dans la poche gauche.',
-    rarity: 'RARE',
+    rarity: 'LEGENDARY',
     heroClass: 'MAGE',
     equipementType: 'CHESTPLATE'
   },
@@ -299,7 +299,7 @@ const legendaryMageEquipementBase: EquipementBase[] = [
     id: 33,
     name: 'Bottes antiques',
     description: 'Vraiment très confortable. C\'est le top du top. Résistantes, stylées, le must des bottes de mage. Je recommande !',
-    rarity: 'RARE',
+    rarity: 'LEGENDARY',
     heroClass: 'MAGE',
     equipementType: 'LEGGINGS'
   },
@@ -307,7 +307,7 @@ const legendaryMageEquipementBase: EquipementBase[] = [
     id: 34,
     name: 'Gants antiques',
     description: 'Vous les utiliserez pour combattre le mal, d\'autres les utilisent pour faire des ombres chinoises.',
-    rarity: 'RARE',
+    rarity: 'LEGENDARY',
     heroClass: 'MAGE',
     equipementType: 'GLOVES'
   },
@@ -315,7 +315,7 @@ const legendaryMageEquipementBase: EquipementBase[] = [
     id: 35,
     name: 'L\'observateur',
     description: 'Avez-vous bien fait votre veille magique ?',
-    rarity: 'RARE',
+    rarity: 'LEGENDARY',
     heroClass: 'MAGE',
     equipementType: 'WEAPON'
   }
