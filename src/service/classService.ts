@@ -14,15 +14,15 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
         secondSpellId: 5,
         thirdSpellId: 6,
         fourthSpellId: 6,
-        statistics: { // To update
+        statistics: {
           id: 0,
           level: 1,
-          defense: 1,
-          power: 1,
-          precision: 1,
-          resistance: 1,
-          strength: 1,
-          vitality: 1
+          vitality: 5,
+          strength: 5,
+          defense: 5,
+          power: 17,
+          resistance: 10,
+          precision: 12
         }
       }
     case HeroClass.PALADIN:
@@ -36,15 +36,15 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
         secondSpellId: 2,
         thirdSpellId: 3,
         fourthSpellId: 4,
-        statistics: { // To update
+        statistics: {
           id: 0,
           level: 1,
-          defense: 1,
-          power: 1,
-          precision: 1,
-          resistance: 1,
-          strength: 1,
-          vitality: 1
+          vitality: 11,
+          strength: 8,
+          defense: 11,
+          power: 8,
+          resistance: 11,
+          precision: 5
         }
       }
     default:
