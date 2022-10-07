@@ -874,3 +874,36 @@ userController.post('/:userId/equiped', async (req, res) => {
     res.send(updated)
   }
 })
+
+userController.post('/:userId/xp', async (req, res) => {
+  /**
+   * #swagger.summary = 'Add xp to a user'
+   * #swagger.responses[200] = { description: 'User updated' }
+   * #swagger.responses[400] = { description: 'userId is not a number' }
+   * #swagger.responses[404] = { description: 'Could not find user' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   */
+
+  const userId = Number(req.params.userId)
+  const xp = Number(req.body.xp)
+  if (!Number.isInteger(userId) || !Number.isInteger(xp)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let updated
+  try {
+    updated = await userService.incrementExperienceManually(userId, xp)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (updated == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(updated)
+  }
+})

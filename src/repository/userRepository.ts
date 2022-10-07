@@ -123,3 +123,20 @@ export async function deleteById(id: number): Promise<User | null> {
     }
   })
 }
+
+export async function incrementExperienceWithoutDateUpdate(id: number, xp: number): Promise<void> {
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      character: {
+        update: {
+          experience: {
+            increment: xp
+          }
+        }
+      }
+    }
+  })
+}

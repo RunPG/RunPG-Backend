@@ -72,7 +72,15 @@ export async function create(name: string, uid: string, mail: string, serverSide
   }
   const character = await characterRepository.create(hero)
 
-  return await userRepository.create(name, uid, character.id, mail, refreshToken)
+  const user = await userRepository.create(name, uid, character.id, mail, refreshToken)
+
+  await inventoryRepository.createEquipement(user.id, helmet.id)
+  await inventoryRepository.createEquipement(user.id, chestplate.id)
+  await inventoryRepository.createEquipement(user.id, leggings.id)
+  await inventoryRepository.createEquipement(user.id, gloves.id)
+  await inventoryRepository.createEquipement(user.id, weapon.id)
+
+  return user
 }
 
 export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
@@ -189,4 +197,13 @@ export async function updateEquiped(userId: number, helmetId: number, chestplate
   }
 
   return await characterRepository.updateEquiped(user.characterId!, helmetId, chestplateId, glovesId, leggingsId, weaponId)
+}
+
+export async function incrementExperienceManually(userId: number, xp: number): Promise<Character | null> {
+  if (await userRepository.getById(userId) == null) {
+    return null
+  }
+
+  await userRepository.incrementExperienceWithoutDateUpdate(userId, xp)
+  return characterRepository.getByUserId(userId)
 }
