@@ -198,3 +198,12 @@ export async function updateEquiped(userId: number, helmetId: number, chestplate
 
   return await characterRepository.updateEquiped(user.characterId!, helmetId, chestplateId, glovesId, leggingsId, weaponId)
 }
+
+export async function incrementExperienceManually(userId: number, xp: number): Promise<Character | null> {
+  if (await userRepository.getById(userId) == null) {
+    return null
+  }
+
+  await userRepository.incrementExperienceWithoutDateUpdate(userId, xp)
+  return characterRepository.getByUserId(userId)
+}

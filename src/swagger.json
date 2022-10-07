@@ -336,6 +336,47 @@
             "description": "Server encountered an internal error"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Add xp to a user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "xp": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "userId is not a number"
+          },
+          "404": {
+            "description": "Could not find user"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/{userId}/notification": {
