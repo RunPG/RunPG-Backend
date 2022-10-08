@@ -19,4 +19,4 @@ RUN npm run swagger-autogen
 
 RUN npm run build
 
-CMD npx prisma migrate deploy && npm run prisma:seed && npm run start
+CMD npx prisma migrate deploy && npm run start
