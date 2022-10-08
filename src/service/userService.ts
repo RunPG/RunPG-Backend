@@ -189,7 +189,7 @@ export async function updateEquiped(userId: number, helmetId: number, chestplate
 
   const userInventory = await inventoryRepository.getByUserId(userId)
   const hasEquipement = (id: number): boolean => userInventory
-    .filter((value: Inventory) => value.id === id)
+    .filter((value: Inventory) => value.equipementId === id)
     .length === 1
 
   if (!hasEquipement(helmetId) || !hasEquipement(chestplateId) || !hasEquipement(glovesId) || !hasEquipement(leggingsId) || !hasEquipement(weaponId)) {
