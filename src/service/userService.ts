@@ -146,12 +146,11 @@ export async function levelUpUser(userId: number, statistics: Statistics): Promi
     return null
   }
 
-  let levelIncrement = 0
   do {
     character.experience -= xpForLevel
-    levelIncrement++
-    xpForLevel = characterService.getXpRequired(currentStatistics.level + levelIncrement)
-  } while (character.experience >= xpForLevel && currentStatistics.level + levelIncrement < statistics.level)
+    currentStatistics.level += 1
+    xpForLevel = characterService.getXpRequired(currentStatistics.level)
+  } while (character.experience >= xpForLevel && currentStatistics.level < statistics.level)
 
   if (currentStatistics.level != statistics.level) {
     return null
