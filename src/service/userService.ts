@@ -146,12 +146,11 @@ export async function levelUpUser(userId: number, statistics: Statistics): Promi
     return null
   }
 
-  let levelIncrement = 0
   do {
     character.experience -= xpForLevel
-    levelIncrement++
-    xpForLevel = characterService.getXpRequired(currentStatistics.level + levelIncrement)
-  } while (character.experience >= xpForLevel && currentStatistics.level + levelIncrement < statistics.level)
+    currentStatistics.level += 1
+    xpForLevel = characterService.getXpRequired(currentStatistics.level)
+  } while (character.experience >= xpForLevel && currentStatistics.level < statistics.level)
 
   if (currentStatistics.level != statistics.level) {
     return null
@@ -189,7 +188,7 @@ export async function updateEquiped(userId: number, helmetId: number, chestplate
 
   const userInventory = await inventoryRepository.getByUserId(userId)
   const hasEquipement = (id: number): boolean => userInventory
-    .filter((value: Inventory) => value.id === id)
+    .filter((value: Inventory) => value.equipementId === id)
     .length === 1
 
   if (!hasEquipement(helmetId) || !hasEquipement(chestplateId) || !hasEquipement(glovesId) || !hasEquipement(leggingsId) || !hasEquipement(weaponId)) {
