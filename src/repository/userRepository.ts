@@ -141,3 +141,15 @@ export async function incrementExperienceWithoutDateUpdate(id: number, xp: numbe
     }
   })
 }
+
+export async function leaveGuild(id: number): Promise<void> {
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      guildId: null,
+      isGuildOwner: false
+    }
+  })
+}
