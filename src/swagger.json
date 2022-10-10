@@ -609,6 +609,37 @@
         }
       }
     },
+    "/user/{userId}/guild": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Leave the guild",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully removed from the guild"
+          },
+          "400": {
+            "description": "Bad userId"
+          },
+          "404": {
+            "description": "User does not exists"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      }
+    },
     "/user/{userId}/inventory/equipement": {
       "post": {
         "tags": [
@@ -1225,7 +1256,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "guild": {
+                "ownerId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "description": {
                   "example": "any"
                 }
               }

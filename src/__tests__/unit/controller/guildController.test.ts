@@ -62,7 +62,7 @@ test('Create a guild should return the new guild and code 201', async () => {
   })
 
   const result = await request.post('/guild')
-    .send({ guild: guild1 })
+    .send({ name: guild1.name, description: guild1.description, ownerId: 1 })
 
   expect(result.statusCode).toEqual(StatusCodes.CREATED)
   expect(result.type).toEqual(expect.stringContaining('json'))
@@ -76,7 +76,7 @@ test('Create an already existing guild should return nothing and code 409', asyn
   })
 
   const result = await request.post('/guild')
-    .send({ guild: guild1 })
+    .send({ name: guild1.name, description: guild1.description, ownerId: 1 })
 
   expect(result.statusCode).toEqual(StatusCodes.CONFLICT)
   expect(result.body).toEqual({})
@@ -96,7 +96,7 @@ test('Create a guild should return nothing and code 500 when guildService throws
   })
 
   const result = await request.post('/guild')
-    .send({ guild: guild1 })
+    .send({ name: guild1.name, description: guild1.description, ownerId: 1 })
 
   expect(result.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
   expect(result.body).toEqual({})

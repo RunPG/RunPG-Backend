@@ -506,6 +506,37 @@ userController.post('/:userId/join/:guildId', async (req, res) => {
   }
 })
 
+userController.delete('/:userId/guild', async (req, res) => {
+  /**
+   * #swagger.summary = 'Leave the guild'
+   * #swagger.responses[200] = { description: 'User successfully removed from the guild' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId' }
+   * #swagger.responses[404] = { description: 'User does not exists' }
+   */
+  const userId = parseInt(req.params.userId)
+  if (!Number.isInteger(userId)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let leaved
+  try {
+    leaved = await userService.leaveGuild(userId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (leaved == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.sendStatus(StatusCodes.OK)
+  }
+})
+
 userController.post('/:userId/inventory/equipement', async (req, res) => {
   /**
    * #swagger.summary = 'Give an equipement to an user'

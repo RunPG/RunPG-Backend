@@ -206,3 +206,12 @@ export async function incrementExperienceManually(userId: number, xp: number): P
   await userRepository.incrementExperienceWithoutDateUpdate(userId, xp)
   return characterRepository.getByUserId(userId)
 }
+
+export async function leaveGuild(userId: number): Promise<boolean> {
+  if (await userRepository.getById(userId) == null) {
+    return false
+  }
+
+  await userRepository.leaveGuild(userId)
+  return true
+}
