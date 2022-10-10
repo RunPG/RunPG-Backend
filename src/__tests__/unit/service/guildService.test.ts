@@ -1,6 +1,6 @@
-import { guildRepository } from '../../../repository'
+import { guildRepository, userRepository } from '../../../repository'
 import { guildService } from '../../../service'
-import { guild1, guild2 } from '../../testData'
+import { guild1, guild2, user1 } from '../../testData'
 
 /**
  * Guild service unit test
@@ -71,10 +71,14 @@ test('create should return a guild when guildRepository.create return a guild', 
     return guild1
   })
 
+  userRepository.getById = jest.fn(async () => {
+    return user1
+  })
+
   const result = await guildService.create(1, guild1.name, guild1.description!)
 
   expect(result).toEqual(guild1)
-  expect(guildRepository.create).toBeCalledWith(guild1)
+  expect(guildRepository.create).toBeCalledWith(guild1.name, guild1.description)
 })
 
 test('create should throw when guildRepository.create throws', async () => {
@@ -82,12 +86,16 @@ test('create should throw when guildRepository.create throws', async () => {
     throw new Error()
   })
 
+  userRepository.getById = jest.fn(async () => {
+    return user1
+  })
+
   const call = async (): Promise<void> => {
     await guildService.create(1, guild1.name, guild1.description!)
   }
 
   await expect(call).rejects.toThrow()
-  expect(guildRepository.create).toBeCalledWith(guild1)
+  expect(guildRepository.create).toBeCalledWith(guild1.name, guild1.description)
 })
 
 test('updateGuild should return the guild when it is updated', async () => {

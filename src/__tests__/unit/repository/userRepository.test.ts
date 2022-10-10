@@ -116,7 +116,8 @@ test('join a guild should return the user that just joined the guild', async () 
       id: 2
     },
     data: {
-      guildId: 1
+      guildId: 1,
+      isGuildOwner: false
     }
   })
 })

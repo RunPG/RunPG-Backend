@@ -53,7 +53,7 @@ test('create should create a new guild when asked to create one called guild2', 
   const result = await guildRepository.create(guild2.name, guild2.description!)
 
   expect(result).toEqual(guild2)
-  expect(prismaMock.guild.create).toBeCalledWith({ data: guild2 })
+  expect(prismaMock.guild.create).toBeCalledWith({ data: { name: guild2.name, description: guild2.description } })
 })
 
 test('create should throw when asked to create guild2 that already exists', async () => {
@@ -62,5 +62,5 @@ test('create should throw when asked to create guild2 that already exists', asyn
   const call = async (): Promise<Guild | null> => await guildRepository.create(guild2.name, guild2.description!)
 
   expect(call).rejects.toThrow()
-  expect(prismaMock.guild.create).toBeCalledWith({ data: guild2 })
+  expect(prismaMock.guild.create).toBeCalledWith({ data: { name: guild2.name, description: guild2.description } })
 })
