@@ -71,7 +71,7 @@ test('create should return a guild when guildRepository.create return a guild', 
     return guild1
   })
 
-  const result = await guildService.create(guild1)
+  const result = await guildService.create(1, guild1.name, guild1.description!)
 
   expect(result).toEqual(guild1)
   expect(guildRepository.create).toBeCalledWith(guild1)
@@ -83,7 +83,7 @@ test('create should throw when guildRepository.create throws', async () => {
   })
 
   const call = async (): Promise<void> => {
-    await guildService.create(guild1)
+    await guildService.create(1, guild1.name, guild1.description!)
   }
 
   await expect(call).rejects.toThrow()

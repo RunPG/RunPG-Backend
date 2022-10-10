@@ -13,8 +13,21 @@ export async function getById(id: number): Promise<Guild | null> {
   })
 }
 
-export async function create(guild: Guild): Promise<Guild | null> {
-  return await prisma.guild.create({ data: guild })
+export async function getByName(name: string): Promise<Guild | null> {
+  return await prisma.guild.findUnique({
+    where: {
+      name
+    }
+  })
+}
+
+export async function create(name: string, description: string): Promise<Guild | null> {
+  return await prisma.guild.create({
+    data: {
+      name,
+      description
+    }
+  })
 }
 
 export async function updateGuild(id: number, newGuildValues: Guild): Promise<Guild | null> {

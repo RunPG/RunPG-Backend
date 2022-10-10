@@ -53,7 +53,6 @@ GuildController.get('/:guildId', async (req, res) => {
   }
 })
 
-
 GuildController.post('/', async (req, res) => {
   /**
    * #swagger.summary = 'Create a guild'
@@ -62,14 +61,17 @@ GuildController.post('/', async (req, res) => {
    * #swagger.responses[400] = { description: 'Guild body is not valid' }
    * #swagger.responses[409] = { description: 'Guild already exists' }
    */
-  const guild = req.body.guild
-  if (guild == null) {
+  const ownerId = req.body.ownerId
+  const name = req.body.name
+  const description = req.body.description
+  if (name == null || description == null || !Number.isInteger(ownerId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
+
   let createdGuild
   try {
-    createdGuild = await guildService.create(guild)
+    createdGuild = await guildService.create(ownerId, name, description)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)

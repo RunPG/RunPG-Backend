@@ -86,7 +86,7 @@ export async function incrementExperience(id: number, xp: number): Promise<void>
   })
 }
 
-export async function joinGuild(id: number, guildId: number): Promise<User | null> {
+export async function joinGuild(id: number, guildId: number, isGuildOwner = false): Promise<User | null> {
   const user = await prisma.user.findUnique({
     where: {
       id
@@ -103,7 +103,8 @@ export async function joinGuild(id: number, guildId: number): Promise<User | nul
       id
     },
     data: {
-      guildId
+      guildId,
+      isGuildOwner
     }
   })
 }
