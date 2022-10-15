@@ -44,7 +44,8 @@ app.get('/health', (_, res) => {
    * #swagger.tags = ['Health']
    * #swagger.summary = 'Check if the server is up and running'
    */
-  res.sendStatus(StatusCodes.OK)
+  res.send({ version: process.env.npm_package_version })
+    .sendStatus(StatusCodes.OK)
 })
 
 app.get('/', (_, res) => {
