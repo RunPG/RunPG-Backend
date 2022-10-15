@@ -40,7 +40,6 @@ enum Rarity {
   RELIC
 }
 
-// TODO: Guiler, hotel des ventes, demandes d'ami
 model Inventory {
   id        Int @id @default(autoincrement())
   userId    Int
@@ -101,22 +100,6 @@ model Equipement {
   characterWeapon     Character[] @relation("weapon")
 }
 
-// Mana cost and cooldown are here for the website
-// TODO: Check if there is anything else (dmg, effect, etc.)
-// and image path
-model Spell {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  description String
-  heroClass   HeroClass
-  manaCost    Int
-  cooldown    Int
-  firstSpell  Character[] @relation("firstSpell")
-  secondSpell Character[] @relation("secondSpell")
-  thirdSpell  Character[] @relation("thirdSpell")
-  fourthSpell Character[] @relation("fourthSpell")
-}
-
 model Friend {
   userId   Int
   friendId Int
@@ -130,10 +113,10 @@ model Character {
   id            Int       @id @default(autoincrement())
   experience    Int       @default(0)
   statisticsId  Int
-  firstSpellId  Int
-  secondSpellId Int
-  thirdSpellId  Int
-  fourthSpellId Int
+  firstSpellId  Int?
+  secondSpellId Int?
+  thirdSpellId  Int?
+  fourthSpellId Int?
   helmetId      Int
   chestplateId  Int
   leggingsId    Int
@@ -148,11 +131,6 @@ model Character {
   daarunEye     Int?      @default(0)
 
   statistics Statistics @relation(fields: [statisticsId], references: [id])
-
-  firstSpell  Spell @relation("firstSpell", fields: [firstSpellId], references: [id])
-  secondSpell Spell @relation("secondSpell", fields: [secondSpellId], references: [id])
-  thirdSpell  Spell @relation("thirdSpell", fields: [thirdSpellId], references: [id])
-  fourthSpell Spell @relation("fourthSpell", fields: [fourthSpellId], references: [id])
 
   helmet     Equipement @relation("helmet", fields: [helmetId], references: [id])
   chestplate Equipement @relation("chestplate", fields: [chestplateId], references: [id])

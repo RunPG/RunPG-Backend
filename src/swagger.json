@@ -24,7 +24,11 @@
         "summary": "Check if the server is up and running",
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/user/": {
@@ -1133,92 +1137,6 @@
           },
           "404": {
             "description": "Inventory does not exist"
-          },
-          "500": {
-            "description": "Server encountered an internal error"
-          }
-        }
-      }
-    },
-    "/spell/": {
-      "get": {
-        "tags": [
-          "Spell"
-        ],
-        "summary": "Get all spells",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Got all spells"
-          },
-          "500": {
-            "description": "Server encountered an internal error"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Spell"
-        ],
-        "summary": "Create a new spell",
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/spell/name/{name}": {
-      "get": {
-        "tags": [
-          "Spell"
-        ],
-        "summary": "Get a spell by name",
-        "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Spell found"
-          },
-          "404": {
-            "description": "Spell not found"
-          },
-          "500": {
-            "description": "Server encountered an internal error"
-          }
-        }
-      }
-    },
-    "/spell/{id}": {
-      "get": {
-        "tags": [
-          "Spell"
-        ],
-        "summary": "Get a spell by id",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Spell found"
-          },
-          "400": {
-            "description": "spellId not valid"
-          },
-          "404": {
-            "description": "Spell not found"
           },
           "500": {
             "description": "Server encountered an internal error"

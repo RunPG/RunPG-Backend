@@ -412,54 +412,6 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await seedPrismaClient.spell.createMany({
-    data: [
-      {
-        name: 'Basic Attack',
-        cooldown: 10,
-        manaCost: 20,
-        description: 'Swing your weapon and maybe you will kill something.',
-        heroClass: 'PALADIN'
-      },
-      {
-        name: 'Heal',
-        cooldown: 5,
-        manaCost: 15,
-        description: 'Do sparkles with your fingers to sparkle up someone\'s health.',
-        heroClass: 'PALADIN'
-      },
-      {
-        name: 'Smash',
-        cooldown: 1,
-        manaCost: 2,
-        description: 'Combine the power of your two fists into one swing.',
-        heroClass: 'PALADIN'
-      },
-      {
-        name: 'Sleep',
-        cooldown: 50,
-        manaCost: 0,
-        description: 'Close your eyes. That\'s it.',
-        heroClass: 'PALADIN'
-      },
-      {
-        name: 'Boule de feu',
-        cooldown: 10,
-        manaCost: 20,
-        description: 'Swing your weapon and maybe you will kill something.',
-        heroClass: 'MAGE'
-      },
-      {
-        name: 'Embrasement',
-        cooldown: 5,
-        manaCost: 15,
-        description: 'Do sparkles with your fingers to sparkle up someone\'s health.',
-        heroClass: 'MAGE'
-      }
-    ],
-    skipDuplicates: true
-  })
-
   await seedPrismaClient.character.createMany({
     data: [
       // Kieran
@@ -481,10 +433,10 @@ async function main(): Promise<void> {
       {
         heroClass: 'MAGE',
         experience: 0,
-        firstSpellId: 5,
-        secondSpellId: 5,
-        thirdSpellId: 6,
-        fourthSpellId: 6,
+        firstSpellId: 1,
+        secondSpellId: 2,
+        thirdSpellId: 3,
+        fourthSpellId: 4,
         weaponId: 10,
         statisticsId: 27,
         helmetId: 6,
@@ -496,10 +448,10 @@ async function main(): Promise<void> {
       {
         heroClass: 'MAGE',
         experience: 0,
-        firstSpellId: 5,
-        secondSpellId: 5,
-        thirdSpellId: 6,
-        fourthSpellId: 6,
+        firstSpellId: 1,
+        secondSpellId: 2,
+        thirdSpellId: 3,
+        fourthSpellId: 4,
         weaponId: 15,
         statisticsId: 28,
         helmetId: 11,
@@ -511,10 +463,10 @@ async function main(): Promise<void> {
       {
         heroClass: 'MAGE',
         experience: 0,
-        firstSpellId: 5,
-        secondSpellId: 5,
-        thirdSpellId: 6,
-        fourthSpellId: 6,
+        firstSpellId: 1,
+        secondSpellId: 2,
+        thirdSpellId: 3,
+        fourthSpellId: 4,
         weaponId: 20,
         statisticsId: 29,
         helmetId: 16,
@@ -526,10 +478,10 @@ async function main(): Promise<void> {
       {
         heroClass: 'MAGE',
         experience: 0,
-        firstSpellId: 5,
-        secondSpellId: 5,
-        thirdSpellId: 6,
-        fourthSpellId: 6,
+        firstSpellId: 1,
+        secondSpellId: 2,
+        thirdSpellId: 3,
+        fourthSpellId: 4,
         weaponId: 25,
         statisticsId: 30,
         helmetId: 21,
