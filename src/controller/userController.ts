@@ -529,7 +529,7 @@ userController.delete('/:userId/guild', async (req, res) => {
     return
   }
 
-  if (leaved == null) {
+  if (leaved == false) {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {

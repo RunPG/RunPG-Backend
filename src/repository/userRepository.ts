@@ -154,6 +154,17 @@ export async function leaveGuild(id: number): Promise<void> {
   })
 }
 
+export async function setGuildOwner(id: number): Promise<void> {
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      isGuildOwner: true
+    }
+  })
+}
+
 export async function getMembersOfGuild(guildId: number): Promise<(User & { character: (Character & { statistics: Statistics; }) | null; })[]> {
   return prisma.user.findMany({
     where: {
