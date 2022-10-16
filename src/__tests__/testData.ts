@@ -1,4 +1,4 @@
-import { Character, Equipement, EquipementBase, Guild, Spell, Statistics } from '@prisma/client'
+import { Character, Equipement, EquipementBase, Guild, Statistics } from '@prisma/client'
 import { Friend, User } from '@prisma/client'
 
 /**
@@ -57,63 +57,6 @@ export const friend1: Friend = {
 
 export const friends = [
   friend1
-]
-
-/**
- * Spells
- */
-
-export const spell1: Spell = {
-  id: 1,
-  name: 'Basic Attack',
-  cooldown: 10,
-  manaCost: 20,
-  description: 'Swing your weapon and maybe you will kill something.',
-  heroClass: 'BERSERKER'
-}
-
-export const spell2: Spell = {
-  id: 2,
-  name: 'Heal',
-  cooldown: 5,
-  manaCost: 15,
-  description: 'Do sparkles with your fingers to sparkle up someone\'s health',
-  heroClass: 'BERSERKER'
-}
-
-export const spell3: Spell = {
-  id: 3,
-  name: 'Smash',
-  cooldown: 1,
-  manaCost: 2,
-  description: 'Combine the power of your two fists into one swing.',
-  heroClass: 'BERSERKER'
-}
-
-export const spell4: Spell = {
-  id: 4,
-  name: 'Sleep',
-  cooldown: 50,
-  manaCost: 0,
-  description: 'Close your eyes. That\' it.',
-  heroClass: 'BERSERKER'
-}
-
-export const spell5: Spell = {
-  id: 5,
-  name: 'Flash heal',
-  cooldown: 5,
-  manaCost: 15,
-  description: 'Do sparkles with your fingers to sparkle up someone\'s health',
-  heroClass: 'PRIEST'
-}
-
-export const spells = [
-  spell1,
-  spell2,
-  spell3,
-  spell4,
-  spell5
 ]
 
 /**

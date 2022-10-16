@@ -1,10 +1,10 @@
 import express from 'express'
-import { StatusCodes } from 'http-status-codes'
 import morgan from 'morgan'
-import { equipementBaseController, equipementController, guildController, inventoryController, itemController, spellController, userController } from './controller'
+import { equipementBaseController, equipementController, guildController, inventoryController, itemController, userController } from './controller'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 import path from 'path'
+import { StatusCodes } from 'http-status-codes'
 
 const ENV = process.env.ENV
 if (ENV === undefined) {
@@ -23,9 +23,6 @@ app.use('/user', userController
 )
 app.use('/inventory', inventoryController
   // #swagger.tags = ['Inventory']
-)
-app.use('/spell', spellController
-  // #swagger.tags = ['Spell']
 )
 app.use('/guild', guildController
   // #swagger.tags = ['Guild']
@@ -47,7 +44,8 @@ app.get('/health', (_, res) => {
    * #swagger.tags = ['Health']
    * #swagger.summary = 'Check if the server is up and running'
    */
-  res.sendStatus(StatusCodes.OK)
+  res.send({ version: process.env.npm_package_version })
+    .sendStatus(StatusCodes.OK)
 })
 
 app.get('/', (_, res) => {

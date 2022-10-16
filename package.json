@@ -1,19 +1,20 @@
 {
   "name": "runpg-backend",
-  "version": "0.0.0",
+  "version": "4.2.0",
   "description": "Backend for RunPG",
   "main": "./dist/server.js",
   "engines": {
     "node": "^16.14.2"
   },
   "scripts": {
-    "prod:start": "docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans && npm run prisma:migrate && npm run prisma:seed",
+    "prod:setup": "docker-compose -f docker-compose.prod.yml pull && docker-compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans && npm run prisma:migrate:deploy && npm run prisma:seed",
     "prod:stop": "docker-compose -f docker-compose.prod.yml down",
-    "dev:setup": "npm run dev:up && npm run prisma:migrate && npm run prisma:seed && npm run test:migrate",
+    "dev:setup": "npm run dev:up && npm run prisma:migrate:dev && npm run prisma:seed && npm run test:migrate",
     "dev:up": "docker-compose -f docker-compose.dev.yml up -d --force-recreate",
     "dev:down": "docker-compose -f docker-compose.dev.yml down",
     "prisma:reset": "npx prisma migrate reset",
-    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:migrate:dev": "npx prisma migrate dev",
+    "prisma:migrate:deploy": "npx prisma migrate deploy",
     "prisma:seed": "ts-node --transpile-only prisma/seed.ts",
     "dev": "nodemon",
     "clean": "rm -rf dist node_modules",
