@@ -1,5 +1,6 @@
 import { Character, Equipement, EquipementBase, Guild, Statistics } from '@prisma/client'
 import { Friend, User } from '@prisma/client'
+import GuildInfo from '../objects/GuildInfo'
 
 /**
  * Users
@@ -286,3 +287,10 @@ export const guilds = [
   guild1,
   guild2
 ]
+
+export const guild1Info: GuildInfo = {
+  id: guild1.id,
+  name: guild1.name,
+  description: guild1.description,
+  members: []
+}

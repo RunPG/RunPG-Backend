@@ -38,3 +38,11 @@ export async function updateGuild(id: number, newGuildValues: Guild): Promise<Gu
     data: newGuildValues
   })
 }
+
+export async function remove(id: number): Promise<void> {
+  await prisma.guild.delete({
+    where: {
+      id
+    }
+  })
+}

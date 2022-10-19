@@ -2,7 +2,7 @@ import { User, Friend, HeroClass, Character, Statistics, Inventory } from '@pris
 import { characterService, googleService, userService } from '.'
 import CharacterInfo from '../objects/CharacterInfo'
 import Resources from '../objects/Resources'
-import { characterRepository, equipementRepository, friendRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
+import { characterRepository, equipementRepository, friendRepository, guildRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
 import { getClassSeed } from './classService'
 
 export async function getById(id: number): Promise<User | null> {
@@ -208,10 +208,26 @@ export async function incrementExperienceManually(userId: number, xp: number): P
 }
 
 export async function leaveGuild(userId: number): Promise<boolean> {
-  if (await userRepository.getById(userId) == null) {
+  const user = await userRepository.getById(userId)
+  if (user == null || user.guildId == null) {
     return false
   }
 
+  if (user.isGuildOwner) {
+    const members = await userRepository.getMembersOfGuild(user.guildId)
+
+    if (members.length == 1) {
+      await userRepository.leaveGuild(userId)
+      await guildRepository.remove(user.guildId)
+
+      return true
+    } else {
+      const newOwnerId = members.filter(member => member.isGuildOwner == false)[0].id
+      await userRepository.setGuildOwner(newOwnerId)
+    }
+  }
+
   await userRepository.leaveGuild(userId)
+
   return true
 }

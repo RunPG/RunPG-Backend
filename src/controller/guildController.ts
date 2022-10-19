@@ -29,27 +29,27 @@ GuildController.get('/:guildId', async (req, res) => {
    * #swagger.responses[400] = { description: 'guildId is not valid' }
    * #swagger.responses[404] = { description: 'Guild not found' }
    */
-  const guildId = parseInt(req.params.guildId)
+  const guildId = Number(req.params.guildId)
 
-  if (isNaN(guildId)) {
+  if (!Number.isInteger(guildId)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }
 
-  let Guild
+  let guild
   try {
-    Guild = await guildService.getById(guildId)
+    guild = await guildService.getById(guildId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (Guild == null) {
+  if (guild == null) {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.send(Guild)
+    res.send(guild)
   }
 })
 

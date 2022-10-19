@@ -1,6 +1,6 @@
 import { guildRepository, userRepository } from '../../../repository'
 import { guildService } from '../../../service'
-import { guild1, guild2, user1 } from '../../testData'
+import { guild1, guild1Info, guild2, user1 } from '../../testData'
 
 /**
  * Guild service unit test
@@ -13,10 +13,15 @@ test('getById should return guild1 when guildRepository.getById returns guild1',
     return guild1
   })
 
+  userRepository.getMembersOfGuild = jest.fn(async () => {
+    return []
+  })
+
   const result = await guildService.getById(guild1.id)
 
-  expect(result).toEqual(guild1)
+  expect(result).toEqual(guild1Info)
   expect(guildRepository.getById).toBeCalledWith(guild1.id)
+  expect(userRepository.getMembersOfGuild).toBeCalledWith(guild1.id)
 })
 
 test('getById should return null when guildRepository.getById returns null', async () => {

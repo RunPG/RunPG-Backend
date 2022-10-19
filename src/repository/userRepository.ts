@@ -1,4 +1,4 @@
-import { User, Friend } from '@prisma/client'
+import { User, Friend, Character, Statistics } from '@prisma/client'
 import prisma from './client'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
 export async function getAllUsers(): Promise<User[]> {
@@ -150,6 +150,32 @@ export async function leaveGuild(id: number): Promise<void> {
     data: {
       guildId: null,
       isGuildOwner: false
+    }
+  })
+}
+
+export async function setGuildOwner(id: number): Promise<void> {
+  await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      isGuildOwner: true
+    }
+  })
+}
+
+export async function getMembersOfGuild(guildId: number): Promise<(User & { character: (Character & { statistics: Statistics; }) | null; })[]> {
+  return prisma.user.findMany({
+    where: {
+      guildId
+    },
+    include: {
+      character: {
+        include: {
+          statistics: true
+        }
+      }
     }
   })
 }

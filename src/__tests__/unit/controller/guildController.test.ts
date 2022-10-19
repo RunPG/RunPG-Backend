@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import supertest from 'supertest'
 import app from '../../../app'
 import { guildService } from '../../../service'
-import { guild1, guild2 } from '../../testData'
+import { guild1, guild1Info, guild2 } from '../../testData'
 
 const request = supertest(app)
 
@@ -14,7 +14,7 @@ const request = supertest(app)
 
 test('GET a guild by id should return the guild returned by guildService and code 200', async () => {
   guildService.getById = jest.fn(async () => {
-    return guild1
+    return guild1Info
   })
 
   const result = await request.get(`/guild/${guild1.id}`)
