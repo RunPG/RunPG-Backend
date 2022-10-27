@@ -78,12 +78,8 @@ export const character1: Character = {
   chestplateId: 2,
   glovesId: 3,
   leggingsId: 4,
-  cord: 0,
   crystal: 0,
-  daarunEye: 0,
-  gold: 0,
-  rock: 0,
-  wood: 0
+  gold: 0
 }
 
 export const characters = [

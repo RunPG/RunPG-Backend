@@ -55,11 +55,7 @@ export async function updateResources(id: number, resources: Resources): Promise
     },
     data: {
       gold: resources.gold,
-      crystal: resources.crystal,
-      wood: resources.wood,
-      rock: resources.rock,
-      cord: resources.cord,
-      daarunEye: resources.daarunEye
+      crystal: resources.crystal
     }
   })
 }
