@@ -719,7 +719,7 @@ userController.post('/:userId/activity/:activityId', async (req, res) => {
   }
 })
 
-userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
+userController.get('/:userId/activity/:activityId', async (req, res) => {
   /**
    * #swagger.summary = 'Get if a user can access to an activity'
    * #swagger.responses[200] = { description: 'Activity found' }
@@ -735,20 +735,20 @@ userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
     return
   }
 
-  let result
+  let time: number | null
   try {
-    result = await activityService.isUserAuthorized(userId, activityId)
+    time = await activityService.getUserActivity(userId, activityId)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
     return
   }
 
-  if (result == null) {
+  if (time == null) {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.send(result)
+    res.send({ date: time })
   }
 })
 
