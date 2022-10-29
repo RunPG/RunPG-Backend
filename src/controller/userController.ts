@@ -807,14 +807,9 @@ userController.post('/:userId/resources', async (req, res) => {
   const userId = Number(req.params.userId)
   const resources: Resources = {
     gold: req.body.gold,
-    crystal: req.body.crystal,
-    wood: req.body.wood,
-    rock: req.body.rock,
-    cord: req.body.cord,
-    daarunEye: req.body.daarunEye
+    crystal: req.body.crystal
   }
-  if (!Number.isInteger(userId) || !Number.isInteger(resources.gold) || !Number.isInteger(resources.crystal) || !Number.isInteger(resources.wood)
-      || !Number.isInteger(resources.rock) || !Number.isInteger(resources.cord) || !Number.isInteger(resources.daarunEye)) {
+  if (!Number.isInteger(userId) || !Number.isInteger(resources.gold) || !Number.isInteger(resources.crystal)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
   }

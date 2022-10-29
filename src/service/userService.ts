@@ -63,12 +63,8 @@ export async function create(name: string, uid: string, mail: string, serverSide
     thirdSpellId: seed.thirdSpellId,
     fourthSpellId: seed.fourthSpellId,
     heroClass,
-    cord: 0,
     crystal: 0,
-    daarunEye: 0,
-    gold: 0,
-    rock: 0,
-    wood: 0
+    gold: 0
   }
   const character = await characterRepository.create(hero)
 
