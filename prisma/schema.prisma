@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum EquipementType {
+enum EquipmentType {
   WEAPON
   HELMET
   CHESTPLATE
@@ -45,16 +45,16 @@ model Inventory {
   userId    Int
   stackSize Int
 
-  equipementId Int?
-  itemId       Int?
+  equipmentId Int?
+  itemId      Int?
 
-  owner      User        @relation(fields: [userId], references: [id])
-  equipement Equipement? @relation(fields: [equipementId], references: [id])
-  item       Item?       @relation(fields: [itemId], references: [id])
+  owner     User       @relation(fields: [userId], references: [id])
+  equipment Equipment? @relation(fields: [equipmentId], references: [id])
+  item      Item?      @relation(fields: [itemId], references: [id])
 }
 
 model Statistics {
-  id         Int          @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   level      Int
   vitality   Int
   strength   Int
@@ -62,7 +62,7 @@ model Statistics {
   power      Int
   resistance Int
   precision  Int
-  Equipement Equipement[]
+  Equipment  Equipment[]
   Character  Character[]
 }
 
@@ -74,24 +74,24 @@ model Item {
   Inventory    Inventory[]
 }
 
-model EquipementBase {
-  id             Int            @id @default(autoincrement())
-  name           String         @unique
-  description    String
-  rarity         Rarity
-  heroClass      HeroClass?
-  equipementType EquipementType
-  Equipement     Equipement[]
+model EquipmentBase {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  description   String
+  rarity        Rarity
+  heroClass     HeroClass?
+  equipmentType EquipmentType
+  Equipment     Equipment[]
 }
 
-model Equipement {
-  id               Int @id @default(autoincrement())
-  equipementBaseId Int
-  statisticsId     Int
+model Equipment {
+  id              Int @id @default(autoincrement())
+  equipmentBaseId Int
+  statisticsId    Int
 
-  equipementBase EquipementBase @relation(fields: [equipementBaseId], references: [id])
-  statistics     Statistics     @relation(fields: [statisticsId], references: [id])
-  inventory      Inventory[]
+  equipmentBase EquipmentBase @relation(fields: [equipmentBaseId], references: [id])
+  statistics    Statistics    @relation(fields: [statisticsId], references: [id])
+  inventory     Inventory[]
 
   characterHelmet     Character[] @relation("helmet")
   characterChestplate Character[] @relation("chestplate")
@@ -128,11 +128,11 @@ model Character {
 
   statistics Statistics @relation(fields: [statisticsId], references: [id])
 
-  helmet     Equipement @relation("helmet", fields: [helmetId], references: [id])
-  chestplate Equipement @relation("chestplate", fields: [chestplateId], references: [id])
-  leggings   Equipement @relation("leggings", fields: [leggingsId], references: [id])
-  gloves     Equipement @relation("gloves", fields: [glovesId], references: [id])
-  weapon     Equipement @relation("weapon", fields: [weaponId], references: [id])
+  helmet     Equipment @relation("helmet", fields: [helmetId], references: [id])
+  chestplate Equipment @relation("chestplate", fields: [chestplateId], references: [id])
+  leggings   Equipment @relation("leggings", fields: [leggingsId], references: [id])
+  gloves     Equipment @relation("gloves", fields: [glovesId], references: [id])
+  weapon     Equipment @relation("weapon", fields: [weaponId], references: [id])
 
   user User?
 }

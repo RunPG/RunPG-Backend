@@ -17,11 +17,11 @@ export async function getByUserId(userId: number): Promise<Inventory[]> {
   })
 }
 
-export async function createEquipement(userId: number, equipementId: number): Promise<Inventory> {
+export async function createEquipment(userId: number, equipmentId: number): Promise<Inventory> {
   return await prisma.inventory.create({
     data: {
       userId,
-      equipementId,
+      equipmentId,
       stackSize: 1
     }
   })

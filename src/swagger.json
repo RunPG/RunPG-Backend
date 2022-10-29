@@ -644,12 +644,12 @@
         }
       }
     },
-    "/user/{userId}/inventory/equipement": {
+    "/user/{userId}/inventory/equipment": {
       "post": {
         "tags": [
           "User"
         ],
-        "summary": "Give an equipement to an user",
+        "summary": "Give an equipment to an user",
         "description": "",
         "parameters": [
           {
@@ -664,7 +664,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "equipementBaseId": {
+                "equipmentBaseId": {
                   "example": "any"
                 },
                 "statistics": {
@@ -676,13 +676,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Equipement successfully added to user inventory"
+            "description": "Equipment successfully added to user inventory"
           },
           "400": {
-            "description": "Bad userId or equipementBaseId"
+            "description": "Bad userId or equipmentBaseId"
           },
           "404": {
-            "description": "User or equipement base does not exist"
+            "description": "User or equipment base does not exist"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -1018,7 +1018,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Update user equiped equipements",
+        "summary": "Update user equiped equipments",
         "description": "",
         "parameters": [
           {
@@ -1266,12 +1266,12 @@
         }
       }
     },
-    "/equipement/{id}": {
+    "/equipment/{id}": {
       "get": {
         "tags": [
-          "Equipement"
+          "Equipment"
         ],
-        "summary": "Get the equipement by id",
+        "summary": "Get the equipment by id",
         "description": "",
         "parameters": [
           {
@@ -1283,13 +1283,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Equipement found"
+            "description": "Equipment found"
           },
           "400": {
             "description": "Id is not valid"
           },
           "404": {
-            "description": "Equipement not found"
+            "description": "Equipment not found"
           },
           "500": {
             "description": "Server encountered an internal error"
@@ -1297,12 +1297,12 @@
         }
       }
     },
-    "/equipementBase/": {
+    "/equipmentBase/": {
       "get": {
         "tags": [
-          "Equipement Base"
+          "Equipment Base"
         ],
-        "summary": "Get equipement base",
+        "summary": "Get equipment base",
         "description": "",
         "parameters": [
           {
@@ -1310,18 +1310,18 @@
             "in": "query",
             "required": false,
             "type": "number",
-            "description": "Optional id of equipement base to search for"
+            "description": "Optional id of equipment base to search for"
           }
         ],
         "responses": {
           "200": {
-            "description": "Equipement base found"
+            "description": "Equipment base found"
           },
           "400": {
             "description": "Id is not valid"
           },
           "404": {
-            "description": "Equipement base not found"
+            "description": "Equipment base not found"
           },
           "500": {
             "description": "Server encountered an internal error"

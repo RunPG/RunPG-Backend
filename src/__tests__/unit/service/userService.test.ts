@@ -1,8 +1,8 @@
 import { HeroClass, User } from '@prisma/client'
 import { AlreadyInAGuildError } from '../../../exception/AlreadyInAGuildError'
-import { characterRepository, equipementRepository, statisticsRepository, userRepository } from '../../../repository'
+import { characterRepository, equipmentRepository, statisticsRepository, userRepository } from '../../../repository'
 import { googleService, userService } from '../../../service'
-import { character1, equipement1, guild1, statistics1, user1, user2 } from '../../testData'
+import { character1, equipment1, guild1, statistics1, user1, user2 } from '../../testData'
 
 /**
  * User service unit test
@@ -128,8 +128,8 @@ test('create should return a user when userRepository.getByName and getById retu
     return statistics1
   })
 
-  equipementRepository.create = jest.fn(async () => {
-    return equipement1
+  equipmentRepository.create = jest.fn(async () => {
+    return equipment1
   })
 
   googleService.authenticateUser = jest.fn(async () => {

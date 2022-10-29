@@ -2,7 +2,7 @@ import { User, Friend, HeroClass, Character, Statistics, Inventory } from '@pris
 import { characterService, googleService, userService } from '.'
 import CharacterInfo from '../objects/CharacterInfo'
 import Resources from '../objects/Resources'
-import { characterRepository, equipementRepository, friendRepository, guildRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
+import { characterRepository, equipmentRepository, friendRepository, guildRepository, inventoryRepository, notificationRepository, statisticsRepository, userRepository } from '../repository'
 import { getClassSeed } from './classService'
 
 export async function getById(id: number): Promise<User | null> {
@@ -43,11 +43,11 @@ export async function create(name: string, uid: string, mail: string, serverSide
   const weaponStats = await statisticsRepository.createOnlyOneValues()
   const heroStats = await statisticsRepository.create(seed.statistics)
 
-  const helmet = await equipementRepository.create(seed.helmetId, helmetStats.id)
-  const chestplate = await equipementRepository.create(seed.chestplateId, chestplateStats.id)
-  const leggings = await equipementRepository.create(seed.leggingsId, leggingsStats.id)
-  const gloves = await equipementRepository.create(seed.glovesId, glovesStats.id)
-  const weapon = await equipementRepository.create(seed.weaponId, weaponStats.id)
+  const helmet = await equipmentRepository.create(seed.helmetId, helmetStats.id)
+  const chestplate = await equipmentRepository.create(seed.chestplateId, chestplateStats.id)
+  const leggings = await equipmentRepository.create(seed.leggingsId, leggingsStats.id)
+  const gloves = await equipmentRepository.create(seed.glovesId, glovesStats.id)
+  const weapon = await equipmentRepository.create(seed.weaponId, weaponStats.id)
 
   const hero: Character = {
     id: 0,
@@ -70,11 +70,11 @@ export async function create(name: string, uid: string, mail: string, serverSide
 
   const user = await userRepository.create(name, uid, character.id, mail, refreshToken)
 
-  await inventoryRepository.createEquipement(user.id, helmet.id)
-  await inventoryRepository.createEquipement(user.id, chestplate.id)
-  await inventoryRepository.createEquipement(user.id, leggings.id)
-  await inventoryRepository.createEquipement(user.id, gloves.id)
-  await inventoryRepository.createEquipement(user.id, weapon.id)
+  await inventoryRepository.createEquipment(user.id, helmet.id)
+  await inventoryRepository.createEquipment(user.id, chestplate.id)
+  await inventoryRepository.createEquipment(user.id, leggings.id)
+  await inventoryRepository.createEquipment(user.id, gloves.id)
+  await inventoryRepository.createEquipment(user.id, weapon.id)
 
   return user
 }
@@ -183,11 +183,11 @@ export async function updateEquiped(userId: number, helmetId: number, chestplate
   }
 
   const userInventory = await inventoryRepository.getByUserId(userId)
-  const hasEquipement = (id: number): boolean => userInventory
-    .filter((value: Inventory) => value.equipementId === id)
+  const hasEquipment = (id: number): boolean => userInventory
+    .filter((value: Inventory) => value.equipmentId === id)
     .length === 1
 
-  if (!hasEquipement(helmetId) || !hasEquipement(chestplateId) || !hasEquipement(glovesId) || !hasEquipement(leggingsId) || !hasEquipement(weaponId)) {
+  if (!hasEquipment(helmetId) || !hasEquipment(chestplateId) || !hasEquipment(glovesId) || !hasEquipment(leggingsId) || !hasEquipment(weaponId)) {
     return null
   }
 

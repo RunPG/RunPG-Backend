@@ -1,22 +1,22 @@
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { equipementBaseService } from '../service'
+import { equipmentBaseService } from '../service'
 
-const equipementBaseController = Router()
+const equipmentBaseController = Router()
 
-equipementBaseController.get('/', async (req, res) => {
+equipmentBaseController.get('/', async (req, res) => {
   /**
-   * #swagger.summary = 'Get equipement base'
+   * #swagger.summary = 'Get equipment base'
    * #swagger.parameters['id'] = {
        in: 'query',
        required: false,
        type: 'number',
-       description: 'Optional id of equipement base to search for',
+       description: 'Optional id of equipment base to search for',
      }
-   * #swagger.responses[200] = { description: 'Equipement base found' }
+   * #swagger.responses[200] = { description: 'Equipment base found' }
    * #swagger.responses[500] = { description: 'Server encountered an internal error' }
    * #swagger.responses[400] = { description: 'Id is not valid' }
-   * #swagger.responses[404] = { description: 'Equipement base not found' }
+   * #swagger.responses[404] = { description: 'Equipment base not found' }
    */
   const id = Number(req.query.id)
   if (req.query.id != null && isNaN(id)) {
@@ -26,16 +26,16 @@ equipementBaseController.get('/', async (req, res) => {
 
   try {
     if (req.query.id != null) {
-      const equipementBase = await equipementBaseService.getById(id)
-      if (equipementBase == null) {
+      const equipmentBase = await equipmentBaseService.getById(id)
+      if (equipmentBase == null) {
         res.sendStatus(StatusCodes.NOT_FOUND)
       }
       else {
-        res.send([equipementBase])
+        res.send([equipmentBase])
       }
     }
     else {
-      res.send(await equipementBaseService.getAll())
+      res.send(await equipmentBaseService.getAll())
     }
   }
   catch (error) {
@@ -43,4 +43,4 @@ equipementBaseController.get('/', async (req, res) => {
   }
 })
 
-export default equipementBaseController
+export default equipmentBaseController
