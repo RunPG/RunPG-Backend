@@ -88,11 +88,21 @@ export async function getAllFriends(userId: number): Promise<Friend[] | null> {
 }
 
 export async function addFriend(userId: number, friendId: number): Promise<Friend | null> {
+  if (userRepository.getById(userId) == null || userRepository.getById(friendId) == null) {
+    return null
+  }
+
   if (await userRepository.getFriend(userId, friendId) != null) {
     return null
   }
 
   return await userRepository.addFriend(userId, friendId)
+}
+
+export async function removeFriend(userId: number, friendId: number): Promise<boolean> {
+  const deleteCount = await friendRepository.deleteFriendship(userId, friendId)
+
+  return deleteCount !== 0
 }
 
 export async function updateExperience(idUser: number): Promise<boolean> {
