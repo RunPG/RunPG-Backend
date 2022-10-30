@@ -1,18 +1,18 @@
 import prisma from '../../repository/client'
-import { characters, equipementBases, equipements, guilds, statistics, users } from '../testData'
+import { characters, equipmentBases, equipments, guilds, statistics, users } from '../testData'
 
 export async function seedDatabase(): Promise<void> {
 
-  const createEquipementBase = prisma.equipementBase.createMany({
-    data: equipementBases
+  const createEquipmentBase = prisma.equipmentBase.createMany({
+    data: equipmentBases
   })
 
   const createStatistics = prisma.statistics.createMany({
     data: statistics
   })
 
-  const createEquipement = prisma.equipement.createMany({
-    data: equipements
+  const createEquipment = prisma.equipment.createMany({
+    data: equipments
   })
 
   const createCharacter = prisma.character.createMany({
@@ -28,9 +28,9 @@ export async function seedDatabase(): Promise<void> {
   })
 
   await prisma.$transaction([
-    createEquipementBase,
+    createEquipmentBase,
     createStatistics,
-    createEquipement,
+    createEquipment,
     createCharacter,
     createGuild,
     createUser
@@ -40,16 +40,16 @@ export async function seedDatabase(): Promise<void> {
 export async function clearDatabase(): Promise<void> {
   const deleteUser = prisma.user.deleteMany()
   const deleteCharacter = prisma.character.deleteMany()
-  const deleteEquipement = prisma.equipement.deleteMany()
-  const deleteEquipementBase = prisma.equipementBase.deleteMany()
+  const deleteEquipment = prisma.equipment.deleteMany()
+  const deleteEquipmentBase = prisma.equipmentBase.deleteMany()
   const deleteStat = prisma.statistics.deleteMany()
   const deleteGuild = prisma.guild.deleteMany()
 
   await prisma.$transaction([
     deleteUser,
     deleteCharacter,
-    deleteEquipement,
-    deleteEquipementBase,
+    deleteEquipment,
+    deleteEquipmentBase,
     deleteStat,
     deleteGuild
   ])

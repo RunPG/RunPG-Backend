@@ -1,4 +1,4 @@
-import { Character, Equipement, EquipementBase, Guild, Statistics } from '@prisma/client'
+import { Character, Equipment, EquipmentBase, Guild, Statistics } from '@prisma/client'
 import { Friend, User } from '@prisma/client'
 import GuildInfo from '../objects/GuildInfo'
 
@@ -87,101 +87,101 @@ export const characters = [
 ]
 
 /**
- * Equipement base
+ * Equipment base
  */
 
-export const equipementBase1: EquipementBase = {
+export const equipmentBase1: EquipmentBase = {
   id: 1,
   name: 'Helmet',
   description: 'A helmet you found on the side of the road, you are not even sure this is a helmet. It\' unique in its own way !',
   rarity: 'RELIC',
   heroClass: 'BERSERKER',
-  equipementType: 'HELMET'
+  equipmentType: 'HELMET'
 }
 
-export const equipementBase2: EquipementBase = {
+export const equipmentBase2: EquipmentBase = {
   id: 2,
   name: 'Shirt',
   description: 'A shirt that your mom made you.',
   rarity: 'RELIC',
   heroClass: 'BERSERKER',
-  equipementType: 'CHESTPLATE'
+  equipmentType: 'CHESTPLATE'
 }
 
-export const equipementBase3: EquipementBase = {
+export const equipmentBase3: EquipmentBase = {
   id: 3,
   name: 'Cooking gloves',
   description: 'Gloves you took from your house in a hurry.',
-  equipementType: 'GLOVES',
+  equipmentType: 'GLOVES',
   heroClass: 'BERSERKER',
   rarity: 'COMMON'
 }
-export const equipementBase4: EquipementBase = {
+export const equipmentBase4: EquipmentBase = {
   id: 4,
   name: 'Leggings',
   description: 'They are not your size, but you still carry them. Why ?',
   rarity: 'COMMON',
   heroClass: 'BERSERKER',
-  equipementType: 'LEGGINGS'
+  equipmentType: 'LEGGINGS'
 }
 
-export const equipementBase5: EquipementBase = {
+export const equipmentBase5: EquipmentBase = {
   id: 5,
   name: 'Wood axe',
   description: 'Used to cut wood, seems efficient to also cut enemies',
-  equipementType: 'WEAPON',
+  equipmentType: 'WEAPON',
   heroClass: 'BERSERKER',
   rarity: 'COMMON'
 }
 
-export const equipementBases = [
-  equipementBase1,
-  equipementBase2,
-  equipementBase3,
-  equipementBase4,
-  equipementBase5
+export const equipmentBases = [
+  equipmentBase1,
+  equipmentBase2,
+  equipmentBase3,
+  equipmentBase4,
+  equipmentBase5
 ]
 
 /**
- * Equipement
+ * Equipment
  */
 
-export const equipement1: Equipement = {
+export const equipment1: Equipment = {
   id: 1,
-  equipementBaseId: 1,
+  equipmentBaseId: 1,
   statisticsId: 1
 }
 
-export const equipement2: Equipement = {
+export const equipment2: Equipment = {
   id: 2,
-  equipementBaseId: 2,
+  equipmentBaseId: 2,
   statisticsId: 2
 }
 
-export const equipement3: Equipement = {
+export const equipment3: Equipment = {
   id: 3,
-  equipementBaseId: 3,
+  equipmentBaseId: 3,
   statisticsId: 3
 }
 
-export const equipement4: Equipement = {
+export const equipment4: Equipment = {
   id: 4,
-  equipementBaseId: 4,
+  equipmentBaseId: 4,
   statisticsId: 4
 }
 
-export const equipement5: Equipement = {
+export const equipment5: Equipment = {
   id: 5,
-  equipementBaseId: 5,
+  equipmentBaseId: 5,
   statisticsId: 5
 }
 
-export const equipements = [
-  equipement1,
-  equipement2,
-  equipement3,
-  equipement4,
-  equipement5
+export const equipments = [
+  equipment1,
+  equipment2,
+  equipment3,
+  equipment4,
+  equipment5
 ]
 
 /**

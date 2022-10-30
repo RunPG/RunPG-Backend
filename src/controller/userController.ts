@@ -570,16 +570,16 @@ userController.delete('/:userId/guild', async (req, res) => {
   }
 })
 
-userController.post('/:userId/inventory/equipement', async (req, res) => {
+userController.post('/:userId/inventory/equipment', async (req, res) => {
   /**
-   * #swagger.summary = 'Give an equipement to an user'
-   * #swagger.responses[200] = { description: 'Equipement successfully added to user inventory' }
+   * #swagger.summary = 'Give an equipment to an user'
+   * #swagger.responses[200] = { description: 'Equipment successfully added to user inventory' }
    * #swagger.responses[500] = { description: 'Server encountered an internal error' }
-   * #swagger.responses[400] = { description: 'Bad userId or equipementBaseId' }
-   * #swagger.responses[404] = { description: 'User or equipement base does not exist' }
+   * #swagger.responses[400] = { description: 'Bad userId or equipmentBaseId' }
+   * #swagger.responses[404] = { description: 'User or equipment base does not exist' }
    */
   const userId = Number(req.params.userId)
-  const equipementBaseId = Number(req.body.equipementBaseId)
+  const equipmentBaseId = Number(req.body.equipmentBaseId)
   const level = Number(req.body.statistics.level)
   const vitality = Number(req.body.statistics.vitality)
   const strength = Number(req.body.statistics.strength)
@@ -588,7 +588,7 @@ userController.post('/:userId/inventory/equipement', async (req, res) => {
   const resistance = Number(req.body.statistics.resistance)
   const precision = Number(req.body.statistics.precision)
 
-  if (isNaN(userId) || isNaN(equipementBaseId) || !Number.isInteger(level) || !Number.isInteger(vitality) || !Number.isInteger(strength)
+  if (isNaN(userId) || isNaN(equipmentBaseId) || !Number.isInteger(level) || !Number.isInteger(vitality) || !Number.isInteger(strength)
      || !Number.isInteger(defense) || !Number.isInteger(power) || !Number.isInteger(resistance) || !Number.isInteger(precision)) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
     return
@@ -607,7 +607,7 @@ userController.post('/:userId/inventory/equipement', async (req, res) => {
 
   let inventory
   try {
-    inventory = await inventoryService.createEquipement(userId, equipementBaseId, statistics)
+    inventory = await inventoryService.createEquipment(userId, equipmentBaseId, statistics)
   }
   catch (error) {
     console.log(error)
@@ -898,7 +898,7 @@ userController.get('/:userId/caloriesToday', async (req, res) => {
 
 userController.post('/:userId/equiped', async (req, res) => {
   /**
-   * #swagger.summary = 'Update user equiped equipements'
+   * #swagger.summary = 'Update user equiped equipments'
    * #swagger.responses[200] = { description: 'User updated' }
    * #swagger.responses[400] = { description: 'userId is not a number' }
    * #swagger.responses[404] = { description: 'Could not find user' }

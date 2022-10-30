@@ -1,5 +1,5 @@
 import { Inventory, Statistics } from '@prisma/client'
-import { equipementBaseRepository, equipementRepository, inventoryRepository, itemRepository, statisticsRepository, userRepository } from '../repository'
+import { equipmentBaseRepository, equipmentRepository, inventoryRepository, itemRepository, statisticsRepository, userRepository } from '../repository'
 
 export async function getById(id: number): Promise<Inventory | null> {
   return await inventoryRepository.getById(id)
@@ -9,16 +9,16 @@ export async function getByUserId(userId: number): Promise<Inventory[]> {
   return await inventoryRepository.getByUserId(userId)
 }
 
-export async function createEquipement(userId: number, equipementBaseId: number, statistics: Statistics): Promise<Inventory | null> {
-  if (await userRepository.getById(userId) == null || await equipementBaseRepository.getById(equipementBaseId) == null) {
+export async function createEquipment(userId: number, equipmentBaseId: number, statistics: Statistics): Promise<Inventory | null> {
+  if (await userRepository.getById(userId) == null || await equipmentBaseRepository.getById(equipmentBaseId) == null) {
     return null
   }
 
   const newStat = await statisticsRepository.create(statistics)
 
-  const equipement = await equipementRepository.create(equipementBaseId, newStat.id)
+  const equipment = await equipmentRepository.create(equipmentBaseId, newStat.id)
 
-  return await inventoryRepository.createEquipement(userId, equipement.id)
+  return await inventoryRepository.createEquipment(userId, equipment.id)
 }
 
 export async function createItem(userId: number, itemId: number, stackSize: number): Promise<Inventory | null> {

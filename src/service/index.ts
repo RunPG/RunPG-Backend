@@ -2,8 +2,8 @@ import * as userService from './userService'
 import * as inventoryService from './inventoryService'
 import * as notificationService from './notificationService'
 import * as guildService from './guildService'
-import * as equipementService from './equipementService'
-import * as equipementBaseService from './equipementBaseService'
+import * as equipmentService from './equipmentService'
+import * as equipmentBaseService from './equipmentBaseService'
 import * as itemService from './itemService'
 import * as characterService from './characterService'
 import * as googleService from './googleService'
@@ -14,8 +14,8 @@ export {
   inventoryService,
   notificationService,
   guildService,
-  equipementService,
-  equipementBaseService,
+  equipmentService,
+  equipmentBaseService,
   itemService,
   characterService,
   googleService,

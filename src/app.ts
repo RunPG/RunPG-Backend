@@ -1,6 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
-import { equipementBaseController, equipementController, guildController, inventoryController, itemController, userController } from './controller'
+import { equipmentBaseController, equipmentController, guildController, inventoryController, itemController, userController } from './controller'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 import path from 'path'
@@ -27,11 +27,11 @@ app.use('/inventory', inventoryController
 app.use('/guild', guildController
   // #swagger.tags = ['Guild']
 )
-app.use('/equipement', equipementController
-  // #swagger.tags = ['Equipement']
+app.use('/equipment', equipmentController
+  // #swagger.tags = ['Equipment']
 )
-app.use('/equipementBase', equipementBaseController
-  // #swagger.tags = ['Equipement Base']
+app.use('/equipmentBase', equipmentBaseController
+  // #swagger.tags = ['Equipment Base']
 )
 app.use('/item', itemController
   // #swagger.tags = ['Item']

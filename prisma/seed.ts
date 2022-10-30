@@ -1,13 +1,13 @@
 import { NotificationType, PrismaClient } from '@prisma/client'
 import moment from 'moment'
-import { seedEquipementBases } from './equipementSeed'
+import { seedEquipmentBases } from './equipmentSeed'
 
 export const seedPrismaClient = new PrismaClient()
 
 async function main(): Promise<void> {
   const now = new Date()
 
-  await seedEquipementBases()
+  await seedEquipmentBases()
 
   await seedPrismaClient.item.createMany({
     data: [
@@ -326,106 +326,106 @@ async function main(): Promise<void> {
     skipDuplicates: true
   })
 
-  await seedPrismaClient.equipement.createMany({
+  await seedPrismaClient.equipment.createMany({
     data: [
       {
-        equipementBaseId: 1,
+        equipmentBaseId: 1,
         statisticsId: 1
       },
       {
-        equipementBaseId: 2,
+        equipmentBaseId: 2,
         statisticsId: 2
       },
       {
-        equipementBaseId: 3,
+        equipmentBaseId: 3,
         statisticsId: 3
       },
       {
-        equipementBaseId: 4,
+        equipmentBaseId: 4,
         statisticsId: 4
       },
       {
-        equipementBaseId: 5,
+        equipmentBaseId: 5,
         statisticsId: 5
       },
       {
-        equipementBaseId: 1,
+        equipmentBaseId: 1,
         statisticsId: 6
       },
       {
-        equipementBaseId: 2,
+        equipmentBaseId: 2,
         statisticsId: 7
       },
       {
-        equipementBaseId: 3,
+        equipmentBaseId: 3,
         statisticsId: 8
       },
       {
-        equipementBaseId: 4,
+        equipmentBaseId: 4,
         statisticsId: 9
       },
       {
-        equipementBaseId: 5,
+        equipmentBaseId: 5,
         statisticsId: 10
       },
       {
-        equipementBaseId: 1,
+        equipmentBaseId: 1,
         statisticsId: 11
       },
       {
-        equipementBaseId: 2,
+        equipmentBaseId: 2,
         statisticsId: 12
       },
       {
-        equipementBaseId: 3,
+        equipmentBaseId: 3,
         statisticsId: 13
       },
       {
-        equipementBaseId: 4,
+        equipmentBaseId: 4,
         statisticsId: 14
       },
       {
-        equipementBaseId: 5,
+        equipmentBaseId: 5,
         statisticsId: 15
       },
       {
-        equipementBaseId: 1,
+        equipmentBaseId: 1,
         statisticsId: 16
       },
       {
-        equipementBaseId: 2,
+        equipmentBaseId: 2,
         statisticsId: 17
       },
       {
-        equipementBaseId: 3,
+        equipmentBaseId: 3,
         statisticsId: 18
       },
       {
-        equipementBaseId: 4,
+        equipmentBaseId: 4,
         statisticsId: 19
       },
       {
-        equipementBaseId: 5,
+        equipmentBaseId: 5,
         statisticsId: 20
       },
       {
-        equipementBaseId: 1,
+        equipmentBaseId: 1,
         statisticsId: 21
       },
       {
-        equipementBaseId: 2,
+        equipmentBaseId: 2,
         statisticsId: 22
       },
       {
-        equipementBaseId: 3,
+        equipmentBaseId: 3,
         statisticsId: 23
       },
       {
-        equipementBaseId: 4,
+        equipmentBaseId: 4,
         statisticsId: 24
       },
       {
-        equipementBaseId: 5,
+        equipmentBaseId: 5,
         statisticsId: 25
       }
     ],
@@ -594,127 +594,127 @@ async function main(): Promise<void> {
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 1
+        equipmentId: 1
       },
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 2
+        equipmentId: 2
       },
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 3
+        equipmentId: 3
       },
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 4
+        equipmentId: 4
       },
       {
         userId: 1,
         stackSize: 1,
-        equipementId: 5
+        equipmentId: 5
       },
       {
         userId: 2,
         stackSize: 1,
-        equipementId: 6
+        equipmentId: 6
       },
       {
         userId: 2,
         stackSize: 1,
-        equipementId: 7
+        equipmentId: 7
       },
       {
         userId: 2,
         stackSize: 1,
-        equipementId: 8
+        equipmentId: 8
       },
       {
         userId: 2,
         stackSize: 1,
-        equipementId: 9
+        equipmentId: 9
       },
       {
         userId: 2,
         stackSize: 1,
-        equipementId: 10
+        equipmentId: 10
       },
       {
         userId: 3,
         stackSize: 1,
-        equipementId: 11
+        equipmentId: 11
       },
       {
         userId: 3,
         stackSize: 1,
-        equipementId: 12
+        equipmentId: 12
       },
       {
         userId: 3,
         stackSize: 1,
-        equipementId: 13
+        equipmentId: 13
       },
       {
         userId: 3,
         stackSize: 1,
-        equipementId: 14
+        equipmentId: 14
       },
       {
         userId: 3,
         stackSize: 1,
-        equipementId: 15
+        equipmentId: 15
       },
       {
         userId: 4,
         stackSize: 1,
-        equipementId: 16
+        equipmentId: 16
       },
       {
         userId: 4,
         stackSize: 1,
-        equipementId: 17
+        equipmentId: 17
       },
       {
         userId: 4,
         stackSize: 1,
-        equipementId: 18
+        equipmentId: 18
       },
       {
         userId: 4,
         stackSize: 1,
-        equipementId: 19
+        equipmentId: 19
       },
       {
         userId: 4,
         stackSize: 1,
-        equipementId: 20
+        equipmentId: 20
       },
       {
         userId: 5,
         stackSize: 1,
-        equipementId: 21
+        equipmentId: 21
       },
       {
         userId: 5,
         stackSize: 1,
-        equipementId: 22
+        equipmentId: 22
       },
       {
         userId: 5,
         stackSize: 1,
-        equipementId: 23
+        equipmentId: 23
       },
       {
         userId: 5,
         stackSize: 1,
-        equipementId: 24
+        equipmentId: 24
       },
       {
         userId: 5,
         stackSize: 1,
-        equipementId: 25
+        equipmentId: 25
       }
     ],
     skipDuplicates: true
