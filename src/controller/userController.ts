@@ -719,9 +719,9 @@ userController.post('/:userId/activity/:activityId', async (req, res) => {
   }
 })
 
-userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
+userController.get('/:userId/activity/:activityId', async (req, res) => {
   /**
-   * #swagger.summary = 'Get if a user can access to an activity'
+   * #swagger.summary = 'Get time since last access'
    * #swagger.responses[200] = { description: 'Activity found' }
    * #swagger.responses[400] = { description: 'userId is not a number' }
    * #swagger.responses[404] = { description: 'Could not find user' }
@@ -735,7 +735,7 @@ userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
     return
   }
 
-  let result
+  let result: number | null = null
   try {
     result = await activityService.isUserAuthorized(userId, activityId)
   }
@@ -748,7 +748,7 @@ userController.get('/:userId/isAuthorized/:activityId', async (req, res) => {
     res.sendStatus(StatusCodes.NOT_FOUND)
   }
   else {
-    res.send(result)
+    res.send({ lastAccess: result })
   }
 })
 
