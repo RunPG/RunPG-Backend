@@ -221,7 +221,7 @@ userController.get('/:userId/friend', async (req, res) => {
   }
 })
 
-userController.post('/:userId/friend/:id', async (req, res) => {
+userController.post('/:userId/friend/:friendId', async (req, res) => {
   /**
    * #swagger.summary = 'Add a new friend'
    * #swagger.responses[200] = { description: 'Friend added' }
@@ -230,7 +230,7 @@ userController.post('/:userId/friend/:id', async (req, res) => {
    * #swagger.responses[409] = { description: 'This friend is already added' }
    */
   const userId = Number(req.params.userId)
-  const friendId = Number(req.params.id)
+  const friendId = Number(req.params.friendId)
 
   if (userId == null || friendId == null) {
     res.sendStatus(StatusCodes.BAD_REQUEST)
@@ -251,6 +251,39 @@ userController.post('/:userId/friend/:id', async (req, res) => {
   }
   else {
     res.send(addedFriend)
+  }
+})
+
+userController.delete('/:userId/friend/:friendId', async (req, res) => {
+  /**
+   * #swagger.summary = 'Remove a friend'
+   * #swagger.responses[200] = { description: 'Friend removed' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId or friendId' }
+   * #swagger.responses[404] = { description: 'Friendship not found' }
+   */
+  const userId = Number(req.params.userId)
+  const friendId = Number(req.params.friendId)
+
+  if (userId == null || friendId == null) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let removed = false
+  try {
+    removed = await userService.removeFriend(userId, friendId)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (removed === false) {
+    res.status(StatusCodes.NOT_FOUND).send('Friendship not found')
+  }
+  else {
+    res.sendStatus(StatusCodes.OK)
   }
 })
 

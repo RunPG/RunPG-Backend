@@ -244,6 +244,76 @@
             "description": "Server encountered an internal error"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Add a new friend",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "friendId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Friend added"
+          },
+          "400": {
+            "description": "Bad userId or id"
+          },
+          "409": {
+            "description": "This friend is already added"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Remove a friend",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "friendId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Friend removed"
+          },
+          "400": {
+            "description": "Bad userId or friendId"
+          },
+          "404": {
+            "description": "Friendship not found"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/{userId}/friend": {
@@ -267,43 +337,6 @@
           },
           "404": {
             "description": "User not found"
-          },
-          "500": {
-            "description": "Server encountered an internal error"
-          }
-        }
-      }
-    },
-    "/user/{userId}/friend/{id}": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Add a new friend",
-        "description": "",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Friend added"
-          },
-          "400": {
-            "description": "Bad userId or id"
-          },
-          "409": {
-            "description": "This friend is already added"
           },
           "500": {
             "description": "Server encountered an internal error"
