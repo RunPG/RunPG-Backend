@@ -30,7 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^3.13.0",
+    "@prisma/client": "^4.5.0",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "googleapis": "^107.0.0",
@@ -57,7 +57,7 @@
     "jest-mock-extended": "^2.0.6",
     "jest-runner-groups": "^2.2.0",
     "nodemon": "^2.0.15",
-    "prisma": "^3.13.0",
+    "prisma": "^4.5.0",
     "supertest": "^6.2.3",
     "swagger-autogen": "^2.21.2",
     "ts-jest": "^28.0.3",
