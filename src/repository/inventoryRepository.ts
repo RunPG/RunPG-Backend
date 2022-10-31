@@ -1,24 +1,24 @@
-import { Inventory } from '@prisma/client'
+import { Inventory, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function getById(id: number): Promise<Inventory | null> {
-  return await prisma.inventory.findUnique({
+export function getById(id: number): PrismaPromise<Inventory | null> {
+  return prisma.inventory.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function getByUserId(userId: number): Promise<Inventory[]> {
-  return await prisma.inventory.findMany({
+export function getByUserId(userId: number): PrismaPromise<Inventory[]> {
+  return prisma.inventory.findMany({
     where: {
       userId
     }
   })
 }
 
-export async function createEquipment(userId: number, equipmentId: number): Promise<Inventory> {
-  return await prisma.inventory.create({
+export function createEquipment(userId: number, equipmentId: number): PrismaPromise<Inventory> {
+  return prisma.inventory.create({
     data: {
       userId,
       equipmentId,
@@ -27,8 +27,8 @@ export async function createEquipment(userId: number, equipmentId: number): Prom
   })
 }
 
-export async function createItem(userId: number, itemId: number, stackSize: number): Promise<Inventory> {
-  return await prisma.inventory.create({
+export function createItem(userId: number, itemId: number, stackSize: number): PrismaPromise<Inventory> {
+  return prisma.inventory.create({
     data: {
       userId,
       itemId,
@@ -37,8 +37,8 @@ export async function createItem(userId: number, itemId: number, stackSize: numb
   })
 }
 
-export async function updateQuantity(id: number, quantity: number): Promise<Inventory> {
-  return await prisma.inventory.update({
+export function updateQuantity(id: number, quantity: number): PrismaPromise<Inventory> {
+  return prisma.inventory.update({
     where: {
       id
     },

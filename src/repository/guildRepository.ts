@@ -1,28 +1,28 @@
-import { Guild } from '@prisma/client'
+import { Guild, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function getAll(): Promise<Guild[]> {
-  return await prisma.guild.findMany()
+export function getAll(): PrismaPromise<Guild[]> {
+  return prisma.guild.findMany()
 }
 
-export async function getById(id: number): Promise<Guild | null> {
-  return await prisma.guild.findUnique({
+export function getById(id: number): PrismaPromise<Guild | null> {
+  return prisma.guild.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function getByName(name: string): Promise<Guild | null> {
-  return await prisma.guild.findUnique({
+export function getByName(name: string): PrismaPromise<Guild | null> {
+  return prisma.guild.findUnique({
     where: {
       name
     }
   })
 }
 
-export async function create(name: string, description: string): Promise<Guild | null> {
-  return await prisma.guild.create({
+export function create(name: string, description: string): PrismaPromise<Guild | null> {
+  return prisma.guild.create({
     data: {
       name,
       description
@@ -30,8 +30,8 @@ export async function create(name: string, description: string): Promise<Guild |
   })
 }
 
-export async function updateGuild(id: number, newGuildValues: Guild): Promise<Guild | null> {
-  return await prisma.guild.update({
+export function updateGuild(id: number, newGuildValues: Guild): PrismaPromise<Guild | null> {
+  return prisma.guild.update({
     where: {
       id
     },
@@ -39,8 +39,8 @@ export async function updateGuild(id: number, newGuildValues: Guild): Promise<Gu
   })
 }
 
-export async function remove(id: number): Promise<void> {
-  await prisma.guild.delete({
+export function remove(id: number): PrismaPromise<Guild> {
+  return prisma.guild.delete({
     where: {
       id
     }

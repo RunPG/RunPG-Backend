@@ -1,8 +1,8 @@
-import { Notification, NotificationType } from '@prisma/client'
+import { Notification, NotificationType, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function getNotification(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
-  return await prisma.notification.findUnique({
+export function getNotification(receiverId: number, senderId: number, type: NotificationType): PrismaPromise<Notification | null> {
+  return prisma.notification.findUnique({
     where: {
       senderId_receiverId_type:
       {
@@ -14,16 +14,16 @@ export async function getNotification(receiverId: number, senderId: number, type
   })
 }
 
-export async function getAllNotifications(receiverId: number): Promise<Notification[] | null> {
-  return await prisma.notification.findMany({
+export function getAllNotifications(receiverId: number): PrismaPromise<Notification[] | null> {
+  return prisma.notification.findMany({
     where: {
       receiverId
     }
   })
 }
 
-export async function getAllNotificationsByType(receiverId: number, type: NotificationType): Promise<Notification[] | null> {
-  return await prisma.notification.findMany({
+export function getAllNotificationsByType(receiverId: number, type: NotificationType): PrismaPromise<Notification[] | null> {
+  return prisma.notification.findMany({
     where: {
       receiverId,
       type
@@ -31,9 +31,8 @@ export async function getAllNotificationsByType(receiverId: number, type: Notifi
   })
 }
 
-// FIXME: Default values
-export async function create(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
-  return await prisma.notification.create({
+export function create(receiverId: number, senderId: number, type: NotificationType): PrismaPromise<Notification | null> {
+  return prisma.notification.create({
     data: {
       senderId,
       receiverId,
@@ -42,8 +41,8 @@ export async function create(receiverId: number, senderId: number, type: Notific
   })
 }
 
-export async function deleteNotification(receiverId: number, senderId: number, type: NotificationType): Promise<Notification | null> {
-  return await prisma.notification.delete({
+export function deleteNotification(receiverId: number, senderId: number, type: NotificationType): PrismaPromise<Notification | null> {
+  return prisma.notification.delete({
     where: {
       senderId_receiverId_type:{
         senderId,

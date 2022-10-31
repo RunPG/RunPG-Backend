@@ -1,14 +1,14 @@
-import { Item } from '@prisma/client'
+import { Item, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function getById(id: number): Promise<Item | null> {
-  return await prisma.item.findUnique({
+export function getById(id: number): PrismaPromise<Item | null> {
+  return prisma.item.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function getAll(): Promise<Item[]> {
-  return await prisma.item.findMany()
+export function getAll(): PrismaPromise<Item[]> {
+  return prisma.item.findMany()
 }

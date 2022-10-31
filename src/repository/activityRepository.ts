@@ -1,8 +1,8 @@
-import { Activity } from '@prisma/client'
+import { Activity, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function create(userId: number, activityId: string): Promise<Activity> {
-  return await prisma.activity.create({
+export function create(userId: number, activityId: string): PrismaPromise<Activity> {
+  return prisma.activity.create({
     data: {
       userId,
       activityId
@@ -10,8 +10,8 @@ export async function create(userId: number, activityId: string): Promise<Activi
   })
 }
 
-export async function getUserLastActivity(userId: number, activityId: string): Promise<Activity | null> {
-  return await prisma.activity.findFirst({
+export function getUserLastActivity(userId: number, activityId: string): PrismaPromise<Activity | null> {
+  return prisma.activity.findFirst({
     where: {
       userId,
       activityId
