@@ -1,36 +1,36 @@
-import { User, Friend, Character, Statistics } from '@prisma/client'
+import { User, Friend, Character, Statistics, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 import { AlreadyInAGuildError } from '../exception/AlreadyInAGuildError'
 export async function getAllUsers(): Promise<User[]> {
   return await prisma.user.findMany()
 }
 
-export async function getByName(name: string): Promise<User | null> {
-  return await prisma.user.findUnique({
+export function getByName(name: string): PrismaPromise<User | null> {
+  return prisma.user.findUnique({
     where: {
       name
     }
   })
 }
 
-export async function getById(id: number): Promise<User | null> {
-  return await prisma.user.findUnique({
+export function getById(id: number): PrismaPromise<User | null> {
+  return prisma.user.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function getByMail(mail: string): Promise<User | null> {
-  return await prisma.user.findUnique({
+export function getByMail(mail: string): PrismaPromise<User | null> {
+  return prisma.user.findUnique({
     where: {
       mail
     }
   })
 }
 
-export async function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string | null): Promise<User> {
-  return await prisma.user.create({
+export function create(name: string, uid: string, characterId: number, mail: string, refreshToken: string | null): PrismaPromise<User> {
+  return prisma.user.create({
     data: {
       name,
       uid,
@@ -41,9 +41,8 @@ export async function create(name: string, uid: string, characterId: number, mai
   })
 }
 
-//Find UNIQUE ?
-export async function getFriend(userId: number, friendId: number): Promise<Friend | null> {
-  return await prisma.friend.findFirst({
+export function getFriend(userId: number, friendId: number): PrismaPromise<Friend | null> {
+  return prisma.friend.findFirst({
     where: {
       userId,
       friendId
@@ -51,16 +50,16 @@ export async function getFriend(userId: number, friendId: number): Promise<Frien
   })
 }
 
-export async function getAllFriends(userId: number): Promise<Friend[] | null> {
-  return await prisma.friend.findMany({
+export function getAllFriends(userId: number): PrismaPromise<Friend[]> {
+  return prisma.friend.findMany({
     where: {
       userId
     }
   })
 }
 
-export async function addFriend(userId: number, friendId: number): Promise<Friend | null> {
-  return await prisma.friend.create({
+export function addFriend(userId: number, friendId: number): PrismaPromise<Friend | null> {
+  return prisma.friend.create({
     data: {
       userId,
       friendId
@@ -68,8 +67,8 @@ export async function addFriend(userId: number, friendId: number): Promise<Frien
   })
 }
 
-export async function incrementExperience(id: number, xp: number): Promise<void> {
-  await prisma.user.update({
+export function incrementExperience(id: number, xp: number): PrismaPromise<User> {
+  return prisma.user.update({
     where: {
       id
     },
@@ -109,24 +108,24 @@ export async function joinGuild(id: number, guildId: number, isGuildOwner = fals
   })
 }
 
-export async function getByUid(uid: string): Promise<User | null> {
-  return await prisma.user.findUnique({
+export function getByUid(uid: string): PrismaPromise<User | null> {
+  return prisma.user.findUnique({
     where: {
       uid
     }
   })
 }
 
-export async function deleteById(id: number): Promise<User | null> {
-  return await prisma.user.delete({
+export function deleteById(id: number): PrismaPromise<User | null> {
+  return prisma.user.delete({
     where: {
       id
     }
   })
 }
 
-export async function incrementExperienceWithoutDateUpdate(id: number, xp: number): Promise<void> {
-  await prisma.user.update({
+export function incrementExperienceWithoutDateUpdate(id: number, xp: number): PrismaPromise<User> {
+  return prisma.user.update({
     where: {
       id
     },
@@ -142,8 +141,8 @@ export async function incrementExperienceWithoutDateUpdate(id: number, xp: numbe
   })
 }
 
-export async function leaveGuild(id: number): Promise<void> {
-  await prisma.user.update({
+export function leaveGuild(id: number): PrismaPromise<User> {
+  return prisma.user.update({
     where: {
       id
     },
@@ -154,8 +153,8 @@ export async function leaveGuild(id: number): Promise<void> {
   })
 }
 
-export async function setGuildOwner(id: number): Promise<void> {
-  await prisma.user.update({
+export function setGuildOwner(id: number): PrismaPromise<User> {
+  return prisma.user.update({
     where: {
       id
     },

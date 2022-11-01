@@ -1,16 +1,16 @@
-import { Statistics } from '@prisma/client'
+import { PrismaPromise, Statistics } from '@prisma/client'
 import prisma from './client'
 
-export async function getById(id: number): Promise<Statistics | null> {
-  return await prisma.statistics.findUnique({
+export function getById(id: number): PrismaPromise<Statistics | null> {
+  return prisma.statistics.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function create(stats: Statistics): Promise<Statistics> {
-  return await prisma.statistics.create({
+export function create(stats: Statistics): PrismaPromise<Statistics> {
+  return prisma.statistics.create({
     data: {
       level: stats.level,
       defense: stats.defense,
@@ -23,8 +23,8 @@ export async function create(stats: Statistics): Promise<Statistics> {
   })
 }
 
-export async function createOnlyOneValues(): Promise<Statistics> {
-  return await prisma.statistics.create({
+export function createOnlyOneValues(): PrismaPromise<Statistics> {
+  return prisma.statistics.create({
     data: {
       level: 1,
       defense: 1,

@@ -1,9 +1,9 @@
-import { Character, Statistics } from '@prisma/client'
+import { Character, PrismaPromise, Statistics } from '@prisma/client'
 import Resources from '../objects/Resources'
 import prisma from './client'
 
-export async function create(character: Character): Promise<Character> {
-  return await prisma.character.create({
+export function create(character: Character): PrismaPromise<Character> {
+  return prisma.character.create({
     data: {
       experience: character.experience,
       statisticsId: character.statisticsId,
@@ -21,8 +21,8 @@ export async function create(character: Character): Promise<Character> {
   })
 }
 
-export async function getByUserId(userId: number): Promise<Character | null> {
-  return await prisma.character.findFirst({
+export function getByUserId(userId: number): PrismaPromise<Character | null> {
+  return prisma.character.findFirst({
     where: {
       user: {
         id: userId
@@ -31,8 +31,8 @@ export async function getByUserId(userId: number): Promise<Character | null> {
   })
 }
 
-export async function levelUp(character: Character, statistics: Statistics): Promise<Character> {
-  return await prisma.character.update({
+export function levelUp(character: Character, statistics: Statistics): PrismaPromise<Character> {
+  return prisma.character.update({
     where: {
       id: character.id
     },
@@ -48,8 +48,8 @@ export async function levelUp(character: Character, statistics: Statistics): Pro
 }
 
 
-export async function updateResources(id: number, resources: Resources): Promise<Character> {
-  return await prisma.character.update({
+export function updateResources(id: number, resources: Resources): PrismaPromise<Character> {
+  return prisma.character.update({
     where: {
       id
     },
@@ -60,8 +60,8 @@ export async function updateResources(id: number, resources: Resources): Promise
   })
 }
 
-export async function updateEquiped(id: number, helmetId: number, chestplateId: number, glovesId: number, leggingsId: number, weaponId: number): Promise<Character> {
-  return await prisma.character.update({
+export function updateEquiped(id: number, helmetId: number, chestplateId: number, glovesId: number, leggingsId: number, weaponId: number): PrismaPromise<Character> {
+  return prisma.character.update({
     where: {
       id
     },

@@ -1,16 +1,16 @@
-import { Equipment } from '@prisma/client'
+import { Equipment, PrismaPromise } from '@prisma/client'
 import prisma from './client'
 
-export async function getById(id: number): Promise<Equipment | null> {
-  return await prisma.equipment.findUnique({
+export function getById(id: number): PrismaPromise<Equipment | null> {
+  return prisma.equipment.findUnique({
     where: {
       id
     }
   })
 }
 
-export async function create(equipmentBaseId: number, statisticsId: number): Promise<Equipment> {
-  return await prisma.equipment.create({
+export function create(equipmentBaseId: number, statisticsId: number): PrismaPromise<Equipment> {
+  return prisma.equipment.create({
     data: {
       equipmentBaseId,
       statisticsId
