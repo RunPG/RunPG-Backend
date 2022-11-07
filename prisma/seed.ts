@@ -447,7 +447,8 @@ async function main(): Promise<void> {
         helmetId: 1,
         chestplateId: 2,
         glovesId: 3,
-        leggingsId: 4
+        leggingsId: 4,
+        gold: 100
       },
       // editor
       {
@@ -462,7 +463,8 @@ async function main(): Promise<void> {
         helmetId: 6,
         chestplateId: 7,
         glovesId: 8,
-        leggingsId: 9
+        leggingsId: 9,
+        gold: 100
       },
       // yott
       {
@@ -477,7 +479,8 @@ async function main(): Promise<void> {
         helmetId: 11,
         chestplateId: 12,
         glovesId: 13,
-        leggingsId: 14
+        leggingsId: 14,
+        gold: 100
       },
       // mouton
       {
@@ -492,7 +495,8 @@ async function main(): Promise<void> {
         helmetId: 16,
         chestplateId: 17,
         glovesId: 18,
-        leggingsId: 19
+        leggingsId: 19,
+        gold: 100
       },
       // firewop
       {
@@ -507,7 +511,8 @@ async function main(): Promise<void> {
         helmetId: 21,
         chestplateId: 22,
         glovesId: 23,
-        leggingsId: 24
+        leggingsId: 24,
+        gold: 100
       }
     ],
     skipDuplicates: true
