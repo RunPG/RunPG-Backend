@@ -72,6 +72,7 @@ model Item {
   description  String
   isConsomable Boolean
   Inventory    Inventory[]
+  Market       Market[]
 }
 
 model EquipmentBase {
@@ -98,6 +99,7 @@ model Equipment {
   characterGloves     Character[] @relation("gloves")
   characterLeggings   Character[] @relation("leggings")
   characterWeapon     Character[] @relation("weapon")
+  Market              Market[]
 }
 
 model Friend {
@@ -154,6 +156,7 @@ model User {
   notificationReceived Notification[] @relation("receiver")
   isGuildOwner         Boolean        @default(false)
   Inventory            Inventory[]
+  Market               Market[]
 }
 
 model Guild {
@@ -178,4 +181,18 @@ model Activity {
   userId     Int
   activityId String
   date       DateTime @default(now())
+}
+
+model Market {
+  id          Int     @id @default(autoincrement())
+  sellerId    Int
+  equipmentId Int?
+  itemId      Int?
+  stackSize   Int
+  goldPrice   Int
+  isSold      Boolean @default(false)
+
+  seller    User       @relation(fields: [sellerId], references: [id])
+  equipment Equipment? @relation(fields: [equipmentId], references: [id])
+  item      Item?      @relation(fields: [itemId], references: [id])
 }
