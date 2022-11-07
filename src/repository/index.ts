@@ -9,6 +9,7 @@ import * as itemRepository from './itemRepository'
 import * as characterRepository from './characterRepository'
 import * as friendRepository from './friendRepository'
 import * as activityRepository from './activityRepository'
+import * as marketRepository from './marketRepository'
 
 export {
   userRepository,
@@ -21,5 +22,6 @@ export {
   itemRepository,
   characterRepository,
   friendRepository,
-  activityRepository
+  activityRepository,
+  marketRepository
 }
