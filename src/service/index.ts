@@ -8,6 +8,7 @@ import * as itemService from './itemService'
 import * as characterService from './characterService'
 import * as googleService from './googleService'
 import * as activityService from './activityService'
+import * as marketService from './marketService'
 
 export {
   userService,
@@ -19,5 +20,6 @@ export {
   itemService,
   characterService,
   googleService,
-  activityService
+  activityService,
+  marketService
 }

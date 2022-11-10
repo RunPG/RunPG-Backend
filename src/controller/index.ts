@@ -4,6 +4,7 @@ import guildController from './guildController'
 import equipmentController from './equipmentController'
 import equipmentBaseController from './equipmentBaseController'
 import itemController from './itemController'
+import marketController from './marketController'
 
 export {
   userController,
@@ -11,5 +12,6 @@ export {
   guildController,
   equipmentController,
   equipmentBaseController,
-  itemController
+  itemController,
+  marketController
 }

@@ -55,3 +55,21 @@ export async function deleteByUserId(userId: number): Promise<void> {
     }
   })
 }
+
+export function getByUserIdAndItemId(userId: number, itemId: number): PrismaPromise<Inventory | null> {
+  return prisma.inventory.findFirst({
+    where: {
+      userId,
+      itemId
+    }
+  })
+}
+
+export function getByUserIdAndEquipmentId(userId: number, equipmentId: number): PrismaPromise<Inventory | null> {
+  return prisma.inventory.findFirst({
+    where: {
+      userId,
+      equipmentId
+    }
+  })
+}

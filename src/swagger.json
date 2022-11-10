@@ -1389,6 +1389,204 @@
           }
         }
       }
+    },
+    "/market/": {
+      "get": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Get all market items",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns all market items"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Create a market item",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "inventoryId": {
+                  "example": "any"
+                },
+                "stackSize": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Market item created"
+          },
+          "400": {
+            "description": "Invalid body"
+          },
+          "404": {
+            "description": "Inventory not found or stackSize too big"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/market/{id}": {
+      "get": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Get a market item by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the market item"
+          },
+          "400": {
+            "description": "Id is not a number"
+          },
+          "404": {
+            "description": "Market item not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/market/{id}/buy": {
+      "post": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Buy item from market",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "buyerId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Item bought"
+          },
+          "400": {
+            "description": "Invalid body"
+          },
+          "404": {
+            "description": "Item or buyer not found"
+          },
+          "409": {
+            "description": "Item already sold or buyer does not have enought gold"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/market/equipmentBase/{id}": {
+      "get": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Get all market items by equipment base",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all market items"
+          },
+          "400": {
+            "description": "id is not an integer"
+          },
+          "404": {
+            "description": "Equipment not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/market/item/{id}": {
+      "get": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Get all market items by item",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all market items"
+          },
+          "400": {
+            "description": "id is not an integer"
+          },
+          "404": {
+            "description": "Item not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   }
 }

@@ -178,3 +178,18 @@ export async function getMembersOfGuild(guildId: number): Promise<(User & { char
     }
   })
 }
+
+export function updateGold(userId: number, newGoldValue: number): PrismaPromise<User> {
+  return prisma.user.update({
+    where: {
+      id: userId
+    },
+    data: {
+      character: {
+        update: {
+          gold: newGoldValue
+        }
+      }
+    }
+  })
+}
