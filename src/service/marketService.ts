@@ -97,7 +97,7 @@ export async function deleteItem(id: number): Promise<boolean> {
   const updateInventory = inventoryRepository.updateQuantity(inventory.id, inventory.stackSize + marketItem.stackSize)
   const deleteMarketItem = marketRepository.removeItem(id)
 
-  const [_, __] = await prisma.$transaction([
+  await prisma.$transaction([
     updateInventory,
     deleteMarketItem
   ])
