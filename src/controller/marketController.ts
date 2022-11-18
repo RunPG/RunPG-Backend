@@ -44,6 +44,32 @@ marketController.get('/:id', async (req, res) => {
   }
 })
 
+marketController.delete('/:id', async (req, res) => {
+  /**
+   * #swagger.summary = 'Remove an item from the market'
+   * #swagger.responses[204] = { description: 'Item was removed' }
+   * #swagger.responses[404] = { description: 'Market item not found' }
+   * #swagger.responses[400] = { description: 'Id is not a number' }
+   * #swagger.responses[500] = { description: 'Internal server error' }
+   */
+  const id = Number(req.params.id)
+  if (isNaN(id)) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  try {
+    const deleted = await marketService.deleteItem(id)
+    if (deleted) {
+      res.sendStatus(StatusCodes.NOT_FOUND)
+    } else {
+      res.sendStatus(StatusCodes.NO_CONTENT)
+    }
+  } catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+})
+
 marketController.post('/', async (req, res) => {
   /**
    * #swagger.summary = 'Create a market item'
