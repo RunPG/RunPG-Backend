@@ -1,6 +1,6 @@
 {
   "name": "runpg-backend",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "Backend for RunPG",
   "main": "./dist/server.js",
   "engines": {
