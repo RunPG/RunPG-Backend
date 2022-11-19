@@ -80,3 +80,27 @@ export async function getByEquipmentBaseId(equipmentBaseId: number): Promise<Mar
 export async function getByItemId(itemId: number): Promise<Market[]> {
   return marketRepository.getByItemId(itemId)
 }
+
+export async function deleteItem(id: number): Promise<boolean> {
+  const marketItem = await marketRepository.getById(id)
+  if (marketItem == null) {
+    return false
+  }
+
+  const inventory = marketItem.equipmentId
+    ? await inventoryRepository.getByUserIdAndEquipmentId(marketItem.sellerId, marketItem.equipmentId)
+    : await inventoryRepository.getByUserIdAndItemId(marketItem.sellerId, marketItem.itemId!)
+  if (inventory == null) {
+    return false
+  }
+
+  const updateInventory = inventoryRepository.updateQuantity(inventory.id, inventory.stackSize + marketItem.stackSize)
+  const deleteMarketItem = marketRepository.removeItem(id)
+
+  await prisma.$transaction([
+    updateInventory,
+    deleteMarketItem
+  ])
+
+  return true
+}
