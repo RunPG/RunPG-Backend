@@ -22,17 +22,47 @@ async function main(): Promise<void> {
         isConsomable: true
       },
       {
-        name: 'Branche',
+        name: 'Bois brut',
         description: 'Petit morceau de bois, utile pour se faire une cabane ou une arme.',
         isConsomable: false
       },
       {
-        name: 'Fleur',
+        name: 'Fleur brut',
         description: 'C\'est tout joli, tout mignon, parfait pour nettoyer la vermine.',
         isConsomable: false
       },
       {
-        name: 'Pierre',
+        name: 'Pierre brut',
+        description: 'Répond présent quand on a besoin de lui.',
+        isConsomable: false
+      },
+      {
+        name: 'Bois raffiné',
+        description: 'Petit morceau de bois, utile pour se faire une cabane ou une arme.',
+        isConsomable: false
+      },
+      {
+        name: 'Fleur raffinée',
+        description: 'C\'est tout joli, tout mignon, parfait pour nettoyer la vermine.',
+        isConsomable: false
+      },
+      {
+        name: 'Pierre raffinée',
+        description: 'Répond présent quand on a besoin de lui.',
+        isConsomable: false
+      },
+      {
+        name: 'Bois exceptionnel',
+        description: 'Petit morceau de bois, utile pour se faire une cabane ou une arme.',
+        isConsomable: false
+      },
+      {
+        name: 'Fleur exceptionnelle',
+        description: 'C\'est tout joli, tout mignon, parfait pour nettoyer la vermine.',
+        isConsomable: false
+      },
+      {
+        name: 'Pierre exceptionnelle',
         description: 'Répond présent quand on a besoin de lui.',
         isConsomable: false
       },
