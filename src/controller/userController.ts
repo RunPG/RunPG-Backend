@@ -641,7 +641,7 @@ userController.post('/:userId/inventory/item', async (req, res) => {
 
   let inventory
   try {
-    inventory = await inventoryService.createItem(userId, itemId, stackSize)
+    inventory = await inventoryService.giveItem(userId, itemId, stackSize)
   }
   catch (error) {
     res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
