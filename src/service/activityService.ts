@@ -6,7 +6,7 @@ export async function create(userId: number, activityId: string): Promise<Activi
     return null
   }
 
-  return await activityRepository.create(userId, activityId)
+  return activityRepository.create(userId, activityId)
 }
 
 export async function isUserAuthorized(userId: number, activityId: string): Promise<number | null> {

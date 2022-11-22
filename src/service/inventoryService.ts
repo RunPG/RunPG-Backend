@@ -2,11 +2,11 @@ import { Inventory, Statistics } from '@prisma/client'
 import { equipmentBaseRepository, equipmentRepository, inventoryRepository, itemRepository, statisticsRepository, userRepository } from '../repository'
 
 export async function getById(id: number): Promise<Inventory | null> {
-  return await inventoryRepository.getById(id)
+  return inventoryRepository.getById(id)
 }
 
 export async function getByUserId(userId: number): Promise<Inventory[]> {
-  return await inventoryRepository.getByUserId(userId)
+  return inventoryRepository.getByUserId(userId)
 }
 
 export async function createEquipment(userId: number, equipmentBaseId: number, statistics: Statistics): Promise<Inventory | null> {
@@ -18,7 +18,7 @@ export async function createEquipment(userId: number, equipmentBaseId: number, s
 
   const equipment = await equipmentRepository.create(equipmentBaseId, newStat.id)
 
-  return await inventoryRepository.createEquipment(userId, equipment.id)
+  return inventoryRepository.createEquipment(userId, equipment.id)
 }
 
 export async function giveItem(userId: number, itemId: number, stackSize: number): Promise<Inventory | null> {
@@ -26,19 +26,19 @@ export async function giveItem(userId: number, itemId: number, stackSize: number
     return null
   }
 
-  let result: Inventory | null = null
+  let result: Promise<Inventory | null>
   const inventory = await inventoryRepository.getByUserIdAndItemId(userId, itemId)
   if (inventory == null) {
     if (stackSize < 0) {
       return null
     }
-    result = await inventoryRepository.createItem(userId, itemId, stackSize)
+    result = inventoryRepository.createItem(userId, itemId, stackSize)
   } else {
     inventory.stackSize += stackSize
     if (inventory.stackSize < 0) {
       return null
     }
-    result = await inventoryRepository.updateQuantity(inventory.id, inventory.stackSize)
+    result = inventoryRepository.updateQuantity(inventory.id, inventory.stackSize)
   }
 
   return result
@@ -49,5 +49,5 @@ export async function updateQuantity(id: number, quantity: number): Promise<Inve
     return null
   }
 
-  return await inventoryRepository.updateQuantity(id, quantity)
+  return inventoryRepository.updateQuantity(id, quantity)
 }
