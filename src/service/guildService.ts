@@ -51,5 +51,5 @@ export async function updateGuild(id: number, new_guild_values: Guild): Promise<
   if (!await guildRepository.getById(id)) {
     return null
   }
-  return await guildRepository.updateGuild(id, new_guild_values)
+  return guildRepository.updateGuild(id, new_guild_values)
 }
