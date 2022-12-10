@@ -5,11 +5,11 @@ export function getClassSeed(heroClass: HeroClass): ClassSeed {
   switch (heroClass) {
     case HeroClass.MAGE:
       return {
-        helmetId: 1,
-        chestplateId: 2,
-        glovesId: 3,
-        leggingsId: 4,
-        weaponId: 6,
+        helmetId: 6,
+        chestplateId: 7,
+        glovesId: 8,
+        leggingsId: 9,
+        weaponId: 10,
         firstSpellId: 1,
         secondSpellId: 2,
         thirdSpellId: null,

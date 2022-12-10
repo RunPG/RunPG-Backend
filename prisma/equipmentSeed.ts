@@ -9,28 +9,28 @@ export async function seedEquipmentBases(): Promise<void> {
       {
         name: 'Casque en cuir',
         description: 'Un casque que tu as trouvé sur le bord de la route, tu n\'es même pas sûr que ce soit un casque, mais il est unique à tes yeux.',
-        heroClass: null,
+        heroClass: 'PALADIN',
         equipmentType: 'HELMET',
         rarity: 'COMMON'
       },
       {
         name: 'T-shirt',
         description: 'Un t-shirt fait par ta maman chérie pour son poussin.',
-        heroClass: null,
+        heroClass: 'PALADIN',
         equipmentType: 'CHESTPLATE',
         rarity: 'COMMON'
       },
       {
         name: 'Gants de cuisine',
         description: 'Une paire de gants que tu as pris de chez toi dans la panique. Tu regrettes peut-être ton choix maintenant.',
-        heroClass: null,
+        heroClass: 'PALADIN',
         equipmentType: 'GLOVES',
         rarity: 'COMMON'
       },
       {
         name: 'Pantalon troué',
         description: 'Il n\'est même pas à ta taille, mais tu continues à le porter. Pourquoi ?',
-        heroClass: null,
+        heroClass: 'PALADIN',
         equipmentType: 'LEGGINGS',
         rarity: 'COMMON'
       },
@@ -41,9 +41,38 @@ export async function seedEquipmentBases(): Promise<void> {
         equipmentType: 'WEAPON',
         rarity: 'COMMON'
       },
+
+      {
+        name: 'Vieille capuche',
+        description: 'Quand j\'suis dans la foule, je suis sous ma capuche, quand j\'assassine, je suis sous ma capuche, quand il pleut, je suis sous ma capuche ...',
+        heroClass: 'MAGE',
+        equipmentType: 'HELMET',
+        rarity: 'COMMON'
+      },
+      {
+        name: 'Robe de ta mère',
+        description: 'Emprunté à ta mère, elle est un peu trop grande pour toi, mais tu la portes quand même.',
+        heroClass: 'MAGE',
+        equipmentType: 'CHESTPLATE',
+        rarity: 'COMMON'
+      },
+      {
+        name: 'Gants en laine',
+        description: 'Faut être confiant sur les sorts de feu avec ces gants.',
+        heroClass: 'MAGE',
+        equipmentType: 'GLOVES',
+        rarity: 'COMMON'
+      },
+      {
+        name: 'Pantalon trop grand',
+        description: 'T\'as tro\'d swag mon frère.',
+        heroClass: 'MAGE',
+        equipmentType: 'LEGGINGS',
+        rarity: 'COMMON'
+      },
       {
         name: 'Petit baton en bois',
-        description: 'J\'ai trouvé ce bâton dans mon jardin, il avait une forme d\'arme donc je l\'ai gardé',
+        description: 'J\'ai trouvé ce bâton dans mon jardin, il avait une forme d\'arme donc je l\'ai gardé.',
         heroClass: 'MAGE',
         equipmentType: 'WEAPON',
         rarity: 'COMMON'

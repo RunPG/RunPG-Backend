@@ -80,7 +80,7 @@ model EquipmentBase {
   name          String        @unique
   description   String
   rarity        Rarity
-  heroClass     HeroClass?
+  heroClass     HeroClass
   equipmentType EquipmentType
   Equipment     Equipment[]
 }
