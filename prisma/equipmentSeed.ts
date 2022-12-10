@@ -44,14 +44,14 @@ export async function seedEquipmentBases(): Promise<void> {
 
       {
         name: 'Vieille capuche',
-        description: 'Tu as lus des livres sur les voleurs, tu as donc décidé de te faire une capuche pour te protéger des regards indiscrets.',
+        description: 'Quand j\'suis dans la foule, je suis sous ma capuche, quand j\'assassine, je suis sous ma capuche, quand il pleut, je suis sous ma capuche ...',
         heroClass: 'MAGE',
         equipmentType: 'HELMET',
         rarity: 'COMMON'
       },
       {
         name: 'Robe de ta mère',
-        description: 'Empruntée à ta mère, elle est un peu trop grande pour toi, mais tu la portes quand même.',
+        description: 'Emprunté à ta mère, elle est un peu trop grande pour toi, mais tu la portes quand même.',
         heroClass: 'MAGE',
         equipmentType: 'CHESTPLATE',
         rarity: 'COMMON'
