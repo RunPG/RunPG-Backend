@@ -9,28 +9,28 @@ export async function seedEquipmentBases(): Promise<void> {
       {
         name: 'Casque en cuir',
         description: 'Un casque que tu as trouvé sur le bord de la route, tu n\'es même pas sûr que ce soit un casque, mais il est unique à tes yeux.',
-        heroClass: 'PALADIN',
+        heroClass: null,
         equipmentType: 'HELMET',
         rarity: 'COMMON'
       },
       {
         name: 'T-shirt',
         description: 'Un t-shirt fait par ta maman chérie pour son poussin.',
-        heroClass: 'PALADIN',
+        heroClass: null,
         equipmentType: 'CHESTPLATE',
         rarity: 'COMMON'
       },
       {
         name: 'Gants de cuisine',
         description: 'Une paire de gants que tu as pris de chez toi dans la panique. Tu regrettes peut-être ton choix maintenant.',
-        heroClass: 'PALADIN',
+        heroClass: null,
         equipmentType: 'GLOVES',
         rarity: 'COMMON'
       },
       {
         name: 'Pantalon troué',
         description: 'Il n\'est même pas à ta taille, mais tu continues à le porter. Pourquoi ?',
-        heroClass: 'PALADIN',
+        heroClass: null,
         equipmentType: 'LEGGINGS',
         rarity: 'COMMON'
       },
