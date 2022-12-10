@@ -29,9 +29,6 @@ export async function giveItem(userId: number, itemId: number, stackSize: number
   let result: Promise<Inventory | null>
   const inventory = await inventoryRepository.getByUserIdAndItemId(userId, itemId)
   if (inventory == null) {
-    if (stackSize < 0) {
-      return null
-    }
     result = inventoryRepository.createItem(userId, itemId, stackSize)
   } else {
     inventory.stackSize += stackSize
@@ -42,6 +39,21 @@ export async function giveItem(userId: number, itemId: number, stackSize: number
   }
 
   return result
+}
+
+export async function removeItem(userId: number, itemId: number, stackSize: number): Promise<Inventory | null> {
+  if (await userRepository.getById(userId) == null || await itemRepository.getById(itemId) == null) {
+    return null
+  }
+
+  const inventory = await inventoryRepository.getByUserIdAndItemId(userId, itemId)
+  if (inventory == null) {
+    return null
+  }
+
+  inventory.stackSize = Math.max(inventory.stackSize - stackSize, 0)
+
+  return inventoryRepository.updateQuantity(inventory.id, inventory.stackSize)
 }
 
 export async function updateQuantity(id: number, quantity: number): Promise<Inventory | null> {
