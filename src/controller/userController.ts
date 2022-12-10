@@ -656,6 +656,39 @@ userController.post('/:userId/inventory/item', async (req, res) => {
   }
 })
 
+userController.delete('/:userId/inventory/item', async (req, res) => {
+  /**
+   * #swagger.summary = 'Remove item(s) of an user'
+   * #swagger.responses[200] = { description: 'Items(s) successfully removed of user inventory' }
+   * #swagger.responses[500] = { description: 'Server encountered an internal error' }
+   * #swagger.responses[400] = { description: 'Bad userId, itemId or stackSize' }
+   * #swagger.responses[404] = { description: 'User or item does not exist' }
+   */
+  const userId = Number(req.params.userId)
+  const itemId = Number(req.body.itemId)
+  const stackSize = Number(req.body.stackSize)
+  if (isNaN(userId) || isNaN(itemId) || isNaN(stackSize) || stackSize < 1) {
+    res.sendStatus(StatusCodes.BAD_REQUEST)
+    return
+  }
+
+  let inventory
+  try {
+    inventory = await inventoryService.removeItem(userId, itemId, stackSize)
+  }
+  catch (error) {
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+    return
+  }
+
+  if (inventory == null) {
+    res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  else {
+    res.send(inventory)
+  }
+})
+
 userController.get('/:userId/character', async (req, res) => {
   /**
    * #swagger.summary = 'Get a character of an user'

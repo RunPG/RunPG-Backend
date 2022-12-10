@@ -767,6 +767,50 @@
             "description": "Server encountered an internal error"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Remove item(s) of an user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemId": {
+                  "example": "any"
+                },
+                "stackSize": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Items(s) successfully removed of user inventory"
+          },
+          "400": {
+            "description": "Bad userId, itemId or stackSize"
+          },
+          "404": {
+            "description": "User or item does not exist"
+          },
+          "500": {
+            "description": "Server encountered an internal error"
+          }
+        }
       }
     },
     "/user/{userId}/character": {
@@ -1467,6 +1511,35 @@
         "responses": {
           "200": {
             "description": "Returns the market item"
+          },
+          "400": {
+            "description": "Id is not a number"
+          },
+          "404": {
+            "description": "Market item not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Market"
+        ],
+        "summary": "Remove an item from the market",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Item was removed"
           },
           "400": {
             "description": "Id is not a number"
